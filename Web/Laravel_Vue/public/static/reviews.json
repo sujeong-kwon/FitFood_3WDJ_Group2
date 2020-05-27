@@ -1,0 +1,75 @@
+{
+    "reviews": [{
+            "review_id": 1,
+            "review_title": "첫번째 글",
+            "review_content": "대구 북구 복현로 33-1 2층 (우)41529",
+            "review_star_rating": 3,
+            "review_image_route": "./static/images/홍대함바그.png",
+            "user_id": "tester1 ",
+            "stored_id": "1001"
+        },
+        {
+            "review_id": 2,
+            "review_title": "두번째 글",
+            "review_content": "대구 북구 복현로 33-1 2층 (우)41529",
+            "review_star_rating": 3,
+            "review_image_route": "./static/images/홍대함바그.png",
+            "user_id": "tester2",
+            "stored_id": "1001"
+        },
+        {
+            "review_id": 3,
+            "review_title": "세번째 글",
+            "review_content": "대구 북구 복현로 33-1 2층 (우)41529",
+            "review_star_rating": 3,
+            "review_image_route": "./static/images/홍대함바그.png",
+            "user_id": "tester3",
+            "stored_id": "1001"
+        },
+        {
+            "review_id": 4,
+            "review_title": "홍대함바그",
+            "review_content": "대구 북구 복현로 33-1 2층 (우)41529",
+            "review_star_rating": 3,
+            "review_image_route": "./static/images/홍대함바그.png",
+            "user_id": "tester4",
+            "stored_id": "1001"
+        },
+        {
+            "review_id": 5,
+            "review_title": "홍대함바그",
+            "review_content": "대구 북구 복현로 33-1 2층 (우)41529",
+            "review_star_rating": 3,
+            "review_image_route": "./static/images/홍대함바그.png",
+            "user_id": "tester5",
+            "stored_id": "1001"
+        },
+        {
+            "review_id": 6,
+            "review_title": "홍대함바그",
+            "review_content": "대구 북구 복현로 33-1 2층 (우)41529",
+            "review_star_rating": 3,
+            "review_image_route": "./static/images/홍대함바그.png",
+            "user_id": "tester5",
+            "stored_id": "1001"
+        },
+        {
+            "review_id": 7,
+            "review_title": "홍대함바그",
+            "review_content": "대구 북구 복현로 33-1 2층 (우)41529",
+            "review_star_rating": 3,
+            "review_image_route": "./static/images/홍대함바그.png",
+            "user_id": "tester5",
+            "stored_id": "1001"
+        },
+        {
+            "review_id": 8,
+            "review_title": "홍대함바그",
+            "review_content": "대구 북구 복현로 33-1 2층 (우)41529",
+            "review_star_rating": 3,
+            "review_image_route": "./static/images/홍대함바그.png",
+            "user_id": "tester5",
+            "stored_id": "1001"
+        }
+    ]
+}
