@@ -14,6 +14,7 @@ import Detailed from '@/components/Recommend/Detailed';
 import Recipe from '@/components/foot_recommend/Recipe';
 import FootRecommend from '@/components/foot_recommend/FootRecommend';
 import RecommendMain from '@/views/RecommendMain.vue'
+import ReviewTest from '@/views/ReviewTest.vue'
 
 Vue.use(VueRouter);
 
@@ -108,6 +109,12 @@ const routes = [{
     path: '/recipe/:id',
     name: 'Recipe',
     component: Recipe
+},
+{
+    path: '/ReviewTest',
+    name: 'ReviewTest',
+    component: ReviewTest
+
 },
 ];
 

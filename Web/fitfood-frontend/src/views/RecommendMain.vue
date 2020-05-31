@@ -7,6 +7,7 @@
                 <div style="margin-top: 30px; text-align:center;">
                     <v-btn  class="green--text font-weight-bold" style="margin-right: 40px" router :to="{name:'Recommend'}">식단 추천</v-btn>
                     <v-btn  class="green--text font-weight-bold" router :to="{name:'FootRecommend'}">레시피 추천</v-btn>
+                    <v-btn class="green--text font-weight-bold" router :to="{name:'ReviewTest'}">테스트</v-btn>
                 </div>
 
                 <!-- <Recommend /> -->

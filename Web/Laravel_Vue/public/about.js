@@ -134,7 +134,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.login-input[data-v-4221c3ad] {\n  margin-left: 20px;\n  width: 500px;\n  margin-bottom: 20px;\n}\n", ""]);
+exports.push([module.i, "\n.login-input[data-v-4221c3ad] {\r\n  margin-left: 20px;\r\n  width: 500px;\r\n  margin-bottom: 20px;\n}\r\n", ""]);
 
 // exports
 

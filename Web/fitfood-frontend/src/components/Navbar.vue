@@ -3,8 +3,8 @@
       <v-app-bar flat app absolute="" color="white">
         <v-app-bar-nav-icon @click="drawer =!drawer"></v-app-bar-nav-icon>
         <v-toolbar-title class="text-uppercase white--text">
-            <span class="green--text font-weight-light" >Fit</span>
-            <span class="green--text">Food</span>
+            <span class="green--text font-weight-light" >Fitaaa</span>
+            <span class="green--text">Foodaaa</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>

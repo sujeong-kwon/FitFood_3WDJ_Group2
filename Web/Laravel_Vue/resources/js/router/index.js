@@ -17,6 +17,7 @@ import StoreReview from "../components/review/StoreReview.vue";
 import Detailed from '../components/Recommend/Detailed';
 
 import Recipe from '../components/foot_recommend/Recipe';
+import ReviewTest from '../../views/ReviewTest';
 
 Vue.use(VueRouter);
 
@@ -114,6 +115,11 @@ const routes = [
     path: '/recipe/:id',
     name: 'Recipe',
     component: Recipe
+},
+{
+    path: '/ReviewTest',
+    name: 'ReviewTest',
+    component: ReviewTest
 },
 ];
 
