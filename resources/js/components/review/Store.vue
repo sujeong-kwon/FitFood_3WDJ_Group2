@@ -50,7 +50,7 @@ export default {
     axios
       .get("/showStore")
       .then(res => {
-        this.item = res.data.stores.filter(
+        this.item = res.data.filter(
           data => data.id == this.$route.params.id
         )[0];
         this.item.image = "/" + this.item.image;
