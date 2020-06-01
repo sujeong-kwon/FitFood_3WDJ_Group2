@@ -3709,7 +3709,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/showStore").then(function (res) {
-      _this.item = res.data.stores.filter(function (data) {
+      _this.item = res.data.filter(function (data) {
         return data.id == _this.$route.params.id;
       })[0];
       _this.item.image = "/" + _this.item.image;
