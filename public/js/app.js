@@ -20385,7 +20385,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.img {\n  /* width: 240px; */\n  height: 550px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  margin-bottom: 4em;\n}\n", ""]);
+exports.push([module.i, "\n.img {\r\n  /* width: 240px; */\r\n  height: 550px;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  margin-bottom: 4em;\n}\r\n", ""]);
 
 // exports
 
