@@ -19,6 +19,8 @@ import Detailed from '../components/Recommend/Detailed';
 import Recipe from '../components/foot_recommend/Recipe';
 import ReviewTest from '../../views/ReviewTest';
 
+import NewStore from '../components/new_store/NewStore';
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -110,6 +112,11 @@ const routes = [
     path: "/review/detail/:review_id",
     name: "reviewdetail",
     component: ReviewDetail
+},
+{
+    path: "/newstore",
+    name: "NewStore",
+    component: NewStore
 },
 {
     path: '/recipe/:id',

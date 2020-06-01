@@ -94,6 +94,7 @@ export default {
         { title: 'Graph', icon: 'mdi-view-dashboard', route: '/graph/daychart'},
         { title: 'Recommend', icon: 'mdi-image', route:'/recommendmain/recommend'},
         { title: 'Review', icon: 'mdi-help-box', route:'/review'},
+        { title: 'NewStore', icon: 'mdi-alpha-n-box-outline', route:'/newstore'},
       ],
       right: null,
       miniVariant: false,

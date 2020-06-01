@@ -45,6 +45,17 @@
                     </v-layout>
 
                     <v-layout class="mt-4 mb-4" justify-center >
+                        <v-flex xs12 sm8 md6>
+                            <div class="green--text font-weight-bold">활동 지수</div>
+                            <v-radio-group v-model="radio" row>
+                                <v-radio label="활동이 적다"  color="success" value="25" ></v-radio>
+                                <v-radio label="활동이 평범하다"  color="success" value="30"></v-radio>
+                                <v-radio label="활동적이다"  color="success" value="35"></v-radio>
+                            </v-radio-group>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-layout class="mt-4 mb-4" justify-center >
                         <v-flex xs6 sm4 md3 style="margin-right:20px;">
                             <v-text-field
                                 type="input" label="신장" v-model="Height" :rules="HeightRules" required>
@@ -56,6 +67,7 @@
                             </v-text-field>
                         </v-flex>
                     </v-layout>
+
 
                     <v-layout justify-center>
                         <v-flex xs12 sm8 md6>         
@@ -105,8 +117,6 @@
                         </v-card-actions>
                     </span>
                 </v-form>
-
-
         </v-flex>
     </v-layout>
 </template>
@@ -148,7 +158,7 @@ export default {
             ],
             menu:false,
             date:null, //생년월일
-            
+            radio: this.radio, //활동지수
             }
     },
     watch: {

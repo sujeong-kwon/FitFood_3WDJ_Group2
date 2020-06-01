@@ -2157,6 +2157,10 @@ __webpack_require__.r(__webpack_exports__);
         title: 'Review',
         icon: 'mdi-help-box',
         route: '/review'
+      }, {
+        title: 'NewStore',
+        icon: 'mdi-alpha-n-box-outline',
+        route: '/newstore'
       }],
       right: null,
       miniVariant: false
@@ -2458,6 +2462,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
   name: 'signup',
   data: function data() {
@@ -2504,7 +2518,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return !!v || '체중을 입력해 주세요!';
       }],
       menu: false,
-      date: null //생년월일
+      date: null,
+      //생년월일
+      radio: this.radio //활동지수
 
     };
   },
@@ -3527,6 +3543,209 @@ __webpack_require__.r(__webpack_exports__);
         // text : '학교 주변의 음식점 위치와 해당 음식점의 메뉴, 가격, 나오는 시간 등의 정보를 확인할 수 있습니다. 사용자는 음식점의 메뉴에 리뷰 작성이 가능하고 댓글 기능으로 게시판으로도 활용이 가능한 서비스 입니다.'
         text: 'review'
       }]
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/new_store/NewStore.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/new_store/NewStore.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Newstore',
+  data: function data() {
+    return {
+      dialog: false,
+      storename: '',
+      //업체명
+      businessnumber: '',
+      //사업번호
+      tall: '',
+      //전화번호
+      footkind: this.footkind,
+      //음식 종류
+      address: '',
+      //주소
+      stoestoretimertime: '',
+      // 가게 운영 시간
+      storecomeouttime: '',
+      //음식 나오는 시간
+      items: [{
+        name: '탕수육',
+        img: '/static/menus/탕수육.jpg'
+      }, {
+        name: '스시',
+        img: '/static/menus/탕수육.jpg'
+      }] // 사진 추가 리스트
+
     };
   }
 });
@@ -43399,6 +43618,66 @@ var render = function() {
                   [
                     _c(
                       "v-flex",
+                      { attrs: { xs12: "", sm8: "", md6: "" } },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "green--text font-weight-bold" },
+                          [_vm._v("활동 지수")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-radio-group",
+                          {
+                            attrs: { row: "" },
+                            model: {
+                              value: _vm.radio,
+                              callback: function($$v) {
+                                _vm.radio = $$v
+                              },
+                              expression: "radio"
+                            }
+                          },
+                          [
+                            _c("v-radio", {
+                              attrs: {
+                                label: "활동이 적다",
+                                color: "success",
+                                value: "25"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("v-radio", {
+                              attrs: {
+                                label: "활동이 평범하다",
+                                color: "success",
+                                value: "30"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("v-radio", {
+                              attrs: {
+                                label: "활동적이다",
+                                color: "success",
+                                value: "35"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-layout",
+                  { staticClass: "mt-4 mb-4", attrs: { "justify-center": "" } },
+                  [
+                    _c(
+                      "v-flex",
                       {
                         staticStyle: { "margin-right": "20px" },
                         attrs: { xs6: "", sm4: "", md3: "" }
@@ -45335,6 +45614,510 @@ var render = function() {
             ],
             1
           )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/new_store/NewStore.vue?vue&type=template&id=37e5e3b9&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/new_store/NewStore.vue?vue&type=template&id=37e5e3b9& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-layout",
+    { attrs: { "justify-center": "" } },
+    [
+      _c(
+        "v-flex",
+        { staticClass: "pa-5", attrs: { xs12: "", sm12: "", md12: "" } },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "display-1 green--text font-weight-bold",
+              staticStyle: { "margin-bottom": "30px", "text-align": "center" }
+            },
+            [_vm._v("\n            NEWSTORE\n        ")]
+          ),
+          _vm._v(" "),
+          _c("v-form", [
+            _c(
+              "span",
+              [
+                _c(
+                  "v-layout",
+                  { attrs: { "justify-center": "" } },
+                  [
+                    _c(
+                      "v-flex",
+                      { attrs: { xs12: "", sm8: "", md6: "" } },
+                      [
+                        _c("v-text-field", {
+                          attrs: {
+                            type: "input",
+                            label: "업체명",
+                            required: ""
+                          },
+                          model: {
+                            value: _vm.storename,
+                            callback: function($$v) {
+                              _vm.storename = $$v
+                            },
+                            expression: "storename"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("v-text-field", {
+                          attrs: {
+                            type: "input",
+                            label: "사업번호",
+                            required: ""
+                          },
+                          model: {
+                            value: _vm.businessnumber,
+                            callback: function($$v) {
+                              _vm.businessnumber = $$v
+                            },
+                            expression: "businessnumber"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("v-text-field", {
+                          attrs: {
+                            type: "input",
+                            label: "전화번호",
+                            required: ""
+                          },
+                          model: {
+                            value: _vm.tall,
+                            callback: function($$v) {
+                              _vm.tall = $$v
+                            },
+                            expression: "tall"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-layout",
+                  { attrs: { "justify-center": "" } },
+                  [
+                    _c(
+                      "v-btn-toggle",
+                      {
+                        model: {
+                          value: _vm.footkind,
+                          callback: function($$v) {
+                            _vm.footkind = $$v
+                          },
+                          expression: "footkind"
+                        }
+                      },
+                      [
+                        _c(
+                          "v-btn",
+                          {
+                            staticClass:
+                              "pl-4 pb-5 pr-4 pt-2 font-weight-bold title",
+                            staticStyle: { width: "250px" },
+                            attrs: { depressed: "", text: "", value: 1 }
+                          },
+                          [
+                            _c(
+                              "span",
+                              { attrs: { stlyle: "line-height:40px;" } },
+                              [_vm._v("한식")]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            staticClass:
+                              "pl-4 pb-5 pr-4 pt-2 font-weight-bold title",
+                            staticStyle: { width: "250px" },
+                            attrs: { depressed: "", text: "", value: 2 }
+                          },
+                          [
+                            _c(
+                              "span",
+                              { attrs: { stlyle: "line-height:40px;" } },
+                              [_vm._v("일식")]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            staticClass:
+                              "pl-4 pb-5 pr-4 pt-2 font-weight-bold title",
+                            staticStyle: { width: "250px" },
+                            attrs: { depressed: "", text: "", value: 2 }
+                          },
+                          [
+                            _c(
+                              "span",
+                              { attrs: { stlyle: "line-height:40px;" } },
+                              [_vm._v("양식")]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            staticClass:
+                              "pl-4 pb-5 pr-4 pt-2 font-weight-bold title",
+                            staticStyle: { width: "250px" },
+                            attrs: { depressed: "", text: "", value: 2 }
+                          },
+                          [
+                            _c(
+                              "span",
+                              { attrs: { stlyle: "line-height:40px;" } },
+                              [_vm._v("중식")]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-layout",
+                  {
+                    staticStyle: { "margin-top": "20px" },
+                    attrs: { "justify-center": "" }
+                  },
+                  [
+                    _c(
+                      "v-flex",
+                      { attrs: { xs12: "", sm8: "", md5: "" } },
+                      [
+                        _c("v-text-field", {
+                          attrs: { type: "input", label: "주소", required: "" },
+                          model: {
+                            value: _vm.address,
+                            callback: function($$v) {
+                              _vm.address = $$v
+                            },
+                            expression: "address"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-flex",
+                      { attrs: { xs12: "", sm8: "", md1: "" } },
+                      [
+                        _c("v-btn", { attrs: { color: "success" } }, [
+                          _vm._v("우편 검색\n                    ")
+                        ])
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-layout",
+                  { staticClass: "mt-4 mb-4", attrs: { "justify-center": "" } },
+                  [
+                    _c(
+                      "v-flex",
+                      { attrs: { xs12: "", sm8: "", md6: "" } },
+                      [
+                        _c("v-text-field", {
+                          attrs: {
+                            type: "input",
+                            label: "가게 운영 시간",
+                            required: ""
+                          },
+                          model: {
+                            value: _vm.storetime,
+                            callback: function($$v) {
+                              _vm.storetime = $$v
+                            },
+                            expression: "storetime"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("v-text-field", {
+                          attrs: {
+                            type: "input",
+                            label: "음식 나오는 시간",
+                            required: ""
+                          },
+                          model: {
+                            value: _vm.storecomeouttime,
+                            callback: function($$v) {
+                              _vm.storecomeouttime = $$v
+                            },
+                            expression: "storecomeouttime"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-layout",
+                  { staticClass: "mt-4 mb-4", attrs: { "justify-center": "" } },
+                  [
+                    _c("v-flex", { attrs: { xs12: "", sm8: "", md1: "" } }, [
+                      _c(
+                        "div",
+                        { staticClass: "green--text font-weight-bold" },
+                        [_vm._v("메뉴")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "v-flex",
+                      { attrs: { xs12: "", sm8: "", md5: "" } },
+                      [
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: { color: "success" },
+                            on: {
+                              click: function($event) {
+                                $event.stopPropagation()
+                                _vm.dialog = true
+                              }
+                            }
+                          },
+                          [_vm._v("+추가")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-dialog",
+                          {
+                            attrs: { "max-width": "290" },
+                            model: {
+                              value: _vm.dialog,
+                              callback: function($$v) {
+                                _vm.dialog = $$v
+                              },
+                              expression: "dialog"
+                            }
+                          },
+                          [
+                            _c(
+                              "v-card",
+                              [
+                                _c(
+                                  "v-card-title",
+                                  { staticClass: "green--text headline" },
+                                  [_vm._v("메뉴 추가")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-card-text",
+                                  [
+                                    _c(
+                                      "v-btn",
+                                      { attrs: { color: "success" } },
+                                      [_vm._v("사진 추가")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("v-text-field", {
+                                      attrs: {
+                                        type: "input",
+                                        label: "메뉴 이름",
+                                        required: ""
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-card-actions",
+                                  [
+                                    _c("v-spacer"),
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-btn",
+                                      {
+                                        attrs: {
+                                          color: "green darken-1",
+                                          text: ""
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.dialog = false
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                            CANCEL\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-btn",
+                                      {
+                                        attrs: {
+                                          color: "green darken-1",
+                                          text: ""
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.dialog = false
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                            SAVE\n                        "
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-layout",
+                  { attrs: { "justify-center": "" } },
+                  [
+                    _c(
+                      "v-flex",
+                      { attrs: { xs12: "", sm8: "", md6: "" } },
+                      [
+                        _c(
+                          "v-list",
+                          _vm._l(_vm.items, function(item) {
+                            return _c(
+                              "v-list-item",
+                              { key: item.name },
+                              [
+                                _c(
+                                  "v-list-item-avatar",
+                                  [_c("v-img", { attrs: { src: item.img } })],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-list-item-content",
+                                  [
+                                    _c("v-list-item-title", {
+                                      domProps: {
+                                        textContent: _vm._s(item.name)
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          }),
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-card-actions",
+                  [
+                    _c(
+                      "v-layout",
+                      {
+                        staticStyle: { "margin-top": "30px" },
+                        attrs: { row: "", wrap: "", "justify-center": "" }
+                      },
+                      [
+                        _c(
+                          "v-flex",
+                          { attrs: { xs12: "", sm8: "", md6: "" } },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "headline font-weight-bold mt-3",
+                                attrs: {
+                                  type: "submit",
+                                  form: "check-register-form",
+                                  color: "success",
+                                  large: "",
+                                  block: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                확인\n                            "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ])
         ],
         1
       )
@@ -105374,6 +106157,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/new_store/NewStore.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/new_store/NewStore.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NewStore_vue_vue_type_template_id_37e5e3b9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NewStore.vue?vue&type=template&id=37e5e3b9& */ "./resources/js/components/new_store/NewStore.vue?vue&type=template&id=37e5e3b9&");
+/* harmony import */ var _NewStore_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewStore.vue?vue&type=script&lang=js& */ "./resources/js/components/new_store/NewStore.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _NewStore_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NewStore_vue_vue_type_template_id_37e5e3b9___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NewStore_vue_vue_type_template_id_37e5e3b9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/new_store/NewStore.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/new_store/NewStore.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/new_store/NewStore.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewStore_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./NewStore.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/new_store/NewStore.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewStore_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/new_store/NewStore.vue?vue&type=template&id=37e5e3b9&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/new_store/NewStore.vue?vue&type=template&id=37e5e3b9& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewStore_vue_vue_type_template_id_37e5e3b9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./NewStore.vue?vue&type=template&id=37e5e3b9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/new_store/NewStore.vue?vue&type=template&id=37e5e3b9&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewStore_vue_vue_type_template_id_37e5e3b9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewStore_vue_vue_type_template_id_37e5e3b9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/review/Main.vue":
 /*!*************************************************!*\
   !*** ./resources/js/components/review/Main.vue ***!
@@ -105662,6 +106514,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Recommend_Detailed__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/Recommend/Detailed */ "./resources/js/components/Recommend/Detailed.vue");
 /* harmony import */ var _components_foot_recommend_Recipe__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/foot_recommend/Recipe */ "./resources/js/components/foot_recommend/Recipe.vue");
 /* harmony import */ var _views_ReviewTest__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../views/ReviewTest */ "./resources/views/ReviewTest.vue");
+/* harmony import */ var _components_new_store_NewStore__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/new_store/NewStore */ "./resources/js/components/new_store/NewStore.vue");
+
 
 
 
@@ -105752,6 +106606,10 @@ var routes = [{
   path: "/review/detail/:review_id",
   name: "reviewdetail",
   component: _views_reviewView_ReviewDetail_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+}, {
+  path: "/newstore",
+  name: "NewStore",
+  component: _components_new_store_NewStore__WEBPACK_IMPORTED_MODULE_17__["default"]
 }, {
   path: '/recipe/:id',
   name: 'Recipe',
