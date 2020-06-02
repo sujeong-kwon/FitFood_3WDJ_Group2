@@ -24,7 +24,9 @@ Route::post('/signup','SignupController@index');
 Route::get('/logout','LoginController@logout');
 
 Route::get('/showStore', 'StoreController@index');
-Route::post('/storeReview/{key}', 'ReviewController@store');
+// Route::get('/storeReview/{key}', 'ReviewController@store');
+Route::post('/storeReview', 'ReviewController@store');
+// Route::post('/storeReview/{key}', 'ReviewController@store'); // 왜 get으로 받지?
 Route::get('/showReview', 'ReviewController@index');
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -25,6 +25,7 @@ class LoginController extends Controller
         {
             $user = Auth::user();
             $key = md5(uniqid(rand(), true));
+            $req->session()->put('key', $key);
             $req->session()->put($key, $user);
 
             return $key;

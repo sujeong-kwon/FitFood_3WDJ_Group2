@@ -5,28 +5,41 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Review;
 
 class ReviewController extends Controller
 {
     //
     public function index()
-    {
+    {   
         return DB::select('select * from reviews');
     }
 
-    public function store(Request $req, $key)
+    public function store(Request $request)
     {
-        // $user_ = $req->session()->get($key);
-        // $user_name = DB::select('select user_name from users where user_email = ?', [$key->user_email]);
-        $user_name = DB::table('users')->where('user_email', $key)->value('user_name');
+        $user = $request->session()->get('key');
+        $user_ = $request->session()->get($user)->user_email;
+        $user_id = DB::table('users')->where('user_email', $user_)->value('user_id');
 
+
+        $store_id = 1;
+
+
+        // $review = \App\Review::create([ // user_id와 store_id를 기반으로 표기.
+        //     'review_title' => $request->review_title,
+        //     'review_message' => $request->review_message,
+        //     'review_star_rating' => $request->review_star_rating,
+        //     'user_id' => $user_id,
+        //     'store_id' => $store_id,
+        // ]);
         $review = \App\Review::create([ // user_id와 store_id를 기반으로 표기.
-            // 로그인 한 유저가 댓글을 등록하는 것이므로 세션 정보에서 유저 id를 반환한다.
-            'review_title' => $req->review_title,
-            'review_message' => $req->review_message,
-            'review_star_rating' => $req->review_star_rating,
-            'user_name' => $user_name,
-            // 'created_at'->timestamps(),
+            'review_title' => $request->review_title,
+            'review_message' => $request->review_message,
+            'review_star_rating' => $request->review_star_rating,
+            'user_id' => $user_id,
+            'store_id' => $store_id,
         ]);
+
+        return "success";
     }
 }

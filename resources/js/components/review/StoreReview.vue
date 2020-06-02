@@ -20,7 +20,7 @@
         </template>
         <template v-slot:item.user_id="{item}">
           <v-chip class="ma-2" color="orange" outlined pill>
-            {{item.user_name}}
+            {{item.user_id}}
             <v-icon right>mdi-account-outline</v-icon>
           </v-chip>
         </template>
@@ -90,7 +90,7 @@ export default {
         { text: "제목", value: "review_title", sortable: true },
         {
           text: "글쓴이",
-          value: "user_name",
+          value: "user_id",
           width: 150,
           sortable: false
         },
@@ -119,15 +119,15 @@ export default {
       this.updateMode = false;
       this.form.review_title = "";
       this.form.review_message = "";
-      this.form.review_star_rating = "";
+      this.form.review_star_rating = 0;
     },
     getSuggestions() {
-      if (this.loading) return; // true값이면 이미 값이 data가 한 번 전송돼었다는 거니까(data마지막줄에 loading=false구문) data값이 비었을 때 채울 수 있도록
-      this.loading = true;  // loading을 true값으로 만들어주고
+      if (this.loading) return;
+      this.loading = true;
       axios
-        .get("/showReview")  // 하드코딩된 json파일. 이걸 제거하고 db의 reviews값을 가져와야 한다.
+        .get("/showReview")
         .then(response => {
-          this.reviews = response.data.reviews;
+          this.reviews = response.data;
           this.loading = false;
           console.log(this.reviews);
         })
@@ -139,23 +139,25 @@ export default {
     postSuggestion() {
       // db에 입력된 양식을 저장하는 이벤트를 등록한 함수
       this.dialog = false;
-      if(localStorage.getItem('current_user')!=null)
-      {
+      // let formData = new FormData();
+      // formData.append('review_title', this.review_title);
+      // formData.append('review_message', this.review_message);
+      // formData.append('review_star_rating', this.review_star_rating);
+      // formData.append('key', localStorage.getItem('current_user'));
         axios
-        .post("/storeReview/"+localStorage.getItem('current_user'), this.form)
-        .then(r => {
-          this.review_title=res.data.review_title;
-          this.review_message=res.data.review_message;
-          this.review_star_rating=res.data.review_star_rating;
-          this.user_name=res.data.user_name;
-          this.getSuggestions();
+        .post('/storeReview', 
+        {
+          review_title: this.form.review_title,
+          review_message: this.form.review_message,
+          review_star_rating: this.form.review_star_rating
+        })
+        .then(res => {
+          // this.getSuggestions();
+          console.log(res.data);
         })
         .catch(e => {
           console.log(e);
         });
-      }else{
-        this.$router.push({ name: "login" });  // 로그인이 되어 있지 않기 때문에 로그인 페이지로 이동시킨다.
-      }
     },
     id2date(_id) {
       if (!_id) return "잘못된 시간 정보";

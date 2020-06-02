@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Review;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;

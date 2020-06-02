@@ -50,7 +50,7 @@ export default {
     axios
       .get("/showStore")
       .then(res => {
-        this.item = res.data.filter(
+        this.item = res.data.filter(  // item변수 안에 select * from stores결괏값 적재
           data => data.id == this.$route.params.id
         )[0];
         this.item.image = "/" + this.item.image;

@@ -3709,7 +3709,8 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/showStore").then(function (res) {
-      _this.item = res.data.filter(function (data) {
+      _this.item = res.data.filter( // item변수 안에 select * from stores결괏값 적재
+      function (data) {
         return data.id == _this.$route.params.id;
       })[0];
       _this.item.image = "/" + _this.item.image;
@@ -3830,7 +3831,7 @@ __webpack_require__.r(__webpack_exports__);
         sortable: true
       }, {
         text: "글쓴이",
-        value: "user_name",
+        value: "user_id",
         width: 150,
         sortable: false
       }, {
@@ -3858,18 +3859,15 @@ __webpack_require__.r(__webpack_exports__);
       this.updateMode = false;
       this.form.review_title = "";
       this.form.review_message = "";
-      this.form.review_star_rating = "";
+      this.form.review_star_rating = 0;
     },
     getSuggestions: function getSuggestions() {
       var _this = this;
 
-      if (this.loading) return; // true값이면 이미 값이 data가 한 번 전송돼었다는 거니까(data마지막줄에 loading=false구문) data값이 비었을 때 채울 수 있도록
-
-      this.loading = true; // loading을 true값으로 만들어주고
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/showReview") // 하드코딩된 json파일. 이걸 제거하고 db의 reviews값을 가져와야 한다.
-      .then(function (response) {
-        _this.reviews = response.data.reviews;
+      if (this.loading) return;
+      this.loading = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/showReview").then(function (response) {
+        _this.reviews = response.data;
         _this.loading = false;
         console.log(_this.reviews);
       })["catch"](function (e) {
@@ -3878,27 +3876,23 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     postSuggestion: function postSuggestion() {
-      var _this2 = this;
-
       // db에 입력된 양식을 저장하는 이벤트를 등록한 함수
-      this.dialog = false;
+      this.dialog = false; // let formData = new FormData();
+      // formData.append('review_title', this.review_title);
+      // formData.append('review_message', this.review_message);
+      // formData.append('review_star_rating', this.review_star_rating);
+      // formData.append('key', localStorage.getItem('current_user'));
 
-      if (localStorage.getItem('current_user') != null) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/storeReview/" + localStorage.getItem('current_user'), this.form).then(function (r) {
-          _this2.review_title = res.data.review_title;
-          _this2.review_message = res.data.review_message;
-          _this2.review_star_rating = res.data.review_star_rating;
-          _this2.user_name = res.data.user_name;
-
-          _this2.getSuggestions();
-        })["catch"](function (e) {
-          console.log(e);
-        });
-      } else {
-        this.$router.push({
-          name: "login"
-        }); // 로그인이 되어 있지 않기 때문에 로그인 페이지로 이동시킨다.
-      }
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/storeReview', {
+        review_title: this.form.review_title,
+        review_message: this.form.review_message,
+        review_star_rating: this.form.review_star_rating
+      }).then(function (res) {
+        // this.getSuggestions();
+        console.log(res.data);
+      })["catch"](function (e) {
+        console.log(e);
+      });
     },
     id2date: function id2date(_id) {
       if (!_id) return "잘못된 시간 정보";
@@ -20404,7 +20398,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .mytable table tr {\n    background-color: lightgoldenrodyellow;\n    border-bottom: none !important;\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .mytable table tr {\n    background-color: lightgoldenrodyellow;\n    border-bottom: none !important;\n} */\n", ""]);
 
 // exports
 
@@ -45575,9 +45569,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n          " +
-                            _vm._s(item.user_name) +
-                            "\n          "
+                          "\n          " + _vm._s(item.user_id) + "\n          "
                         ),
                         _c("v-icon", { attrs: { right: "" } }, [
                           _vm._v("mdi-account-outline")
