@@ -23,4 +23,8 @@ Route::get('/show/{key}','LoginController@show');
 Route::post('/signup','SignupController@index');
 Route::get('/logout','LoginController@logout');
 
+Route::get('/showStore', 'StoreController@index');
+Route::post('/storeReview', 'ReviewController@store');
+Route::get('/showReview', 'ReviewController@index');
+
 Route::get('/home', 'HomeController@index')->name('home');
