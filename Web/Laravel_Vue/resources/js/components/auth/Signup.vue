@@ -44,13 +44,14 @@
                         </v-btn-toggle>
                     </v-layout>
 
-                    <v-layout class="mt-4 mb-4" justify-center >
-                        <v-flex xs12 sm8 md6>
+                    <v-layout class="mt-4 mb-4" justify-center style="margin-left:10px;">
+                        <v-flex xs6 sm6 md6>
                             <div class="green--text font-weight-bold">활동 지수</div>
                             <v-radio-group v-model="radio" row>
                                 <v-radio label="활동이 적다"  color="success" value="25" ></v-radio>
-                                <v-radio label="활동이 평범하다"  color="success" value="30"></v-radio>
+                                <v-radio label="평범하다"  color="success" value="30"></v-radio>
                                 <v-radio label="활동적이다"  color="success" value="35"></v-radio>
+                                <v-radio label="많이 활동적이다"  color="success" value="40"></v-radio>
                             </v-radio-group>
                         </v-flex>
                     </v-layout>

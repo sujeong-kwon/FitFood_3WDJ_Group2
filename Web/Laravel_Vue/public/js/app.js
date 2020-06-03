@@ -2472,6 +2472,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
   name: 'signup',
   data: function data() {
@@ -3719,6 +3720,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// function jusoCallBack(roadFullAddr,zipNo){
+//             document.getElementById('roadFullAddr').value = roadFullAddr;
+//             document.getElementById('zipNo').value = zipNo;
+//     };
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Newstore',
   data: function data() {
@@ -3732,8 +3750,12 @@ __webpack_require__.r(__webpack_exports__);
       //전화번호
       footkind: this.footkind,
       //음식 종류
-      address: '',
+      roadFullAddr: '',
       //주소
+      zipNo: '',
+      //우편번호
+      storetime: '',
+      //가게 운영시간
       stoestoretimertime: '',
       // 가게 운영 시간
       storecomeouttime: '',
@@ -3747,6 +3769,24 @@ __webpack_require__.r(__webpack_exports__);
       }] // 사진 추가 리스트
 
     };
+  },
+  methods: {
+    //주소 api
+    //     jusoCallBack: function(roadFullAddr,zipNo){
+    //         document.getElementById('roadFullAddr').value = roadFullAddr;
+    //         document.getElementById('zipNo').value = zipNo;
+    // },
+    goPopup: function goPopup() {
+      // 주소검색을 수행할 팝업 페이지를 호출합니다.
+      // 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrEngUrl.do)를 호출하게 됩니다.
+      var api_key = "devU01TX0FVVEgyMDIwMDYwMjIyNTkzNTEwOTgyNDQ=";
+      var pop = window.open("/jusoPopup_utf8.php", "pop", "width=570,height=420, scrollbars=yes, resizable=yes");
+    },
+    juso_check: function juso_check() {
+      this.roadFullAddr = document.getElementById('roadFullAddr').value;
+      this.zipNo = document.getElementById('zipNo').value;
+    } // 주소 api end
+
   }
 });
 
@@ -43614,11 +43654,15 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "v-layout",
-                  { staticClass: "mt-4 mb-4", attrs: { "justify-center": "" } },
+                  {
+                    staticClass: "mt-4 mb-4",
+                    staticStyle: { "margin-left": "10px" },
+                    attrs: { "justify-center": "" }
+                  },
                   [
                     _c(
                       "v-flex",
-                      { attrs: { xs12: "", sm8: "", md6: "" } },
+                      { attrs: { xs6: "", sm6: "", md6: "" } },
                       [
                         _c(
                           "div",
@@ -43649,7 +43693,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("v-radio", {
                               attrs: {
-                                label: "활동이 평범하다",
+                                label: "평범하다",
                                 color: "success",
                                 value: "30"
                               }
@@ -43660,6 +43704,14 @@ var render = function() {
                                 label: "활동적이다",
                                 color: "success",
                                 value: "35"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("v-radio", {
+                              attrs: {
+                                label: "많이 활동적이다",
+                                color: "success",
+                                value: "40"
                               }
                             })
                           ],
@@ -45657,7 +45709,7 @@ var render = function() {
               staticClass: "display-1 green--text font-weight-bold",
               staticStyle: { "margin-bottom": "30px", "text-align": "center" }
             },
-            [_vm._v("\n            NEWSTORE\n        ")]
+            [_vm._v("\n            NEW STORE\n        ")]
           ),
           _vm._v(" "),
           _c("v-form", [
@@ -45725,7 +45777,13 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "v-layout",
-                  { attrs: { "justify-center": "" } },
+                  {
+                    staticStyle: {
+                      "margin-top": "25px",
+                      "margin-bottom": "25px"
+                    },
+                    attrs: { "align-center": "", "justify-center": "" }
+                  },
                   [
                     _c(
                       "v-btn-toggle",
@@ -45740,71 +45798,135 @@ var render = function() {
                       },
                       [
                         _c(
-                          "v-btn",
+                          "v-flex",
                           {
-                            staticClass:
-                              "pl-4 pb-5 pr-4 pt-2 font-weight-bold title",
-                            staticStyle: { width: "250px" },
-                            attrs: { depressed: "", text: "", value: 1 }
+                            attrs: {
+                              xs12: "",
+                              sm12: "",
+                              md6: "",
+                              "text-xs-center": ""
+                            }
                           },
                           [
                             _c(
-                              "span",
-                              { attrs: { stlyle: "line-height:40px;" } },
-                              [_vm._v("한식")]
+                              "v-btn",
+                              {
+                                staticClass:
+                                  "display-1 green--text font-weight",
+                                attrs: {
+                                  large: "",
+                                  depressed: "",
+                                  text: "",
+                                  value: 1
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                한식\n                            "
+                                )
+                              ]
                             )
-                          ]
+                          ],
+                          1
                         ),
                         _vm._v(" "),
                         _c(
-                          "v-btn",
+                          "v-flex",
                           {
-                            staticClass:
-                              "pl-4 pb-5 pr-4 pt-2 font-weight-bold title",
-                            staticStyle: { width: "250px" },
-                            attrs: { depressed: "", text: "", value: 2 }
+                            attrs: {
+                              xs12: "",
+                              sm12: "",
+                              md6: "",
+                              "text-xs-center": ""
+                            }
                           },
                           [
                             _c(
-                              "span",
-                              { attrs: { stlyle: "line-height:40px;" } },
-                              [_vm._v("일식")]
+                              "v-btn",
+                              {
+                                staticClass:
+                                  "display-1 green--text font-weight",
+                                attrs: {
+                                  large: "",
+                                  depressed: "",
+                                  text: "",
+                                  value: 2
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                일식\n                            "
+                                )
+                              ]
                             )
-                          ]
+                          ],
+                          1
                         ),
                         _vm._v(" "),
                         _c(
-                          "v-btn",
+                          "v-flex",
                           {
-                            staticClass:
-                              "pl-4 pb-5 pr-4 pt-2 font-weight-bold title",
-                            staticStyle: { width: "250px" },
-                            attrs: { depressed: "", text: "", value: 2 }
+                            attrs: {
+                              xs12: "",
+                              sm12: "",
+                              md6: "",
+                              "text-xs-center": ""
+                            }
                           },
                           [
                             _c(
-                              "span",
-                              { attrs: { stlyle: "line-height:40px;" } },
-                              [_vm._v("양식")]
+                              "v-btn",
+                              {
+                                staticClass:
+                                  "display-1 green--text font-weight",
+                                attrs: {
+                                  large: "",
+                                  depressed: "",
+                                  text: "",
+                                  value: 3
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                양식\n                            "
+                                )
+                              ]
                             )
-                          ]
+                          ],
+                          1
                         ),
                         _vm._v(" "),
                         _c(
-                          "v-btn",
+                          "v-flex",
                           {
-                            staticClass:
-                              "pl-4 pb-5 pr-4 pt-2 font-weight-bold title",
-                            staticStyle: { width: "250px" },
-                            attrs: { depressed: "", text: "", value: 2 }
+                            attrs: {
+                              xs12: "",
+                              sm12: "",
+                              md6: "",
+                              "text-xs-center": ""
+                            }
                           },
                           [
                             _c(
-                              "span",
-                              { attrs: { stlyle: "line-height:40px;" } },
-                              [_vm._v("중식")]
+                              "v-btn",
+                              {
+                                staticClass:
+                                  "display-1 green--text font-weight",
+                                attrs: {
+                                  large: "",
+                                  depressed: "",
+                                  text: "",
+                                  value: 4
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                중식\n                            "
+                                )
+                              ]
                             )
-                          ]
+                          ],
+                          1
                         )
                       ],
                       1
@@ -45822,17 +45944,23 @@ var render = function() {
                   [
                     _c(
                       "v-flex",
-                      { attrs: { xs12: "", sm8: "", md5: "" } },
+                      { attrs: { xs6: "", sm4: "", md5: "" } },
                       [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.roadFullAddr) +
+                            "\n                    " +
+                            _vm._s(_vm.zipNo) +
+                            "\n                    "
+                        ),
+                        _c("label", [_vm._v("---------------------------")]),
+                        _vm._v(" "),
                         _c("v-text-field", {
-                          attrs: { type: "input", label: "주소", required: "" },
-                          model: {
-                            value: _vm.address,
-                            callback: function($$v) {
-                              _vm.address = $$v
-                            },
-                            expression: "address"
-                          }
+                          attrs: { id: "roadFullAddr", required: "" }
+                        }),
+                        _vm._v(" "),
+                        _c("v-text-field", {
+                          attrs: { id: "zipNo", required: "" }
                         })
                       ],
                       1
@@ -45840,11 +45968,32 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "v-flex",
-                      { attrs: { xs12: "", sm8: "", md1: "" } },
+                      { attrs: { xs6: "", sm4: "", md1: "" } },
                       [
-                        _c("v-btn", { attrs: { color: "success" } }, [
-                          _vm._v("우편 검색\n                    ")
-                        ])
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: { color: "success" },
+                            on: {
+                              click: function($event) {
+                                return _vm.goPopup()
+                              }
+                            }
+                          },
+                          [_vm._v("주소 검색\n                    ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.juso_check()
+                              }
+                            }
+                          },
+                          [_vm._v("확인")]
+                        )
                       ],
                       1
                     )
@@ -45900,7 +46049,7 @@ var render = function() {
                   "v-layout",
                   { staticClass: "mt-4 mb-4", attrs: { "justify-center": "" } },
                   [
-                    _c("v-flex", { attrs: { xs12: "", sm8: "", md1: "" } }, [
+                    _c("v-flex", { attrs: { xs12: "", sm4: "", md1: "" } }, [
                       _c(
                         "div",
                         { staticClass: "green--text font-weight-bold" },
@@ -45910,7 +46059,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "v-flex",
-                      { attrs: { xs12: "", sm8: "", md5: "" } },
+                      { attrs: { xs12: "", sm4: "", md5: "" } },
                       [
                         _c(
                           "v-btn",
@@ -45923,7 +46072,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("+추가")]
+                          [_vm._v("+ 추가")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -46639,15 +46788,6 @@ var render = function() {
                       attrs: { router: "", to: { name: "FootRecommend" } }
                     },
                     [_vm._v("레시피 추천")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      staticClass: "green--text font-weight-bold",
-                      attrs: { router: "", to: { name: "ReviewTest" } }
-                    },
-                    [_vm._v("테스트")]
                   )
                 ],
                 1
