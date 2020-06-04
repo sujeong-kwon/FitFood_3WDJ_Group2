@@ -3862,43 +3862,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      products: [],
+      stores: [],
       cart: []
     };
   },
-  methods: {
-    checkRating: function checkRating(n, myProducts) {
-      return myProducts.rating - n >= 0;
-    },
-    addToCart: function addToCart(aProduct) {
-      this.cart.push(aProduct.id);
-    },
-    canAddToCart: function canAddToCart(aProduct) {
-      return aProduct.availableInventory > this.cartCount(aProduct.id);
-    },
-    cartCount: function cartCount(id) {
-      var count = 0;
-
-      for (var i = 0; i < this.cart.length; i++) {
-        if (this.cart[i] === id) {
-          count++;
-        }
-      }
-
-      return count;
-    }
+  methods: {// checkRating(n, myProducts) {
+    //   return myProducts.rating - n >= 0;
+    // },
+    // addToCart(aProduct) {
+    //   this.cart.push(aProduct.id);
+    // },
+    // canAddToCart(aProduct) {
+    //   return aProduct.availableInventory > this.cartCount(aProduct.id);
+    // },
+    // cartCount(id) {
+    //   let count = 0;
+    //   for (var i = 0; i < this.cart.length; i++) {
+    //     if (this.cart[i] === id) {
+    //       count++;
+    //     }
+    //   }
+    //   return count;
+    // }
   },
-  computed: {
-    cartItemCount: function cartItemCount() {
-      return this.cart.length || "";
-    }
+  computed: {// cartItemCount() {
+    //   return this.cart.length || "";
+    // }
   },
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/static/products.json").then(function (response) {
-      _this.products = response.data.products;
-      console.log(_this.products);
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/showStore').then(function (response) {
+      console.log(response);
+      _this.stores = response.data;
+      console.log(_this.stores);
     })["catch"](function (err) {
       console.log(err);
     });
@@ -3968,11 +3965,12 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/static/products.json").then(function (res) {
-      _this.product = res.data.products.filter(function (data) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/showStore").then(function (res) {
+      _this.item = res.data.filter( // item변수 안에 select * from stores결괏값 적재
+      function (data) {
         return data.id == _this.$route.params.id;
       })[0];
-      _this.product.image = "/" + _this.product.image;
+      _this.item.image = "/" + _this.item.image;
       console.log(res);
     })["catch"](function (err) {
       console.log(err);
@@ -3980,7 +3978,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      product: ""
+      item: ""
     };
   }
 });
@@ -4079,7 +4077,7 @@ __webpack_require__.r(__webpack_exports__);
       dialog: false,
       form: {
         review_title: "",
-        review_context: "",
+        review_message: "",
         review_star_rating: 0
       },
       updateMode: false,
@@ -4116,24 +4114,33 @@ __webpack_require__.r(__webpack_exports__);
       this.dialog = true;
       this.updateMode = false;
       this.form.review_title = "";
-      this.form.review_context = "";
-      this.form.review_star_rating = "";
+      this.form.review_message = "";
+      this.form.review_star_rating = 0;
     },
     getSuggestions: function getSuggestions() {
       var _this = this;
 
       if (this.loading) return;
       this.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/static/reviews.json").then(function (response) {
-        _this.reviews = response.data.reviews;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/showReview").then(function (response) {
+        _this.reviews = response.data;
         _this.loading = false;
         console.log(_this.reviews);
       })["catch"](function (e) {
-        if (!e.response) _this.$store.commit("pop", {
-          msg: e.message,
-          color: "error"
-        });
+        console.log(e);
         _this.loading = false;
+      });
+    },
+    postSuggestion: function postSuggestion() {
+      this.dialog = false;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/storeReview', {
+        review_title: this.form.review_title,
+        review_message: this.form.review_message,
+        review_star_rating: this.form.review_star_rating
+      }).then(function (res) {
+        console.log(res.data);
+      })["catch"](function (e) {
+        console.log(e);
       });
     },
     id2date: function id2date(_id) {
@@ -20695,7 +20702,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .mytable table tr {\r\n    background-color: lightgoldenrodyellow;\r\n    border-bottom: none !important;\r\n} */\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .mytable table tr {\r\n    background-color: lightgoldenrodyellow;\r\n    border-bottom: none !important;\r\n} */\r\n", ""]);
 
 // exports
 
@@ -46309,10 +46316,10 @@ var render = function() {
           staticClass: "event-card-list",
           attrs: { tag: "ul", name: "fade-in", css: false, appear: "" }
         },
-        _vm._l(_vm.products, function(product) {
+        _vm._l(_vm.stores, function(item) {
           return _c(
             "li",
-            { key: product.id },
+            { key: item.id },
             [
               _c(
                 "v-card",
@@ -46322,7 +46329,7 @@ var render = function() {
                     "v-layout",
                     { attrs: { row: "" } },
                     [
-                      _c("img", { attrs: { src: product.image } }),
+                      _c("img", { attrs: { src: item.image } }),
                       _vm._v(" "),
                       _c(
                         "v-layout",
@@ -46336,11 +46343,11 @@ var render = function() {
                         [
                           _c("div", [
                             _c("h1", { staticClass: "name" }, [
-                              _vm._v(_vm._s(product.store_name))
+                              _vm._v(_vm._s(item.store_name))
                             ]),
                             _vm._v(" "),
                             _c("h3", { staticClass: "address" }, [
-                              _vm._v(_vm._s(product.store_address))
+                              _vm._v(_vm._s(item.store_address))
                             ])
                           ]),
                           _vm._v(" "),
@@ -46358,7 +46365,7 @@ var render = function() {
                                       rounded: "",
                                       to: {
                                         name: "storereview",
-                                        params: { id: product.id }
+                                        params: { id: item.id }
                                       }
                                     }
                                   },
@@ -46421,12 +46428,12 @@ var render = function() {
             { attrs: { xs12: "" } },
             [
               _c("h1", { staticClass: "font-weight-black text-center" }, [
-                _vm._v(_vm._s(_vm.product.store_name))
+                _vm._v(_vm._s(_vm.item.store_name))
               ]),
               _vm._v(" "),
               _c("v-img", {
                 staticClass: "img",
-                attrs: { src: _vm.product.image }
+                attrs: { src: _vm.item.image }
               })
             ],
             1
@@ -46634,11 +46641,11 @@ var render = function() {
                               _c("v-textarea", {
                                 attrs: { label: "내용", required: "" },
                                 model: {
-                                  value: _vm.form.review_context,
+                                  value: _vm.form.review_message,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.form, "review_context", $$v)
+                                    _vm.$set(_vm.form, "review_message", $$v)
                                   },
-                                  expression: "form.review_context"
+                                  expression: "form.review_message"
                                 }
                               })
                             ],
@@ -107132,8 +107139,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Admin\Desktop\FitFood_3WDJ_Group2\Web\Laravel_Vue\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Admin\Desktop\FitFood_3WDJ_Group2\Web\Laravel_Vue\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Sejin.B\Desktop\FitFood_3WDJ_Group2\Web\Laravel_Vue\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Sejin.B\Desktop\FitFood_3WDJ_Group2\Web\Laravel_Vue\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -22,14 +22,14 @@
   </div>-->
   <v-layout align-center justify-space-between row style="width: 100%;">
     <v-item-group tag="ul" class="event-card-list" name="fade-in" :css="false" appear>
-      <li v-for="product in products" v-bind:key="product.id">
+      <li v-for="item in stores" v-bind:key="item.id">
         <v-card class="event-card">
           <v-layout row>
-            <img :src="product.image" />
+            <img :src="item.image" />
             <v-layout column justify-space-between style="padding: 0.8em 1.3em; max-width: 390px;">
               <div>
-                <h1 class="name">{{product.store_name}}</h1>
-                <h3 class="address">{{product.store_address}}</h3>
+                <h1 class="name">{{item.store_name}}</h1>
+                <h3 class="address">{{item.store_address}}</h3>
                 <!-- <div class="rating">
                                         <span v-bind:class="{'rating-active' :checkRating(n, product)}" v-for="n in 5" :key="n">☆</span>
                 </div>-->
@@ -42,7 +42,7 @@
                     color="green"
                     class="white--text"
                     rounded
-                    :to="{ name: 'storereview' , params : {id: product.id}}"
+                    :to="{ name: 'storereview' , params : {id: item.id}}"
                   >review</v-btn>
                 </div>
               </div>
@@ -58,41 +58,42 @@ import axios from "axios";
 export default {
   data() {
     return {
-      products: [],
+      stores: [],
       cart: []
     };
   },
   methods: {
-    checkRating(n, myProducts) {
-      return myProducts.rating - n >= 0;
-    },
-    addToCart(aProduct) {
-      this.cart.push(aProduct.id);
-    },
-    canAddToCart(aProduct) {
-      return aProduct.availableInventory > this.cartCount(aProduct.id);
-    },
-    cartCount(id) {
-      let count = 0;
-      for (var i = 0; i < this.cart.length; i++) {
-        if (this.cart[i] === id) {
-          count++;
-        }
-      }
-      return count;
-    }
+    // checkRating(n, myProducts) {
+    //   return myProducts.rating - n >= 0;
+    // },
+    // addToCart(aProduct) {
+    //   this.cart.push(aProduct.id);
+    // },
+    // canAddToCart(aProduct) {
+    //   return aProduct.availableInventory > this.cartCount(aProduct.id);
+    // },
+    // cartCount(id) {
+    //   let count = 0;
+    //   for (var i = 0; i < this.cart.length; i++) {
+    //     if (this.cart[i] === id) {
+    //       count++;
+    //     }
+    //   }
+    //   return count;
+    // }
   },
   computed: {
-    cartItemCount() {
-      return this.cart.length || "";
-    }
+    // cartItemCount() {
+    //   return this.cart.length || "";
+    // }
   },
   created: function() {
     axios
-      .get("/static/products.json")
+      .get('/showStore')
       .then(response => {
-        this.products = response.data.products;
-        console.log(this.products);
+        console.log(response);
+        this.stores = response.data;
+        console.log(this.stores);
       })
       .catch(err => {
         console.log(err);

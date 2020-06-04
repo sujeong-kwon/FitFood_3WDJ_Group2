@@ -3,8 +3,8 @@
     <v-layout justify-cetner row>
       <v-flex xs12>
         <!-- <h1>id {{$route.params.id}} 입니다</h1> -->
-        <h1 class="font-weight-black text-center">{{product.store_name}}</h1>
-        <v-img class="img" :src="product.image"></v-img>
+        <h1 class="font-weight-black text-center">{{item.store_name}}</h1>
+        <v-img class="img" :src="item.image"></v-img>
       </v-flex>
       <router-view></router-view>
     </v-layout>
@@ -48,12 +48,12 @@ export default {
   //   },
   created: function() {
     axios
-      .get("/static/products.json")
+      .get("/showStore")
       .then(res => {
-        this.product = res.data.products.filter(
+        this.item = res.data.filter(  // item변수 안에 select * from stores결괏값 적재
           data => data.id == this.$route.params.id
         )[0];
-        this.product.image = "/" + this.product.image;
+        this.item.image = "/" + this.item.image;
         console.log(res);
       })
       .catch(err => {
@@ -62,7 +62,7 @@ export default {
   },
   data() {
     return {
-      product: ""
+      item: ""
     };
   }
 };

@@ -15,16 +15,16 @@
         :sort-desc="[true]"
         class="elevation-1 mytable"
       >
-        <template v-slot:item.review_title="{ item }">
-          <div @click="rowClick(item)">{{ item.review_title }}</div>
+        <template v-slot:item.review_title="{item}">
+          <div @click="rowClick(item)">{{item.review_title}}</div>
         </template>
-        <template v-slot:item.user_id="{ item }">
+        <template v-slot:item.user_id="{item}">
           <v-chip class="ma-2" color="orange" outlined pill>
-            {{ item.user_id }}
+            {{item.user_id}}
             <v-icon right>mdi-account-outline</v-icon>
           </v-chip>
         </template>
-        <template v-slot:item._id="{ item }">
+        <template v-slot:item._id="{item}">
           <v-chip class="ma-2" color="orange" outlined pill>
             {{
             id2date(item._id)
@@ -45,7 +45,7 @@
                 <v-text-field label="제목" v-model="form.review_title" required></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-textarea label="내용" v-model="form.review_context" required></v-textarea>
+                <v-textarea label="내용" v-model="form.review_message" required></v-textarea>
               </v-col>
               <v-col cols="12" sm="6" md="4">
                 <v-rating
@@ -81,7 +81,7 @@ export default {
       dialog: false,
       form: {
         review_title: "",
-        review_context: "",
+        review_message: "",
         review_star_rating: 0
       },
       updateMode: false,
@@ -118,26 +118,38 @@ export default {
       this.dialog = true;
       this.updateMode = false;
       this.form.review_title = "";
-      this.form.review_context = "";
-      this.form.review_star_rating = "";
+      this.form.review_message = "";
+      this.form.review_star_rating = 0;
     },
     getSuggestions() {
       if (this.loading) return;
       this.loading = true;
       axios
-        .get("/static/reviews.json")
+        .get("/showReview")
         .then(response => {
-          this.reviews = response.data.reviews;
+          this.reviews = response.data;
           this.loading = false;
           console.log(this.reviews);
         })
         .catch(e => {
-          if (!e.response)
-            this.$store.commit("pop", {
-              msg: e.message,
-              color: "error"
-            });
+          console.log(e);
           this.loading = false;
+        });
+    },
+    postSuggestion() {
+      this.dialog = false;
+        axios
+        .post('/storeReview', 
+        {
+          review_title: this.form.review_title,
+          review_message: this.form.review_message,
+          review_star_rating: this.form.review_star_rating
+        })
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(e => {
+          console.log(e);
         });
     },
     id2date(_id) {
