@@ -5,7 +5,7 @@
             <router-link rounded :to="{ name: 'Detailed',params : {id: recommend.id}}">
                 <v-img height="300px" :src="recommend.image"></v-img>
             </router-link>
-            <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">{{recommend.store_name}}</v-card-text>
+            <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">{{recommend.recommend_name}}</v-card-text>
         </v-card>
     </div>
 
@@ -63,9 +63,9 @@ export default {
         }; 
     },
     created : function(){
-        axios.get('/recommendShow')
+        axios.get('/static/recommend.json')
         .then((response) => {
-            this.recommends = response.data;
+            this.recommends = response.data.recommend;
             console.log(this.recommends);
         })
         .catch((err)=>{

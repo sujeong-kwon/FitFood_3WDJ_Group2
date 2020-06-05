@@ -4,12 +4,13 @@
             <div class="display-1 green--text font-weight-bold" style="margin-bottom:30px; text-align:center;">
                 NEW STORE
             </div>
-            <v-form @submit.prevent="register">
+    
+            <v-form>
                 <span>
                 <v-layout justify-center>
                     <v-flex xs12 sm8 md6>
                         <v-text-field
-                            type="input" label="업체명" v-model="store_name" required>
+                            type="input" label="업체명" v-model="storename" required>
                         </v-text-field>
                         <v-text-field
                             type="input" label="사업번호" v-model="store_issuance_number" required>
@@ -104,7 +105,7 @@
                             <v-card-text>
                                 <v-btn color="success">사진 추가</v-btn>
                                 <v-text-field
-                                    type="input" label="메뉴 이름" v-model="form.food_name" required>
+                                    type="input" label="메뉴 이름" required>
                                 </v-text-field>
                             </v-card-text>
 
@@ -122,7 +123,7 @@
                             <v-btn
                                 color="green darken-1"
                                 text
-                                @click="save_menu"
+                                @click="dialog = false"
                             >
                                 SAVE
                             </v-btn>
@@ -156,7 +157,7 @@
                         <v-layout row wrap justify-center style="margin-top:30px;">
                             <v-flex xs12 sm8 md6>
                                 <v-btn
-                                    type="submit"
+                                    type="submit" form="check-register-form"
                                     color="success" large block
                                     class="headline font-weight-bold mt-3">
                                     확인
@@ -172,7 +173,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 // function jusoCallBack(roadFullAddr,zipNo){
 //             document.getElementById('roadFullAddr').value = roadFullAddr;
 //             document.getElementById('zipNo').value = zipNo;
@@ -182,54 +182,43 @@ export default {
     data(){
         return{
             dialog: false,
-            store_name:'', //업체명
-            store_issuance_number: 0, //사업번호
-            tall:'', //전화번호->전화번호 안받음
-            store_category:this.store_category, // 가게 타입.
-            roadFullAddr:'', //주소, db에는 store_address로 저장되어야 한다.
-            zipNo:'' , //우편번호 -> db에 없음. 빼고 작업
-            storetime:'',//가게 운영시간->빼고 작업
-            stoestoretimertime:'', // 가게 운영 시간->빼고 작업
-            storecomeouttime:'', //음식 나오는 시간->빼고 작업
-            form: {
-                food_name: "",
-                //food_image:
+            storename:'', //업체명
+            store_issuance_number:'', //사업번호
+            tall:'', //전화번호
+            store_category:this.store_category, //음식 종류
+            roadFullAddr:'', //주소
+            zipNo:'' , //우편번호
+            storetime:'',//가게 운영시간
+            stoestoretimertime:'', // 가게 운영 시간
+            storecomeouttime:'', //음식 나오는 시간
+            items:[{
+               name:'탕수육',
+               img:'/static/menus/탕수육.jpg'
             },
-            items:[] // 사진 추가 리스트
+            {
+                name:'스시',
+               img:'/static/menus/탕수육.jpg'
+            }] // 사진 추가 리스트
         }     
     },
     methods:{
-            goPopup(){
-                // 주소검색을 수행할 팝업 페이지를 호출합니다.
-                // 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrEngUrl.do)를 호출하게 됩니다.
-                var api_key = "devU01TX0FVVEgyMDIwMDYwMjIyNTkzNTEwOTgyNDQ=";
-                var pop = window.open("/jusoPopup_utf8.php","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-            },
-            juso_check(){
-            this.roadFullAddr = document.getElementById('roadFullAddr').value
-            this.zipNo = document.getElementById('zipNo').value
-            },
-            register(){
-                axios.post('/saveStore',
-                {
-                    store_name: this.store_name,
-                    store_address: this.roadFullAddr,
-                    store_category: this.store_category,
-                    store_issuance_number: this.store_issuance_number,
-                    items: this.items,
-                })
-                .then(res => {
-                    console.log(res.data);
-                    // window.location.href='/';
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-            },
-            save_menu(){
-               this.dialog = false;
-               this.items = this.form.food_name;
-            }
+        //주소 api
+    //     jusoCallBack: function(roadFullAddr,zipNo){
+    //         document.getElementById('roadFullAddr').value = roadFullAddr;
+    //         document.getElementById('zipNo').value = zipNo;
+    // },
+        goPopup(){
+            // 주소검색을 수행할 팝업 페이지를 호출합니다.
+            // 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrEngUrl.do)를 호출하게 됩니다.
+            var api_key = "devU01TX0FVVEgyMDIwMDYwMjIyNTkzNTEwOTgyNDQ=";
+            var pop = window.open("/jusoPopup_utf8.php","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+    },
+    juso_check(){
+        this.roadFullAddr = document.getElementById('roadFullAddr').value
+        this.zipNo = document.getElementById('zipNo').value
+    }
+// 주소 api end
+
     }
 }
 </script>

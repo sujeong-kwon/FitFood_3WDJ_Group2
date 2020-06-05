@@ -2322,8 +2322,8 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/static/recommend.json').then(function (response) {
-      _this.recommends = response.data.recommend;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/recommendShow').then(function (response) {
+      _this.recommends = response.data;
       console.log(_this.recommends);
     })["catch"](function (err) {
       console.log(err);
@@ -3559,6 +3559,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -3732,50 +3734,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-// function jusoCallBack(roadFullAddr,zipNo){
+ // function jusoCallBack(roadFullAddr,zipNo){
 //             document.getElementById('roadFullAddr').value = roadFullAddr;
 //             document.getElementById('zipNo').value = zipNo;
 //     };
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Newstore',
   data: function data() {
     return {
       dialog: false,
-      storename: '',
+      store_name: '',
       //업체명
-      businessnumber: '',
+      store_issuance_number: 0,
       //사업번호
       tall: '',
-      //전화번호
-      footkind: this.footkind,
-      //음식 종류
+      //전화번호->전화번호 안받음
+      store_category: this.store_category,
+      // 가게 타입.
       roadFullAddr: '',
-      //주소
+      //주소, db에는 store_address로 저장되어야 한다.
       zipNo: '',
-      //우편번호
+      //우편번호 -> db에 없음. 빼고 작업
       storetime: '',
-      //가게 운영시간
+      //가게 운영시간->빼고 작업
       stoestoretimertime: '',
-      // 가게 운영 시간
+      // 가게 운영 시간->빼고 작업
       storecomeouttime: '',
-      //음식 나오는 시간
-      items: [{
-        name: '탕수육',
-        img: '/static/menus/탕수육.jpg'
-      }, {
-        name: '스시',
-        img: '/static/menus/탕수육.jpg'
-      }] // 사진 추가 리스트
+      //음식 나오는 시간->빼고 작업
+      form: {
+        food_name: "" //food_image:
+
+      },
+      items: [] // 사진 추가 리스트
 
     };
   },
   methods: {
-    //주소 api
-    //     jusoCallBack: function(roadFullAddr,zipNo){
-    //         document.getElementById('roadFullAddr').value = roadFullAddr;
-    //         document.getElementById('zipNo').value = zipNo;
-    // },
     goPopup: function goPopup() {
       // 주소검색을 수행할 팝업 페이지를 호출합니다.
       // 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrEngUrl.do)를 호출하게 됩니다.
@@ -3785,8 +3780,24 @@ __webpack_require__.r(__webpack_exports__);
     juso_check: function juso_check() {
       this.roadFullAddr = document.getElementById('roadFullAddr').value;
       this.zipNo = document.getElementById('zipNo').value;
-    } // 주소 api end
-
+    },
+    register: function register() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/saveStore', {
+        store_name: this.store_name,
+        store_address: this.roadFullAddr,
+        store_category: this.store_category,
+        store_issuance_number: this.store_issuance_number,
+        items: this.items
+      }).then(function (res) {
+        console.log(res.data); // window.location.href='/';
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    save_menu: function save_menu() {
+      this.dialog = false;
+      this.items = this.form.food_name;
+    }
   }
 });
 
@@ -43471,7 +43482,7 @@ var render = function() {
               staticClass: "display-1 black--text font-weight-bold",
               staticStyle: { "text-align": "center" }
             },
-            [_vm._v(_vm._s(recommend.recommend_name))]
+            [_vm._v(_vm._s(recommend.store_name))]
           )
         ],
         1
@@ -45719,561 +45730,580 @@ var render = function() {
             [_vm._v("\n            NEW STORE\n        ")]
           ),
           _vm._v(" "),
-          _c("v-form", [
-            _c(
-              "span",
-              [
-                _c(
-                  "v-layout",
-                  { attrs: { "justify-center": "" } },
-                  [
-                    _c(
-                      "v-flex",
-                      { attrs: { xs12: "", sm8: "", md6: "" } },
-                      [
-                        _c("v-text-field", {
-                          attrs: {
-                            type: "input",
-                            label: "업체명",
-                            required: ""
-                          },
-                          model: {
-                            value: _vm.storename,
-                            callback: function($$v) {
-                              _vm.storename = $$v
-                            },
-                            expression: "storename"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("v-text-field", {
-                          attrs: {
-                            type: "input",
-                            label: "사업번호",
-                            required: ""
-                          },
-                          model: {
-                            value: _vm.businessnumber,
-                            callback: function($$v) {
-                              _vm.businessnumber = $$v
-                            },
-                            expression: "businessnumber"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("v-text-field", {
-                          attrs: {
-                            type: "input",
-                            label: "전화번호",
-                            required: ""
-                          },
-                          model: {
-                            value: _vm.tall,
-                            callback: function($$v) {
-                              _vm.tall = $$v
-                            },
-                            expression: "tall"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "v-layout",
-                  {
-                    staticStyle: {
-                      "margin-top": "25px",
-                      "margin-bottom": "25px"
-                    },
-                    attrs: { "align-center": "", "justify-center": "" }
-                  },
-                  [
-                    _c(
-                      "v-btn-toggle",
-                      {
-                        model: {
-                          value: _vm.footkind,
-                          callback: function($$v) {
-                            _vm.footkind = $$v
-                          },
-                          expression: "footkind"
-                        }
-                      },
-                      [
-                        _c(
-                          "v-flex",
-                          {
-                            attrs: {
-                              xs12: "",
-                              sm12: "",
-                              md6: "",
-                              "text-xs-center": ""
-                            }
-                          },
-                          [
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass:
-                                  "display-1 green--text font-weight",
-                                attrs: {
-                                  large: "",
-                                  depressed: "",
-                                  text: "",
-                                  value: 1
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                한식\n                            "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-flex",
-                          {
-                            attrs: {
-                              xs12: "",
-                              sm12: "",
-                              md6: "",
-                              "text-xs-center": ""
-                            }
-                          },
-                          [
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass:
-                                  "display-1 green--text font-weight",
-                                attrs: {
-                                  large: "",
-                                  depressed: "",
-                                  text: "",
-                                  value: 2
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                일식\n                            "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-flex",
-                          {
-                            attrs: {
-                              xs12: "",
-                              sm12: "",
-                              md6: "",
-                              "text-xs-center": ""
-                            }
-                          },
-                          [
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass:
-                                  "display-1 green--text font-weight",
-                                attrs: {
-                                  large: "",
-                                  depressed: "",
-                                  text: "",
-                                  value: 3
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                양식\n                            "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-flex",
-                          {
-                            attrs: {
-                              xs12: "",
-                              sm12: "",
-                              md6: "",
-                              "text-xs-center": ""
-                            }
-                          },
-                          [
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass:
-                                  "display-1 green--text font-weight",
-                                attrs: {
-                                  large: "",
-                                  depressed: "",
-                                  text: "",
-                                  value: 4
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                중식\n                            "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "v-layout",
-                  {
-                    staticStyle: { "margin-top": "20px" },
-                    attrs: { "justify-center": "" }
-                  },
-                  [
-                    _c(
-                      "v-flex",
-                      { attrs: { xs6: "", sm4: "", md5: "" } },
-                      [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(_vm.roadFullAddr) +
-                            "\n                    " +
-                            _vm._s(_vm.zipNo) +
-                            "\n                    "
-                        ),
-                        _c("label", [_vm._v("---------------------------")]),
-                        _vm._v(" "),
-                        _c("v-text-field", {
-                          attrs: { id: "roadFullAddr", required: "" }
-                        }),
-                        _vm._v(" "),
-                        _c("v-text-field", {
-                          attrs: { id: "zipNo", required: "" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-flex",
-                      { attrs: { xs6: "", sm4: "", md1: "" } },
-                      [
-                        _c(
-                          "v-btn",
-                          {
-                            attrs: { color: "success" },
-                            on: {
-                              click: function($event) {
-                                return _vm.goPopup()
-                              }
-                            }
-                          },
-                          [_vm._v("주소 검색\n                    ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-btn",
-                          {
-                            on: {
-                              click: function($event) {
-                                return _vm.juso_check()
-                              }
-                            }
-                          },
-                          [_vm._v("확인")]
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "v-layout",
-                  { staticClass: "mt-4 mb-4", attrs: { "justify-center": "" } },
-                  [
-                    _c(
-                      "v-flex",
-                      { attrs: { xs12: "", sm8: "", md6: "" } },
-                      [
-                        _c("v-text-field", {
-                          attrs: {
-                            type: "input",
-                            label: "가게 운영 시간",
-                            required: ""
-                          },
-                          model: {
-                            value: _vm.storetime,
-                            callback: function($$v) {
-                              _vm.storetime = $$v
-                            },
-                            expression: "storetime"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("v-text-field", {
-                          attrs: {
-                            type: "input",
-                            label: "음식 나오는 시간",
-                            required: ""
-                          },
-                          model: {
-                            value: _vm.storecomeouttime,
-                            callback: function($$v) {
-                              _vm.storecomeouttime = $$v
-                            },
-                            expression: "storecomeouttime"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "v-layout",
-                  { staticClass: "mt-4 mb-4", attrs: { "justify-center": "" } },
-                  [
-                    _c("v-flex", { attrs: { xs12: "", sm4: "", md1: "" } }, [
+          _c(
+            "v-form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.register($event)
+                }
+              }
+            },
+            [
+              _c(
+                "span",
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { "justify-center": "" } },
+                    [
                       _c(
-                        "div",
-                        { staticClass: "green--text font-weight-bold" },
-                        [_vm._v("메뉴")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "v-flex",
-                      { attrs: { xs12: "", sm4: "", md5: "" } },
-                      [
-                        _c(
-                          "v-btn",
-                          {
-                            attrs: { color: "success" },
-                            on: {
-                              click: function($event) {
-                                $event.stopPropagation()
-                                _vm.dialog = true
-                              }
-                            }
-                          },
-                          [_vm._v("+ 추가")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-dialog",
-                          {
-                            attrs: { "max-width": "290" },
+                        "v-flex",
+                        { attrs: { xs12: "", sm8: "", md6: "" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              type: "input",
+                              label: "업체명",
+                              required: ""
+                            },
                             model: {
-                              value: _vm.dialog,
+                              value: _vm.store_name,
                               callback: function($$v) {
-                                _vm.dialog = $$v
+                                _vm.store_name = $$v
                               },
-                              expression: "dialog"
+                              expression: "store_name"
                             }
-                          },
-                          [
-                            _c(
-                              "v-card",
-                              [
-                                _c(
-                                  "v-card-title",
-                                  { staticClass: "green--text headline" },
-                                  [_vm._v("메뉴 추가")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "v-card-text",
-                                  [
-                                    _c(
-                                      "v-btn",
-                                      { attrs: { color: "success" } },
-                                      [_vm._v("사진 추가")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("v-text-field", {
-                                      attrs: {
-                                        type: "input",
-                                        label: "메뉴 이름",
-                                        required: ""
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "v-card-actions",
-                                  [
-                                    _c("v-spacer"),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        attrs: {
-                                          color: "green darken-1",
-                                          text: ""
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.dialog = false
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                            CANCEL\n                        "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        attrs: {
-                                          color: "green darken-1",
-                                          text: ""
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.dialog = false
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                            SAVE\n                        "
-                                        )
-                                      ]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "v-layout",
-                  { attrs: { "justify-center": "" } },
-                  [
-                    _c(
-                      "v-flex",
-                      { attrs: { xs12: "", sm8: "", md6: "" } },
-                      [
-                        _c(
-                          "v-list",
-                          _vm._l(_vm.items, function(item) {
-                            return _c(
-                              "v-list-item",
-                              { key: item.name },
-                              [
-                                _c(
-                                  "v-list-item-avatar",
-                                  [_c("v-img", { attrs: { src: item.img } })],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "v-list-item-content",
-                                  [
-                                    _c("v-list-item-title", {
-                                      domProps: {
-                                        textContent: _vm._s(item.name)
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
                           }),
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "v-card-actions",
-                  [
-                    _c(
-                      "v-layout",
-                      {
-                        staticStyle: { "margin-top": "30px" },
-                        attrs: { row: "", wrap: "", "justify-center": "" }
-                      },
-                      [
-                        _c(
-                          "v-flex",
-                          { attrs: { xs12: "", sm8: "", md6: "" } },
-                          [
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass: "headline font-weight-bold mt-3",
-                                attrs: {
-                                  type: "submit",
-                                  form: "check-register-form",
-                                  color: "success",
-                                  large: "",
-                                  block: ""
-                                }
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              type: "input",
+                              label: "사업번호",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.store_issuance_number,
+                              callback: function($$v) {
+                                _vm.store_issuance_number = $$v
                               },
-                              [
-                                _vm._v(
-                                  "\n                                확인\n                            "
-                                )
-                              ]
-                            )
-                          ],
-                          1
+                              expression: "store_issuance_number"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              type: "input",
+                              label: "전화번호",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.tall,
+                              callback: function($$v) {
+                                _vm.tall = $$v
+                              },
+                              expression: "tall"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-layout",
+                    {
+                      staticStyle: {
+                        "margin-top": "25px",
+                        "margin-bottom": "25px"
+                      },
+                      attrs: { "align-center": "", "justify-center": "" }
+                    },
+                    [
+                      _c(
+                        "v-btn-toggle",
+                        {
+                          model: {
+                            value: _vm.store_category,
+                            callback: function($$v) {
+                              _vm.store_category = $$v
+                            },
+                            expression: "store_category"
+                          }
+                        },
+                        [
+                          _c(
+                            "v-flex",
+                            {
+                              attrs: {
+                                xs12: "",
+                                sm12: "",
+                                md6: "",
+                                "text-xs-center": ""
+                              }
+                            },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass:
+                                    "display-1 green--text font-weight",
+                                  attrs: {
+                                    large: "",
+                                    depressed: "",
+                                    text: "",
+                                    value: 1
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                한식\n                            "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            {
+                              attrs: {
+                                xs12: "",
+                                sm12: "",
+                                md6: "",
+                                "text-xs-center": ""
+                              }
+                            },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass:
+                                    "display-1 green--text font-weight",
+                                  attrs: {
+                                    large: "",
+                                    depressed: "",
+                                    text: "",
+                                    value: 2
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                일식\n                            "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            {
+                              attrs: {
+                                xs12: "",
+                                sm12: "",
+                                md6: "",
+                                "text-xs-center": ""
+                              }
+                            },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass:
+                                    "display-1 green--text font-weight",
+                                  attrs: {
+                                    large: "",
+                                    depressed: "",
+                                    text: "",
+                                    value: 3
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                양식\n                            "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            {
+                              attrs: {
+                                xs12: "",
+                                sm12: "",
+                                md6: "",
+                                "text-xs-center": ""
+                              }
+                            },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass:
+                                    "display-1 green--text font-weight",
+                                  attrs: {
+                                    large: "",
+                                    depressed: "",
+                                    text: "",
+                                    value: 4
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                중식\n                            "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-layout",
+                    {
+                      staticStyle: { "margin-top": "20px" },
+                      attrs: { "justify-center": "" }
+                    },
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs6: "", sm4: "", md5: "" } },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(_vm.roadFullAddr) +
+                              "\n                    " +
+                              _vm._s(_vm.zipNo) +
+                              "\n                    "
+                          ),
+                          _c("label", [_vm._v("---------------------------")]),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: { id: "roadFullAddr", required: "" }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: { id: "zipNo", required: "" }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { xs6: "", sm4: "", md1: "" } },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { color: "success" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.goPopup()
+                                }
+                              }
+                            },
+                            [_vm._v("주소 검색\n                    ")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.juso_check()
+                                }
+                              }
+                            },
+                            [_vm._v("확인")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-layout",
+                    {
+                      staticClass: "mt-4 mb-4",
+                      attrs: { "justify-center": "" }
+                    },
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "", sm8: "", md6: "" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              type: "input",
+                              label: "가게 운영 시간",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.storetime,
+                              callback: function($$v) {
+                                _vm.storetime = $$v
+                              },
+                              expression: "storetime"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              type: "input",
+                              label: "음식 나오는 시간",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.storecomeouttime,
+                              callback: function($$v) {
+                                _vm.storecomeouttime = $$v
+                              },
+                              expression: "storecomeouttime"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-layout",
+                    {
+                      staticClass: "mt-4 mb-4",
+                      attrs: { "justify-center": "" }
+                    },
+                    [
+                      _c("v-flex", { attrs: { xs12: "", sm4: "", md1: "" } }, [
+                        _c(
+                          "div",
+                          { staticClass: "green--text font-weight-bold" },
+                          [_vm._v("메뉴")]
                         )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "", sm4: "", md5: "" } },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { color: "success" },
+                              on: {
+                                click: function($event) {
+                                  $event.stopPropagation()
+                                  _vm.dialog = true
+                                }
+                              }
+                            },
+                            [_vm._v("+ 추가")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-dialog",
+                            {
+                              attrs: { "max-width": "290" },
+                              model: {
+                                value: _vm.dialog,
+                                callback: function($$v) {
+                                  _vm.dialog = $$v
+                                },
+                                expression: "dialog"
+                              }
+                            },
+                            [
+                              _c(
+                                "v-card",
+                                [
+                                  _c(
+                                    "v-card-title",
+                                    { staticClass: "green--text headline" },
+                                    [_vm._v("메뉴 추가")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-card-text",
+                                    [
+                                      _c(
+                                        "v-btn",
+                                        { attrs: { color: "success" } },
+                                        [_vm._v("사진 추가")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          type: "input",
+                                          label: "메뉴 이름",
+                                          required: ""
+                                        },
+                                        model: {
+                                          value: _vm.form.food_name,
+                                          callback: function($$v) {
+                                            _vm.$set(_vm.form, "food_name", $$v)
+                                          },
+                                          expression: "form.food_name"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-card-actions",
+                                    [
+                                      _c("v-spacer"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            color: "green darken-1",
+                                            text: ""
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.dialog = false
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                            CANCEL\n                        "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            color: "green darken-1",
+                                            text: ""
+                                          },
+                                          on: { click: _vm.save_menu }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                            SAVE\n                        "
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-layout",
+                    { attrs: { "justify-center": "" } },
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "", sm8: "", md6: "" } },
+                        [
+                          _c(
+                            "v-list",
+                            _vm._l(_vm.items, function(item) {
+                              return _c(
+                                "v-list-item",
+                                { key: item.name },
+                                [
+                                  _c(
+                                    "v-list-item-avatar",
+                                    [_c("v-img", { attrs: { src: item.img } })],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-item-content",
+                                    [
+                                      _c("v-list-item-title", {
+                                        domProps: {
+                                          textContent: _vm._s(item.name)
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            }),
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c(
+                        "v-layout",
+                        {
+                          staticStyle: { "margin-top": "30px" },
+                          attrs: { row: "", wrap: "", "justify-center": "" }
+                        },
+                        [
+                          _c(
+                            "v-flex",
+                            { attrs: { xs12: "", sm8: "", md6: "" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass: "headline font-weight-bold mt-3",
+                                  attrs: {
+                                    type: "submit",
+                                    color: "success",
+                                    large: "",
+                                    block: ""
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                확인\n                            "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ]
+          )
         ],
         1
       )

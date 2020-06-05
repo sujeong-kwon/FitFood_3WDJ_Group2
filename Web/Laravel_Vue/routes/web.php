@@ -27,4 +27,7 @@ Route::get('/showStore', 'StoreController@index');
 Route::post('/storeReview', 'ReviewController@store');
 Route::get('/showReview', 'ReviewController@index');
 
+Route::get('/recommendShow', 'RecommendController@index');
+Route::post('/saveStore', 'StoreController@store');
+
 Route::get('/home', 'HomeController@index')->name('home');
