@@ -58,4 +58,60 @@ class StoreController extends Controller
 
         return "success";
     }
+
+    public function show(Request $req)
+    {
+        $store_id = $req->store_id;
+        // $store_id = 3;
+
+        $store_data = DB::table('stores')->where('store_id', $store_id)->get();
+        
+        $store_data_json = json_encode($store_data);
+        
+        return $store_data_json;
+    }
+
+    public function select_id(Request $req)
+    {
+        $store_latitude = $req->latitude; 
+        $store_longitude = $req->longitude; 
+        $store_gps = [(double)$store_latitude,(double)$store_longitude];
+        // $latitude = '128.6248589';
+        // $longitude = '35.89441684';
+        // $gps = [(double)$latitude,(double)$longitude];
+
+        $store_id_a = DB::table('stores')->where('store_gps', $store_gps)->pluck('store_id');
+        $store_id = $store_id_a[0];
+        
+        return $store_id;
+    }
+
+    public function select_gps(Request $req) 
+    {
+        $latitude = $req->Latitude;  
+        $longitude = $req->Longitude;
+        // $latitude ='128.6205330';
+        // $longitude = '35.89359071';
+
+        $gps_all = DB::select('select store_gps_latitude, store_gps_longitude from stores');
+
+        $compare_value = 1000;
+        $select_gps_latitude;
+        $select_gps_longitude;
+        foreach ($gps_all as $gps) {
+            $distance = sqrt( pow(($gps->store_gps_latitude - $latitude), 2) + pow(($gps->store_gps_longitude - $longitude), 2) );
+            
+            if ($compare_value > $distance) {
+                $compare_value = $distance; 
+                $select_gps_latitude = $gps->store_gps_latitude;
+                $select_gps_longitude = $gps->store_gps_longitude;
+            }
+            else if ($compare_value <= $distance) {
+                
+            }
+        }
+        $store_data = DB::select("select * from stores where store_gps_latitude = ? and store_gps_longitude = ?", [$select_gps_latitude, $select_gps_longitude]);
+
+        return $store_data;
+    }
 }
