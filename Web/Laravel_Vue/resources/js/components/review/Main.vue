@@ -42,7 +42,7 @@
                     color="green"
                     class="white--text"
                     rounded
-                    :to="{ name: 'storereview' , params : {id: item.id}}"
+                    :to="{ name: 'storereview' , params : {id: item.store_id}}"
                   >review</v-btn>
                 </div>
               </div>

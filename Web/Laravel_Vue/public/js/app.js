@@ -3979,7 +3979,7 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/showStore").then(function (res) {
       _this.item = res.data.filter( // item변수 안에 select * from stores결괏값 적재
       function (data) {
-        return data.id == _this.$route.params.id;
+        return data.store_id == _this.$route.params.id;
       })[0];
       _this.item.image = "/" + _this.item.image;
       console.log(res);
@@ -4118,7 +4118,10 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     rowClick: function rowClick(item) {
       this.$router.push({
-        path: "/review/detail/".concat(item.review_id)
+        path: "/review/detail/".concat(item.review_id),
+        params: {
+          id: item.review_id
+        }
       });
     },
     mdUp: function mdUp() {
@@ -4143,12 +4146,20 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     postSuggestion: function postSuggestion() {
-      this.dialog = false;
+      // db에 입력된 양식을 저장하는 이벤트를 등록한 함수
+      this.dialog = false; // let formData = new FormData();
+      // formData.append('review_title', this.review_title);
+      // formData.append('review_message', this.review_message);
+      // formData.append('review_star_rating', this.review_star_rating);
+      // formData.append('key', localStorage.getItem('current_user'));
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/storeReview', {
         review_title: this.form.review_title,
         review_message: this.form.review_message,
-        review_star_rating: this.form.review_star_rating
+        review_star_rating: this.form.review_star_rating,
+        store_id: this.$route.params.id
       }).then(function (res) {
+        // this.getSuggestions();
         console.log(res.data);
       })["catch"](function (e) {
         console.log(e);
@@ -4297,6 +4308,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -4368,38 +4381,62 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
-  //const review_id = this.$route.params.review_id
-  data: function data() {
-    //review_id : review_id,
-    return {
-      item: {}
-    };
-  },
-  created: function created() {
-    this.getSuggestion(this.review_id);
-  },
-  methods: {
-    getSuggestion: function getSuggestion() {}
-  } // created: function() {
-  //   axios
-  //     .get("/static/reviews.json")
-  //     .then(response => {
-  //       this.item = response.data.reviews.filter(
-  //         data => data.id == this.$route.params.review_id
-  //       )[0];
-  //       console.log(response);
-  //     })
-  //     .catch(e => {
-  //       if (!e.response)
-  //         this.$store.commit("pop", {
-  //           msg: e.message,
-  //           color: "error"
-  //         });
-  //       this.loading = false;
-  //     });
-  // }
 
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      item: {
+        review_title: "",
+        review_message: "",
+        user_id: 0
+      }
+    }; //  if(true){
+    //    axios.get('/showReview')
+    //    .then(res => {
+    //      this.review_title=res.data.review_title;
+    //      this.review_message=res.data.review_message;
+    //      this.user_id=res.data.user_id;
+    //    })
+    //    .catch(err => {
+    //      console.log(err);
+    //    })
+    //  }
+    // return {
+    //   review_title: null,
+    //   review_message: null,
+    //   user_id: null,
+    // };
+  },
+  //const review_id = this.$route.params.review_id
+  // created: function() {
+  //   axios.get("/showReview")
+  //     .then(res => {  // select * from reviews
+  //       // this.item = res.data.filter(
+  //       //   data.review_id == this.$route.params.id
+  //       // );
+  //       // this.item = res.data.filter((data) => data.review_id == this.$route.params.id);
+  //       this.review_title=res.data.review_title;
+  //       this.review_message=res.data.review_message;
+  //       this.user_id=res.data.user_id;
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     })
+  //   // this.getSuggestion(this.review_id);
+  // },
+  created: function created() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/showReview") // select * from reviews;
+    .then(function (response) {
+      _this.item = response.data.filter(function (data) {
+        return data.review_id == _this.$route.params.review_id;
+      })[0];
+      console.log(response);
+    })["catch"](function (e) {
+      console.log(e); // this.loading = false;
+    });
+  }
 });
 
 /***/ }),
@@ -20713,7 +20750,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .mytable table tr {\r\n    background-color: lightgoldenrodyellow;\r\n    border-bottom: none !important;\r\n} */\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .mytable table tr {\r\n    background-color: lightgoldenrodyellow;\r\n    border-bottom: none !important;\r\n} */\r\n", ""]);
 
 // exports
 
@@ -46395,7 +46432,7 @@ var render = function() {
                                       rounded: "",
                                       to: {
                                         name: "storereview",
-                                        params: { id: item.id }
+                                        params: { id: item.store_id }
                                       }
                                     }
                                   },
@@ -46999,8 +47036,7 @@ var render = function() {
                             [
                               _c("v-icon", { attrs: { left: "" } }, [
                                 _vm._v("clear")
-                              ]),
-                              _vm._v("삭제\n            ")
+                              ])
                             ],
                             1
                           )
@@ -47030,8 +47066,7 @@ var render = function() {
                             [
                               _c("v-icon", { attrs: { left: "" } }, [
                                 _vm._v("create")
-                              ]),
-                              _vm._v("수정\n            ")
+                              ])
                             ],
                             1
                           )
@@ -47049,7 +47084,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("v-card-text", { staticClass: "font-weight-bold" }, [
-            _vm._v(_vm._s(_vm.item.review_context))
+            _vm._v(_vm._s(_vm.item.review_message))
           ]),
           _vm._v(" "),
           _c("v-divider"),

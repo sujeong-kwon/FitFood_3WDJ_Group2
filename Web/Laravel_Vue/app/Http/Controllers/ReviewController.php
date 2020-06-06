@@ -9,15 +9,10 @@ use Review;
 
 class ReviewController extends Controller
 {
-
+    //
     public function index()
-    {
+    {   
         return DB::select('select * from reviews');
-    }
-
-    public function create()
-    {
-        //
     }
 
     public function store(Request $request)
@@ -26,8 +21,17 @@ class ReviewController extends Controller
         $user_ = $request->session()->get($user)->user_email;
         $user_id = DB::table('users')->where('user_email', $user_)->value('user_id');
 
+
         $store_id = 1;
 
+
+        // $review = \App\Review::create([ // user_id와 store_id를 기반으로 표기.
+        //     'review_title' => $request->review_title,
+        //     'review_message' => $request->review_message,
+        //     'review_star_rating' => $request->review_star_rating,
+        //     'user_id' => $user_id,
+        //     'store_id' => $store_id,
+        // ]);
         $review = \App\Review::create([ // user_id와 store_id를 기반으로 표기.
             'review_title' => $request->review_title,
             'review_message' => $request->review_message,
@@ -37,28 +41,5 @@ class ReviewController extends Controller
         ]);
 
         return "success";
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-   
-    public function edit($id)
-    {
-        //
-    }
-
-    
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    
-    public function destroy($id)
-    {
-        //
     }
 }

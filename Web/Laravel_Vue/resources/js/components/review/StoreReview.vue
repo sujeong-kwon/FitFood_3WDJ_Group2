@@ -111,7 +111,8 @@ export default {
   methods: {
     rowClick(item) {
       this.$router.push({
-        path: `/review/detail/${item.review_id}`
+        path: `/review/detail/${item.review_id}`,
+        params: {id: item.review_id}
       });
     },
     mdUp() {
@@ -137,15 +138,23 @@ export default {
         });
     },
     postSuggestion() {
+      // db에 입력된 양식을 저장하는 이벤트를 등록한 함수
       this.dialog = false;
+      // let formData = new FormData();
+      // formData.append('review_title', this.review_title);
+      // formData.append('review_message', this.review_message);
+      // formData.append('review_star_rating', this.review_star_rating);
+      // formData.append('key', localStorage.getItem('current_user'));
         axios
         .post('/storeReview', 
         {
           review_title: this.form.review_title,
           review_message: this.form.review_message,
-          review_star_rating: this.form.review_star_rating
+          review_star_rating: this.form.review_star_rating,
+          store_id: this.$route.params.id
         })
         .then(res => {
+          // this.getSuggestions();
           console.log(res.data);
         })
         .catch(e => {

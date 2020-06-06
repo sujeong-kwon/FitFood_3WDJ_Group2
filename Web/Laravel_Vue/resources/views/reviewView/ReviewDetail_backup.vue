@@ -18,7 +18,7 @@
                 color="error"
                 @click="delSuggestion($route.params.id)"
               >
-                <v-icon left>clear</v-icon>
+                <v-icon left>clear</v-icon>삭제
               </v-btn>
             </v-list-item>
             <v-list-item>
@@ -30,7 +30,7 @@
                 color="success"
                 @click="dialog = true"
               >
-                <v-icon left>create</v-icon>
+                <v-icon left>create</v-icon>수정
               </v-btn>
             </v-list-item>
           </v-list>
@@ -74,64 +74,43 @@ import axios from "axios";
 
 export default {
    data() {
-
-     return {
-       item: {
-         review_title: "",
-         review_message: "",
-         user_id: 0
-       }
-     };
-    //  if(true){
-    //    axios.get('/showReview')
-    //    .then(res => {
-    //      this.review_title=res.data.review_title;
-    //      this.review_message=res.data.review_message;
-    //      this.user_id=res.data.user_id;
-    //    })
-    //    .catch(err => {
-    //      console.log(err);
-    //    })
-    //  }
-    // return {
-    //   review_title: null,
-    //   review_message: null,
-    //   user_id: null,
-    // };
+    return {
+      item: [],
+    };
   },
   //const review_id = this.$route.params.review_id
-  // created: function() {
-  //   axios.get("/showReview")
-  //     .then(res => {  // select * from reviews
-
-  //       // this.item = res.data.filter(
-  //       //   data.review_id == this.$route.params.id
-  //       // );
-
-  //       // this.item = res.data.filter((data) => data.review_id == this.$route.params.id);
-
-  //       this.review_title=res.data.review_title;
-  //       this.review_message=res.data.review_message;
-  //       this.user_id=res.data.user_id;
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     })
-  //   // this.getSuggestion(this.review_id);
-  // },
   created: function() {
-    axios
-      .get("/showReview") // select * from reviews;
-      .then(response => {
-        this.item = response.data.filter(
-          data => data.review_id == this.$route.params.review_id
-        )[0];
-        console.log(response);
+    axios.get("/showReview")
+      .then(res => {  // select * from reviews
+
+        // this.item = res.data.filter(
+        //   data.review_id == this.$route.params.id
+        // );
+
+        this.item = res.data.filter((data) => data.review_id == this.$route.params.id);
       })
-      .catch(e => {
-        console.log(e);
-        // this.loading = false;
-      });
-  }
+      .catch(err => {
+        console.log(err);
+      })
+    // this.getSuggestion(this.review_id);
+  },
+  // created: function() {
+  //   axios
+  //     .get("/static/reviews.json")
+  //     .then(response => {
+  //       this.item = response.data.reviews.filter(
+  //         data => data.id == this.$route.params.review_id
+  //       )[0];
+  //       console.log(response);
+  //     })
+  //     .catch(e => {
+  //       if (!e.response)
+  //         this.$store.commit("pop", {
+  //           msg: e.message,
+  //           color: "error"
+  //         });
+  //       this.loading = false;
+  //     });
+  // }
 };
 </script>
