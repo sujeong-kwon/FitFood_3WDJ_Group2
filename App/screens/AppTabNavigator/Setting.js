@@ -1,134 +1,59 @@
-import React , {useState,useCallback} from 'react';
-import {StyleSheet,
-    Text,
-    View,
-    SafeAreaView,
-    Image,
-    ScrollView,
-    Dimensions,
-    StatusBar,} from 'react-native';
+import React, { useState, useCallback } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Image,
+  ScrollView,
+  Dimensions,
+  StatusBar,
+  TouchableOpacity
+} from 'react-native';
 import firebase from 'firebase';
 
 import { Button } from 'react-native-elements';
 
-import { LinearGradient } from '../components/LinearGradient';
-import User from '../../assets/databases/User';
-import * as SQLite from 'expo-sqlite';
+import { Container, Header, Body, Content, List, ListItem, Icon } from 'native-base';
+
+import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation';
+import Like from './Like';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const IMAGE_SIZE = SCREEN_WIDTH - 80;
 
-class CustomButton extends React.Component {
-    constructor() {
-      super();
-  
-      this.state = {
-        selected: false,
-        name:null,
-        age:null,
-        email:null
-
-      };
-    }
-  
-    componentDidMount() {
-      const { selected } = this.props;
-  
-      this.setState({
-        selected,
-      });
-
-    }
-  
-    render() {
-      const { title } = this.props;
-      const { selected } = this.state;
-  
-      return (
-        <Button
-          title={title}
-          titleStyle={{ fontSize: 15, color: 'white'}}
-          buttonStyle={
-            selected
-              ? {
-                  backgroundColor: 'rgba(213, 100, 140, 1)',
-                  borderRadius: 100,
-                  width: 127,
-                }
-              : {
-                  borderWidth: 1,
-                  borderColor: 'white',
-                  borderRadius: 30,
-                  width: 127,
-                  backgroundColor: 'transparent',
-                }
-          }
-          containerStyle={{ marginRight: 10 }}
-          onPress={() => this.setState({ selected: !selected })}
-        />
-      );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user_name: null,
+      email: null,
+      name: null,
+      age: null,
+      weight: null,
+      height: null,
+      user_data: null,
+      gender: null,
     }
   }
 
-const db = SQLite.openDatabase('database.db');
-
-class Setting extends React.Component
-{
-    constructor(props) {
-        super(props);
-        this.state={
-            user_name: null,
-            email:null,
-            name:null,
-            age:null,
-            weight:null,
-            height:null,
-            user_data:null,
-            gender:null
-        }
-    }
-
-
-    componentDidMount() {
-        const email = firebase.auth().currentUser.email;
-        
-        db.transaction(tx=>
-          tx.executeSql("select * from users where email = ?", [email], (_, { rows }) =>
-          {
-          this.setState({
-            user_data:rows
-          })
-          this.setState({
-            name: this.state.user_data['_array'][0].name,
-            email: this.state.user_data['_array'][0].email,
-            age: this.state.user_data['_array'][0].age,
-            weight: this.state.user_data['_array'][0].weight,
-            height: this.state.user_data['_array'][0].height,
-            gender: this.state.user_data['_array'][0].gender
-          })
-        }
-      ));
-    }
-
-    render() {
-        return(
-            <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar barStyle="light-content" />
-        <View style={{ flex: 1, backgroundColor: 'rgba(47,44,60,1)' }}>
-          <View style={styles.statusBar} />
+  render() {
+    return (
+      <Container style={styles.container}>
+        <Header style={{ backgroundColor: "#1fa518" }}>
+          <Body style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontSize: 15, color: "white" }}>
+              설정</Text>
+          </Body>
+        </Header>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
           <ScrollView style={{ flex: 1 }}>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Image
-                source={{
-                  uri:
-                    'https://placeimg.com/200/100/animal'
-                }}
-                style={{
-                  width: IMAGE_SIZE,
-                  height: IMAGE_SIZE,
-                  borderRadius: 10,
-                }}
+                source={require("../../assets/user.png")}
+                style={{ width: 200, height: 200 }}
               />
             </View>
             <View
@@ -145,11 +70,13 @@ class Setting extends React.Component
                 style={{
                   flex: 1,
                   fontSize: 26,
-                  color: 'white',
+                  color: 'black',
+                  textAlign: 'center'
                 }}
               >
-                {this.state.name}
-              </Text>
+                {/* {this.state.name} */}
+                  tester
+                </Text>
             </View>
             <View
               style={{
@@ -160,158 +87,127 @@ class Setting extends React.Component
               }}
             >
             </View>
-            <View style={{ flex: 1, marginTop: 10 }}>
-              <Text
-                style={{
-                  flex: 1,
-                  fontSize: 15,
-                  color: 'rgba(216, 121, 112, 1)',
-                  marginLeft: 40,
-                }}
-              >
-                선호도
-              </Text>
-              <View style={{ flex: 1, width: SCREEN_WIDTH, marginTop: 10 }}>
-                <ScrollView
-                  style={{ flex: 1 }}
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                >
-                  <View
-                    style={{
-                      flex: 1,
-                      flexDirection: 'column',
-                      height: 60,
-                      marginLeft: 40,
-                      marginRight: 10,
-                    }}
-                  >
-                    <View style={{ flex: 1, flexDirection: 'row' }}>
-                      <CustomButton title="한식" />
-                      <CustomButton title="중식" />
-                      <CustomButton title="일식" />
-                      <CustomButton title="양식" />
-                    </View>
-                  </View>
-                </ScrollView>
-              </View>
-            </View>
-            <View style={{ flex: 1}}>
-              <Text
-                style={{
-                  flex: 1,
-                  fontSize: 15,
-                  color: 'rgba(216, 121, 112, 1)',
-                  marginLeft: 40,
-                }}
-              >
-                INFO
-              </Text>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  marginTop: 20,
-                  marginHorizontal: 30,
-                }}
-              >
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.infoTypeLabel}>age</Text>
-                    <Text style={styles.infoTypeLabel}>Weight</Text>
-                    <Text style={styles.infoTypeLabel}>Height</Text>
-                    <Text style={styles.infoTypeLabel}>Sign</Text>
-                  </View>
-                  <View style={{ flex: 1, marginLeft: 10 }}>
-                    <Text style={styles.infoAnswerLabel}>{this.state.age}</Text>
-                    <Text style={styles.infoAnswerLabel}>{this.state.weight}kg</Text>
-                    <Text style={styles.infoAnswerLabel}>{this.state.height}cm</Text>
-                    <Text style={styles.infoAnswerLabel}>Pisces</Text>
-                  </View>
-                </View>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.infoTypeLabel}>Body Type</Text>
-                    <Text style={styles.infoTypeLabel}>Diet</Text>
-                    <Text style={styles.infoTypeLabel}>Smoke</Text>
-                    <Text style={styles.infoTypeLabel}>Drink</Text>
-                  </View>
-                  <View style={{ flex: 1, marginLeft: 10, marginRight: -20 }}>
-                    <Text style={styles.infoAnswerLabel}>Fit</Text>
-                    <Text style={styles.infoAnswerLabel}>Vegan</Text>
-                    <Text style={styles.infoAnswerLabel}>No</Text>
-                    <Text style={styles.infoAnswerLabel}>No</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
+            <Content>
+              <List>
+                <ListItem >
+                  <Icon name="ios-heart" style={{ color: '#F57C00', paddingRight: 10, paddingBottom: 23 }} />
+                  <TouchableOpacity>
+                    <Text style={{ fontSize: 17 }}
+                      onPress={() => {
+                        this.props.navigation.navigate('Like');
+                      }}>선호도</Text>
+                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>한식</Text>
+                  </TouchableOpacity>
+                </ListItem>
+                <ListItem >
+                  <Body>
+                    <Text style={{ fontSize: 17 }}>나이</Text>
+                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>28</Text>
+                  </Body>
+                </ListItem>
+                <ListItem>
+                  <Body>
+                    <Text style={{ fontSize: 17 }}>성별</Text>
+                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>Male</Text>
+                  </Body>
+                </ListItem>
+                <ListItem>
+                  <Body>
+                    <Text style={{ fontSize: 17 }}>키</Text>
+                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>175</Text>
+                  </Body>
+                </ListItem>
+                <ListItem>
+                  <Body>
+                    <Text style={{ fontSize: 17 }}>몸무게</Text>
+                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>68</Text>
+                  </Body>
+                </ListItem>
+              </List>
+            </Content>
             <Button
               containerStyle={{ marginVertical: 20 }}
               style={{
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
+                paddingRight: 10,
+                paddingLeft: 10
               }}
               buttonStyle={{
-                height: 55,
-                width: SCREEN_WIDTH - 40,
-                borderRadius: 30,
+                height: 50,
                 justifyContent: 'center',
                 alignItems: 'center',
+                borderRadius: 30,
+                backgroundColor: '#F57C00'
               }}
-              linearGradientProps={{
-                colors: ['rgba(214,116,112,1)', 'rgba(233,174,87,1)'],
-                start: [1, 0],
-                end: [0.2, 0],
-              }}
-              ViewComponent={LinearGradient}
               title="로그아웃"
               titleStyle={{
                 fontSize: 20,
                 color: 'white',
                 textAlign: 'center',
               }}
-              onPress={() =>{firebase.auth().signOut()}}
+              onPress={() => {
+                firebase.auth().signOut();
+                console.log('로그아웃');
+                this.props.navigation.navigate('Login');
+              }}
               activeOpacity={0.5}
             />
           </ScrollView>
         </View>
-      </SafeAreaView>
-        );
-    }
+      </Container>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    statusBar: {
-        height: 10,
-    },
-    navBar: {
+  container: {
+    flex: 1,
+  },
+  statusBar: {
+    height: 10,
+  },
+  navBar: {
     height: 60,
     width: SCREEN_WIDTH,
     justifyContent: 'center',
     alignContent: 'center',
-    },
-    nameHeader: {
+  },
+  nameHeader: {
     color: 'white',
     fontSize: 22,
     textAlign: 'center',
-    },
-    infoTypeLabel: {
+  },
+  infoTypeLabel: {
     fontSize: 15,
     textAlign: 'right',
-    color: 'rgba(126,123,138,1)',
+    color: 'black',
     paddingBottom: 10,
-    },
-    infoAnswerLabel: {
+  },
+  infoAnswerLabel: {
     fontSize: 15,
-    color: 'white',
+    color: 'green',
     paddingBottom: 10,
-    }
+  }
 })
 
-export default Setting;
+const main = createStackNavigator({
+  //이동할 페이지들 리스트 
+  Like: { screen: Like },
+  Setting: {
+    screen: App, navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
+}, {
+  headerMode: "none",
+  initialRouteName: 'Setting',
+  navigationOptions: ({
+    headerVisible: false
+  })
+},
+);
+
+
+export default createAppContainer(main);
