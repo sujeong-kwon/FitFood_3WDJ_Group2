@@ -4,6 +4,7 @@
         <v-container 
         fluid grid-list-lg 
         class="my-1">
+        <h3 class="text-center">{{ new Date().getMonth()+1 }}월</h3>
         <v-layout 
             justify-center 
             fill-height 
@@ -233,6 +234,9 @@ export default {
         daysData() {
             axios.get('/graph_days').then(res=> {
                 // console.log(res);
+                if (res.data == "False") {
+                    window.location.href='/';
+                }
                 // console.log(res.data.calorie); 
                 // console.log('----------');
                 // console.log(datasets[1].data);

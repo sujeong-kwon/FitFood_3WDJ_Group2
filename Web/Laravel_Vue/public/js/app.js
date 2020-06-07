@@ -2938,6 +2938,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -3088,10 +3089,14 @@ var datasets = {
 
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/graph_days').then(function (res) {
         // console.log(res);
-        // console.log(res.data.calorie); 
+        if (res.data == "False") {
+          window.location.href = '/';
+        } // console.log(res.data.calorie); 
         // console.log('----------');
         // console.log(datasets[1].data);
         // console.log('----------');
+
+
         datasets[1].data = res.data.calorie;
         datasets[2].data = res.data.carbohydrate;
         datasets[3].data = res.data.protein;
@@ -3384,10 +3389,14 @@ var datasets = {
 
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/graph_months').then(function (res) {
         // console.log(res);
-        // console.log(res.data.calorie); 
+        if (res.data == "False") {
+          window.location.href = '/';
+        } // console.log(res.data.calorie); 
         // console.log('----------');
         // console.log(datasets[1].data);
         // console.log('----------');
+
+
         datasets[1].data = res.data.calorie;
         datasets[2].data = res.data.carbohydrate;
         datasets[3].data = res.data.protein;
@@ -44382,6 +44391,10 @@ var render = function() {
         "v-container",
         { staticClass: "my-1", attrs: { fluid: "", "grid-list-lg": "" } },
         [
+          _c("h3", { staticClass: "text-center" }, [
+            _vm._v(_vm._s(new Date().getMonth() + 1) + "월")
+          ]),
+          _vm._v(" "),
           _c(
             "v-layout",
             {

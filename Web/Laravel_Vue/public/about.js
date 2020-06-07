@@ -110,7 +110,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.state.isLoginDialog = false;
     },
     logout: function logout() {
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('logout').then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/logout').then(function (res) {
         localStorage.removeItem('current_user');
         console.log(JSON.stringify(res));
       })["catch"](function (err) {

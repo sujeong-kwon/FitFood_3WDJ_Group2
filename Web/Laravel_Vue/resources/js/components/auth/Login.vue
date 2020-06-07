@@ -103,7 +103,7 @@ export default {
     },
 
     logout() {
-      axios.get('logout')
+      axios.get('/logout')
       .then(res=>
       {
         localStorage.removeItem('current_user');

@@ -178,6 +178,9 @@ export default {
         daysData() {
             axios.get('/graph_months').then(res=> {
                 // console.log(res);
+                if (res.data == "False") {
+                    window.location.href='/';
+                }
                 // console.log(res.data.calorie); 
                 // console.log('----------');
                 // console.log(datasets[1].data);

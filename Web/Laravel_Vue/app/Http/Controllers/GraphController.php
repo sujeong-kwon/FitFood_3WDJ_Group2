@@ -40,12 +40,6 @@ class GraphController extends Controller
             $kamium = Array();
 
             for($i = 1; $i <= $month_length; $i++) {
-                $eaten_food = DB::select('select food_id from foodeatens where user_id = ? and date_format(eaten_start, ?) = ? and date_format(eaten_start, ?) = ? ', [$user_id, '%m', $month, '%d', $i]);
-                $eaten_food_list = count($eaten_food);
-                $eaten_food_a = Array();
-                for ($f = 0; $f < $eaten_food_list; $f++) {
-                    array_push($eaten_food_a, $eaten_food[$f]->food_id);
-                }
                 $sum_calorie = 0;
                 $sum_carbohydrate = 0;
                 $sum_protein = 0;
@@ -53,6 +47,25 @@ class GraphController extends Controller
                 $sum_salt = 0;
                 $sum_cholesterol = 0;
                 $sum_kamium = 0;
+                
+                $eaten_food = DB::select('select food_id from foodeatens where user_id = ? and date_format(eaten_start, ?) = ? and date_format(eaten_start, ?) = ? ', [$user_id, '%m', $month, '%d', $i]);
+                $eaten_food_list = count($eaten_food);
+                
+                if ($eaten_food_list == 0) {
+                    array_push($calorie, $sum_calorie);
+                    array_push($carbohydrate, $sum_carbohydrate);
+                    array_push($protein, $sum_protein);
+                    array_push($fat, $sum_fat);
+                    array_push($salt, $sum_salt);
+                    array_push($cholesterol, $sum_cholesterol);
+                    array_push($kamium, $sum_kamium);
+                    continue;
+                }
+                
+                $eaten_food_a = Array();
+                for ($f = 0; $f < $eaten_food_list; $f++) {
+                    array_push($eaten_food_a, $eaten_food[$f]->food_id);
+                }
                     
                 foreach ($eaten_food_a as $food_id) {
                     $eat_food_nutrient = DB::select('select nutrient_calorie, nutrient_carbohydrate, nutrient_protein, 
@@ -119,13 +132,6 @@ class GraphController extends Controller
             $kamium = Array();
 
             for($i = 1; $i <= 12; $i++) {
-
-                $eaten_food = DB::select('select food_id from foodeatens where user_id = ? and date_format(eaten_start, ?) = ? and date_format(eaten_start, ?) = ? ', [$user_id, '%Y', $year, '%m', $i]);
-                $eaten_food_list = count($eaten_food);
-                $eaten_food_a = Array();
-                for ($f = 0; $f < $eaten_food_list; $f++) {
-                    array_push($eaten_food_a, $eaten_food[$f]->food_id);
-                }
                 $sum_calorie = 0;
                 $sum_carbohydrate = 0;
                 $sum_protein = 0;
@@ -133,7 +139,26 @@ class GraphController extends Controller
                 $sum_salt = 0;
                 $sum_cholesterol = 0;
                 $sum_kamium = 0;
-                    
+
+                $eaten_food = DB::select('select food_id from foodeatens where user_id = ? and date_format(eaten_start, ?) = ? and date_format(eaten_start, ?) = ? ', [$user_id, '%Y', $year, '%m', $i]);
+                $eaten_food_list = count($eaten_food);
+
+                if ($eaten_food_list == 0) {
+                    array_push($calorie, $sum_calorie);
+                    array_push($carbohydrate, $sum_carbohydrate);
+                    array_push($protein, $sum_protein);
+                    array_push($fat, $sum_fat);
+                    array_push($salt, $sum_salt);
+                    array_push($cholesterol, $sum_cholesterol);
+                    array_push($kamium, $sum_kamium);
+                    continue;
+                }
+
+                $eaten_food_a = Array();
+                for ($f = 0; $f < $eaten_food_list; $f++) {
+                    array_push($eaten_food_a, $eaten_food[$f]->food_id);
+                }
+                
                 foreach ($eaten_food_a as $food_id) {
                     $eat_food_nutrient = DB::select('select nutrient_calorie, nutrient_carbohydrate, nutrient_protein, 
                     nutrient_fat, nutrient_salt, nutrient_cholesterol, nutrient_kamium from nutrients where food_id = ?', [$food_id]);
