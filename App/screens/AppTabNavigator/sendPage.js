@@ -1,6 +1,5 @@
 import React from 'react';
 import { StatusBar, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Eaten from '../../assets/databases/Eaten';
 import firebase from 'firebase';
 
 const style = StyleSheet.create({
@@ -23,10 +22,8 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            blob: null,
-            uri: null,
             data: null,
-            nutri: []
+            uri: null
         }
     }
 
@@ -40,52 +37,43 @@ class App extends React.Component {
     async uploadPhoto() {
 
         const formData = new FormData();
-
         const formData_ = new FormData();
-        // navigator.geolocation.getCurrentPosition(position=>{
-        //     console.log(position);
-        //     formData.append('latitude',position.coords.latitude);
-        //     formData.append('longitude',position.coords.longitude);
-        //     fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/get_store_id`,{ method: 'POST',body:formData})
-        //     .then(res=>res.text())
-        //     .then(res=>console.log(res));
-        // },
-        //   error => {
-        //     this.setState({
-        //       error:error
-        //     })
-        // }); 
-
-        formData_.append('resNum', 84);
-        formData_.append('img', this.state.data);
-        fetch(`http://localhost:5000/test`, { method: 'POST', body: formData_ })
-            .then((res) => res.text())
-            .then(res => {
-                const eatenData = new FormData();
-                eatenData.append('store_name', 84);
-                eatenData.append('user_email', firebase.auth().currentUser.email);
-                eatenData.append('food_name', '콩나물국밥');
-                fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/app_eaten`, { method: 'POST', body: eatenData })
+        navigator.geolocation.getCurrentPosition(position=>{
+            formData.append('Latitude',position.coords.longitude);
+            formData.append('Longitude',position.coords.latitude);
+            fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/gps`,{ method: 'POST',body:formData})
+            .then(res=>res.json())
+            .then(res=>{
+                let store_id = res[0].store_id;
+                formData_.append('resNum', store_id);
+                formData_.append('img', this.state.data);
+                fetch(`http://localhost:5000/test`, { method: 'POST', body: formData_ })
                     .then((res) => res.text())
                     .then(res => {
-                        console.log(res);
+                        const eatenData = new FormData();
+                        eatenData.append('store_name', store_id);
+                        eatenData.append('user_email', firebase.auth().currentUser.email);
+                        eatenData.append('food_name', '우동');
+                        // AWS로 한글 데이터 전송 시 한글 인식 실패 POSTMAN으로는 정상 작동
+                        alert("먹은 음식이 " + res + " 맞나요?");
+                        fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/app_eaten`, { method: 'POST', body: eatenData })
+                            .then((res) => res.text())
+                            .then(res => {
+                                console.log(res);
+                            })
+                            .catch((e) => console.log(e));
+                        this.props.navigation.navigate('HomeTab', { "food_name": res });
                     })
-                    .catch((e) => console.log(e));
-                alert("먹은 음식이", res, " 맞나요?");
-
-                this.update_calendar(res);
-
-                this.props.navigation.navigate('HomeTab', { "food_name": res });
+                    .catch((e) => console.log(e))
+            });
+        },
+          error => {
+            this.setState({
+              error:error
             })
-            .catch((e) => console.log(e))
-    }
+        }); 
 
-    update_calendar(food) {
-        const user_email = firebase.auth().currentUser.email;
-        const props = {
-            food_name: food,
-            user_email
-        };
+
     }
 
     render() {

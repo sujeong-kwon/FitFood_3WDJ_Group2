@@ -31,12 +31,17 @@ class App extends React.Component {
       user_name: null,
       email: null,
       name: null,
-      age: null,
+      aßge: null,
       weight: null,
       height: null,
       user_data: null,
       gender: null,
     }
+  }
+
+  componentDidMount() {
+    let user_email = firebase.auth().currentUser.email;
+
   }
 
   render() {
