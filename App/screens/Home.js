@@ -1,8 +1,8 @@
 import React from "react";
-import { StyleSheet,TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { withFirebaseHOC } from "../config/Firebase";
-import {createStackNavigator } from 'react-navigation-stack';
-import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import HomeTab from './AppTabNavigator/HomeTab';
 import List from './AppTabNavigator/List';
 import Setting from './AppTabNavigator/Setting';
@@ -12,28 +12,34 @@ import { Icon } from "native-base";
 
 const AppTabNavigator = createMaterialTopTabNavigator({
   HomeTab:
-  {screen:HomeTab},
+    { screen: HomeTab },
   Camera:
   {
-    screen:Camera,
-    navigationOptions:{
-      tabBarIcon: ({tintColor})=>(<Icon name='camera' style={{color:tintColor}}></Icon>)
+    screen: Camera,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => (<Icon name='camera' style={{ color: tintColor }}></Icon>)
     }
   },
   List:
-  {screen:List,
-    navigationOptions:{
-      tabBarIcon: ({tintColor})=>(<Icon name='ios-list' style={{color:tintColor}}></Icon>)
-    }},
+  {
+    screen: List,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => (<Icon name='ios-list' style={{ color: tintColor }}></Icon>)
+    }
+  },
   Calendar:
   {
-    screen:Calendar,
-    navigationOptions:{
-      tabBarIcon:({tintColor})=>(<Icon name='calendar' style={{color:tintColor}}></Icon>)}
+    screen: Calendar,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => (<Icon name='calendar' style={{ color: tintColor }}></Icon>)
+    }
   },
-  Setting:{screen:Setting,
-    navigationOptions:{
-      tabBarIcon:({tintColor})=>(<Icon name='person' style={{color:tintColor}}></Icon>)}},
+  Setting: {
+    screen: Setting,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => (<Icon name='person' style={{ color: tintColor }}></Icon>)
+    }
+  },
 }, {
   animationEnabled: true,
   swipeEnabled: true,
@@ -41,8 +47,11 @@ const AppTabNavigator = createMaterialTopTabNavigator({
   tabBarOptions: {
     style: {
       ...Platform.select({
-        ios:{
-          backgroundColor:'white',
+        ios: {
+          backgroundColor: 'white',
+        },
+        android: {
+          backgroundColor: 'green',
         }
       })
     },
@@ -58,7 +67,7 @@ const AppTabNavigator = createMaterialTopTabNavigator({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center"
   }
@@ -66,12 +75,13 @@ const styles = StyleSheet.create({
 
 const Home = createStackNavigator(
   {
-      TabNavigator: {
-          screen: AppTabNavigator,
-          navigationOptions: ({navigation}) => ({
-              title: 'FitFood',
-          }),
-      },
+    TabNavigator: {
+      screen: AppTabNavigator,
+      navigationOptions: ({ navigation }) => ({
+        title: 'FitFood',
+        //header: null
+      }),
+    },
   }
 );
 

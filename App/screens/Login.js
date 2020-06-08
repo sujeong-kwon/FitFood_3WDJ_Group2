@@ -51,6 +51,7 @@ function Login({ navigation, firebase }) {
       const response = await firebase.loginWithEmail(email, password);
 
       if (response.user) {
+        console.log(response.user);
         navigation.navigate("App");
       }
     } catch (error) {
@@ -63,22 +64,20 @@ function Login({ navigation, firebase }) {
   async function handleOnLogin(values) {
     const { email, password } = values;
     const formData = new FormData();
-    formData.append('user_email',email);
-    formData.append('user_password',password);
+    formData.append('user_email', email);
+    formData.append('user_password', password);
     fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/login`,
-    { 
-      method: 'POST',
-      body:formData
-    })
-    .then((res) => res.text())
-    .then(res => {
-      firebase_login(values);
-      console.log(res);
-    })
-    .catch((e) => console.log(e));
+      {
+        method: 'POST',
+        body: formData
+      })
+      .then((res) => res.text())
+      .then(res => {
+        firebase_login(values);
+      })
+      .catch((e) => console.log(e));
 
   }
-
   return (
     <SafeAreaView style={styles.container}>
       <HideWithKeyboard style={styles.logoContainer}>
@@ -101,47 +100,47 @@ function Login({ navigation, firebase }) {
           handleBlur,
           isSubmitting
         }) => (
-          <>
-            <FormInput
-              name="email"
-              value={values.email}
-              onChangeText={handleChange("email")}
-              placeholder="Enter email"
-              autoCapitalize="none"
-              iconName="ios-mail"
-              iconColor="#2C384A"
-              onBlur={handleBlur("email")}
-            />
-            <ErrorMessage errorValue={touched.email && errors.email} />
-            <FormInput
-              name="password"
-              value={values.password}
-              onChangeText={handleChange("password")}
-              placeholder="Enter password"
-              secureTextEntry={passwordVisibility}
-              iconName="ios-lock"
-              iconColor="#2C384A"
-              onBlur={handleBlur("password")}
-              rightIcon={
-                <TouchableOpacity onPress={handlePasswordVisibility}>
-                  <Ionicons name={rightIcon} size={28} color="grey" />
-                </TouchableOpacity>
-              }
-            />
-            <ErrorMessage errorValue={touched.password && errors.password} />
-            <View style={styles.buttonContainer}>
-              <FormButton
-                buttonType="outline"
-                onPress={handleSubmit}
-                title="LOGIN"
-                buttonColor="#039BE5"
-                disabled={!isValid || isSubmitting}
-                loading={isSubmitting}
+            <>
+              <FormInput
+                name="email"
+                value={values.email}
+                onChangeText={handleChange("email")}
+                placeholder="Enter email"
+                autoCapitalize="none"
+                iconName="ios-mail"
+                iconColor="#2C384A"
+                onBlur={handleBlur("email")}
               />
-            </View>
-            <ErrorMessage errorValue={errors.general} />
-          </>
-        )}
+              <ErrorMessage errorValue={touched.email && errors.email} />
+              <FormInput
+                name="password"
+                value={values.password}
+                onChangeText={handleChange("password")}
+                placeholder="Enter password"
+                secureTextEntry={passwordVisibility}
+                iconName="ios-lock"
+                iconColor="#2C384A"
+                onBlur={handleBlur("password")}
+                rightIcon={
+                  <TouchableOpacity onPress={handlePasswordVisibility}>
+                    <Ionicons name={rightIcon} size={28} color="grey" />
+                  </TouchableOpacity>
+                }
+              />
+              <ErrorMessage errorValue={touched.password && errors.password} />
+              <View style={styles.buttonContainer}>
+                <FormButton
+                  buttonType="outline"
+                  onPress={handleSubmit}
+                  title="LOGIN"
+                  buttonColor="#1fa518"
+                  disabled={!isValid || isSubmitting}
+                  loading={isSubmitting}
+                />
+              </View>
+              <ErrorMessage errorValue={errors.general} />
+            </>
+          )}
       </Formik>
       <Button
         title="Don't have an account? Sign Up"
@@ -155,7 +154,7 @@ function Login({ navigation, firebase }) {
         title="Forgot Password?"
         onPress={goToForgotPassword}
         titleStyle={{
-          color: "#039BE5"
+          color: "#1fa518"
         }}
         type="clear"
       />

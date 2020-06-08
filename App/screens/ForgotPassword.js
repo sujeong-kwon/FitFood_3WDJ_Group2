@@ -29,7 +29,7 @@ function ForgotPassword({ navigation, firebase }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Forgot Password?</Text>
+      <Text style={styles.text}>비밀번호를 잊으셨습니까?</Text>
       <Formik
         initialValues={{ email: "" }}
         onSubmit={(values, actions) => {
@@ -47,30 +47,30 @@ function ForgotPassword({ navigation, firebase }) {
           handleBlur,
           isSubmitting
         }) => (
-          <>
-            <FormInput
-              name="email"
-              value={values.email}
-              onChangeText={handleChange("email")}
-              placeholder="Enter email"
-              autoCapitalize="none"
-              iconName="ios-mail"
-              iconColor="#2C384A"
-              onBlur={handleBlur("email")}
-            />
-            <ErrorMessage errorValue={touched.email && errors.email} />
-            <View style={styles.buttonContainer}>
-              <FormButton
-                buttonType="outline"
-                onPress={handleSubmit}
-                title="Send Email"
-                buttonColor="#039BE5"
-                disabled={!isValid || isSubmitting}
+            <>
+              <FormInput
+                name="email"
+                value={values.email}
+                onChangeText={handleChange("email")}
+                placeholder="Enter email"
+                autoCapitalize="none"
+                iconName="ios-mail"
+                iconColor="#2C384A"
+                onBlur={handleBlur("email")}
               />
-            </View>
-            <ErrorMessage errorValue={errors.general} />
-          </>
-        )}
+              <ErrorMessage errorValue={touched.email && errors.email} />
+              <View style={styles.buttonContainer}>
+                <FormButton
+                  buttonType="outline"
+                  onPress={handleSubmit}
+                  title="Send Email"
+                  buttonColor="#1fa518"
+                  disabled={!isValid || isSubmitting}
+                />
+              </View>
+              <ErrorMessage errorValue={errors.general} />
+            </>
+          )}
       </Formik>
     </SafeAreaView>
   );

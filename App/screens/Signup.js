@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   ScrollView
 } from "react-native";
-import { Button, CheckBox } from "react-native-elements";
+import { Button, CheckBox, ButtonGroup, SegmentedControlIOS } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -16,6 +16,7 @@ import FormButton from "../components/FormButton";
 import ErrorMessage from "../components/ErrorMessage";
 import { withFirebaseHOC } from "../config/Firebase";
 import User from "../assets/databases/User";
+//import { Container, Content, Picker, H1, Radio } from 'native-base';
 
 const validationSchema = Yup.object().shape({
   displayName: Yup.string()
@@ -68,30 +69,18 @@ function Signup({ navigation, firebase }) {
     }
   }
 
-  function drop_table_user() {
-    User.dropTable();
-    console.log('테이블 초기화 성공');
-  }
-  
-  async function create_user(value) {
-    User.createTable();
 
-    const user = new User(value);
-    user.save();
-  }
-
-
-  async function firebase_user(values){
-    const { displayName, email, password, age ,height,weight } = values;
+  async function firebase_user(values) {
+    const { displayName, email, password, age, height, weight } = values;
     try {
       const response = await firebase.signupWithEmail(email, password)
       if (response.user.uid) {
         const { uid } = response.user;
         const userData = { email, displayName, uid };
-        await firebase.createNewUser(userData);    
-        }        
-        navigation.navigate("App");
-      } catch (error) {
+        await firebase.createNewUser(userData);
+      }
+      navigation.navigate("App");
+    } catch (error) {
       actions.setFieldError("general", error.message);
     } finally {
       actions.setSubmitting(false);
@@ -100,30 +89,35 @@ function Signup({ navigation, firebase }) {
 
   async function handleOnSignup(values, actions) {
 
-    const { displayName, email, password, age ,height,weight } = values;
+    const { displayName, email, password, age, height, weight } = values;
     const formData = new FormData();
-    formData.append('user_name',displayName);
-    formData.append('user_email',email);
-    formData.append('user_password',password);
-    formData.append('user_birthday','1996-09-24');
-    formData.append('user_height',height);
-    formData.append('user_weight',weight);
-    formData.append('user_gender','M');
+    formData.append('user_name', displayName);
+    formData.append('user_email', email);
+    formData.append('user_password', password);
+    formData.append('user_birthday', '1996-09-24');
+    formData.append('user_height', height);
+    formData.append('user_weight', weight);
+    formData.append('user_gender', 'M');
 
     fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/signup`,
-    { 
-      method: 'POST',
-      body:formData
-    })
-    .then((res) => res.text())
-    .then(res => {
-      const abc = {name:displayName,email:email,age:Number(age),height:Number(height),weight:Number(weight),gender:'M'};
-      create_user(abc);
-      firebase_user(values);
-      console.log(res);
-    })
-    .catch((e) => console.log(e));
-  }
+      {
+        method: 'POST',
+        body: formData
+      })
+      .then((res) => res.text())
+      .then(res => {
+        const abc = { name: displayName, email: email, age: Number(age), height: Number(height), weight: Number(weight), gender: 'M' };
+        create_user(abc);
+        firebase_user(values);
+        console.log(res);
+      })
+      .catch((e) => console.log(e));
+  };
+
+  //성별
+  const genderbuttons = ['Male', 'Female'];
+  const activebuttons = ['매우 활동적', '활동적', '평범', '비 활동적'];
+
   return (
     <KeyboardAvoidingView style={styles.container} enabled behavior="padding">
       <ScrollView>
@@ -134,8 +128,8 @@ function Signup({ navigation, firebase }) {
             password: "",
             confirmPassword: "",
             age: "",
-            height:"",
-            weight:'',
+            height: "",
+            weight: '',
             check: false
           }}
           onSubmit={(values, actions) => {
@@ -154,131 +148,150 @@ function Signup({ navigation, firebase }) {
             isSubmitting,
             setFieldValue
           }) => (
-            <>
-              <FormInput
-                name="name"
-                value={values.displayName}
-                onChangeText={handleChange("displayName")}
-                placeholder="Enter your full name"
-                iconName="md-person"
-                iconColor="#2C384A"
-                onBlur={handleBlur("displayName")}
-              />
-              <ErrorMessage errorValue={touched.displayName && errors.displayName} />
-              <FormInput
-                name="email"
-                value={values.email}
-                onChangeText={handleChange("email")}
-                placeholder="Enter email"
-                autoCapitalize="none"
-                iconName="ios-mail"
-                iconColor="#2C384A"
-                onBlur={handleBlur("email")}
-              />
-              <ErrorMessage errorValue={touched.email && errors.email} />
-              <FormInput
-                name="password"
-                value={values.password}
-                onChangeText={handleChange("password")}
-                placeholder="Enter password"
-                iconName="ios-lock"
-                iconColor="#2C384A"
-                onBlur={handleBlur("password")}
-                secureTextEntry={passwordVisibility}
-                rightIcon={
-                  <TouchableOpacity onPress={handlePasswordVisibility}>
-                    <Ionicons name={passwordIcon} size={28} color="grey" />
-                  </TouchableOpacity>
-                }
-              />
-              <ErrorMessage errorValue={touched.password && errors.password} />
-              <FormInput
-                name="password"
-                value={values.confirmPassword}
-                onChangeText={handleChange("confirmPassword")}
-                placeholder="Confirm password"
-                iconName="ios-lock"
-                iconColor="#2C384A"
-                onBlur={handleBlur("confirmPassword")}
-                secureTextEntry={confirmPasswordVisibility}
-                rightIcon={
-                  <TouchableOpacity onPress={handleConfirmPasswordVisibility}>
-                    <Ionicons
-                      name={confirmPasswordIcon}
-                      size={28}
-                      color="grey"
-                    />
-                  </TouchableOpacity>
-                }
-              />
-              <FormInput
-                name="age"
-                
-                value={values.age}
-                onChangeText={handleChange("age")}
-                placeholder="age"
-                onBlur={handleBlur("age")}
-                autoCapitalize="none"
-              />
-
-              <FormInput
-                name="height"
-                
-                value={values.height}
-                onChangeText={handleChange("height")}
-                placeholder="height"
-                onBlur={handleBlur("height")}
-                autoCapitalize="none"
-              />
-
-              <FormInput
-                name="weight"
-                
-                value={values.weight}
-                onChangeText={handleChange("weight")}
-                placeholder="weight"
-                onBlur={handleBlur("weight")}
-                autoCapitalize="none"
-              />
-              
-
-
-              <CheckBox
-                containerStyle={styles.checkBoxContainer}
-                checkedIcon="check-box"
-                iconType="material"
-                uncheckedIcon="check-box-outline-blank"
-                title="Agree to terms and conditions"
-                checkedTitle="You agreed to our terms and conditions"
-                checked={values.check}
-                onPress={() => setFieldValue("check", !values.check)}
-              />
-              <View style={styles.buttonContainer}>
-                <FormButton
-                  buttonType="outline"
-                  onPress={handleSubmit}
-                  title="SIGNUP"
-                  buttonColor="#F57C00"
-                  disabled={!isValid || isSubmitting}
-                  loading={isSubmitting}
+              <>
+                <Text style={{ fontSize: 40, color: "#1fa518", textAlign: 'center' }}>SIGN UP</Text>
+                <FormInput
+                  name="name"
+                  value={values.displayName}
+                  onChangeText={handleChange("displayName")}
+                  placeholder="Enter your full name"
+                  iconName="md-person"
+                  iconColor="#2C384A"
+                  onBlur={handleBlur("displayName")}
                 />
-              </View>
-              <ErrorMessage errorValue={errors.general} />
-            </>
-          )}
+                <ErrorMessage errorValue={touched.displayName && errors.displayName} />
+                <FormInput
+                  name="email"
+                  value={values.email}
+                  onChangeText={handleChange("email")}
+                  placeholder="Enter email"
+                  autoCapitalize="none"
+                  iconName="ios-mail"
+                  iconColor="#2C384A"
+                  onBlur={handleBlur("email")}
+                />
+                <ErrorMessage errorValue={touched.email && errors.email} />
+                <FormInput
+                  name="password"
+                  value={values.password}
+                  onChangeText={handleChange("password")}
+                  placeholder="Enter password"
+                  iconName="ios-lock"
+                  iconColor="#2C384A"
+                  onBlur={handleBlur("password")}
+                  secureTextEntry={passwordVisibility}
+                  rightIcon={
+                    <TouchableOpacity onPress={handlePasswordVisibility}>
+                      <Ionicons name={passwordIcon} size={28} color="grey" />
+                    </TouchableOpacity>
+                  }
+                />
+                <ErrorMessage errorValue={touched.password && errors.password} />
+                <FormInput
+                  name="password"
+                  value={values.confirmPassword}
+                  onChangeText={handleChange("confirmPassword")}
+                  placeholder="Confirm password"
+                  iconName="ios-lock"
+                  iconColor="#2C384A"
+                  onBlur={handleBlur("confirmPassword")}
+                  secureTextEntry={confirmPasswordVisibility}
+                  rightIcon={
+                    <TouchableOpacity onPress={handleConfirmPasswordVisibility}>
+                      <Ionicons
+                        name={confirmPasswordIcon}
+                        size={28}
+                        color="grey"
+                      />
+                    </TouchableOpacity>
+                  }
+                />
+                <FormInput
+                  name="age"
+
+                  value={values.age}
+                  onChangeText={handleChange("age")}
+                  placeholder="age"
+                  onBlur={handleBlur("age")}
+                  autoCapitalize="none"
+                />
+
+                <FormInput
+                  name="height"
+
+                  value={values.height}
+                  onChangeText={handleChange("height")}
+                  placeholder="height"
+                  onBlur={handleBlur("height")}
+                  autoCapitalize="none"
+                />
+
+                <FormInput
+                  name="weight"
+
+                  value={values.weight}
+                  onChangeText={handleChange("weight")}
+                  placeholder="weight"
+                  onBlur={handleBlur("weight")}
+                  autoCapitalize="none"
+                />
+
+                <View style={styles.genderbuttonGroup}>
+                  <Text style={{ fontSize: 15, color: "#1fa518", textAlign: 'center' }}>성별 선택</Text>
+                  <ButtonGroup
+                    buttons={genderbuttons}
+                    containerStyle={{ height: 70 }}
+                    selectedButtonStyle="#F57C00"
+                  />
+                </View>
+
+                <View style={styles.activebuttonGroup}>
+                  <Text style={{ fontSize: 15, color: "#1fa518", textAlign: 'center' }}>활동지수 선택</Text>
+                  <ButtonGroup
+                    buttons={activebuttons}
+                    containerStyle={{ height: 70 }}
+                    selectedButtonStyle="#F57C00"
+                  />
+                </View>
+
+                <CheckBox
+                  containerStyle={styles.checkBoxContainer}
+                  checkedIcon="check-box"
+                  iconType="material"
+                  uncheckedIcon="check-box-outline-blank"
+                  title="Agree to terms and conditions"
+                  checkedTitle="You agreed to our terms and conditions"
+                  checked={values.check}
+                  onPress={() => setFieldValue("check", !values.check)}
+                />
+
+                <View style={styles.buttonContainer}>
+                  <FormButton
+                    buttonType="outline"
+                    onPress={handleSubmit}
+                    title="SIGNUP"
+                    buttonColor="#F57C00"
+                    disabled={!isValid || isSubmitting}
+                    loading={isSubmitting}
+                  />
+                </View>
+                <ErrorMessage errorValue={errors.general} />
+              </>
+            )}
         </Formik>
         <Button
           title="Have an account? Login"
           onPress={goToLogin}
           titleStyle={{
-            color: "#039BE5"
+            color: "#1fa518"
           }}
           type="clear"
         />
-       </ScrollView>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -296,6 +309,12 @@ const styles = StyleSheet.create({
   checkBoxContainer: {
     backgroundColor: "#fff",
     borderColor: "#fff"
+  },
+  genderbuttonGroup: {
+    marginTop: 20
+  },
+  activebuttonGroup: {
+    marginTop: 10
   }
 });
 
