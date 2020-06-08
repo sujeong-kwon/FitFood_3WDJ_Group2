@@ -41,8 +41,8 @@ class HomeTab extends React.Component {
         const { navigation } = this.props;
         navigation.addListener('didFocus', () => {
             this.setState({
-                nut:[[],[],[],[],[],[]],
-                nut_2:[[],[],[],[]],
+                nut: [[], [], [], [], [], []],
+                nut_2: [[], [], [], []],
                 kcal: []
             })
             var year = 2020;
@@ -50,103 +50,102 @@ class HomeTab extends React.Component {
             var date;
             var month;
 
-            if(new Date().getMonth()+1 < 10) 
-                month='0' + (new Date().getMonth()+1);
-            else 
-                month= new Date().getMonth()+1;
+            if (new Date().getMonth() + 1 < 10)
+                month = '0' + (new Date().getMonth() + 1);
+            else
+                month = new Date().getMonth() + 1;
 
 
-            if(new Date().getDate()<10) 
-                date='0' + (new Date().getDate());
-            else 
-                date=new Date().getDate();
+            if (new Date().getDate() < 10)
+                date = '0' + (new Date().getDate());
+            else
+                date = new Date().getDate();
 
 
-            const selected_day = ''+year+'-'+month+'-'+date;
+            const selected_day = '' + year + '-' + month + '-' + date;
 
             const formData = new FormData();
-            formData.append('user_email','tester@tester.com');
-            formData.append('date',selected_day);
-            fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/eaten_data`,{
-                method:'POST',
-                body:formData
-            }).then(res=>res.json())
-            .then(
-                res=>{
-                    if(res.nutrients_list.length==0) {
-                        this.setState({
-                            count:0
-                        })
-                    } else {
-                        if(res.user_gender=='M')
-                        {
-                            for (let i = 0; i <res.nutrients_list.length; i++){
-
-                                if(i==0) {
-                                    this.state.nut[1].push(0);
-                                    this.state.nut[3].push(0);
-                                    this.state.nut[5].push(0); 
-                                    this.state.nut[1].push(0);
-                                    this.state.nut[3].push(0);
-                                    this.state.nut[5].push(0); 
-                                    this.state.nut[1].push(0);
-                                    this.state.nut[3].push(0);
-                                    this.state.nut[5].push(0);
-
-                                    this.state.nut[1].push(300);
-                                    this.state.nut[3].push(3500);
-                                    this.state.nut[5].push(1500);
-
-                                    this.state.nut_2[2].push(0);
-                                    this.state.nut_2[2].push(0);
-                                    this.state.nut_2[2].push(0);
-                                    this.state.nut_2[2].push(65);
-                                }
-
-                                this.state.nut[0].push(res.nutrients_list[i][0].nutrient_cholesterol);
-                                this.state.nut[2].push(res.nutrients_list[i][0].nutrient_kamium);
-                                this.state.nut[4].push(res.nutrients_list[i][0].nutrient_salt);
-
-                                this.state.nut_2[0].push(res.nutrients_list[i][0].nutrient_carbohydrate);
-                                this.state.nut_2[1].push(res.nutrients_list[i][0].nutrient_protein);
-                                this.state.nut_2[3].push(res.nutrients_list[i][0].nutrient_fat);
-
-                                this.state.kcal.push(res.nutrients_list[i][0].nutrient_carbohydrate*4);
-                                this.state.kcal.push(res.nutrients_list[i][0].nutrient_fat*9);
-                                this.state.kcal.push(res.nutrients_list[i][0].nutrient_protein*4);
-                            }
+            formData.append('user_email', 'tester@tester.com');
+            formData.append('date', selected_day);
+            fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/eaten_data`, {
+                method: 'POST',
+                body: formData
+            }).then(res => res.json())
+                .then(
+                    res => {
+                        if (res.nutrients_list.length == 0) {
+                            this.setState({
+                                count: 0
+                            })
                         } else {
-                            for (let i = 0; i <res.nutrients_list.length; i++){
+                            if (res.user_gender == 'M') {
+                                for (let i = 0; i < res.nutrients_list.length; i++) {
 
-                                if(i==0) {
-                                    this.state.nut[1].push(300);
-                                    this.state.nut[3].push(3500);
-                                    this.state.nut[5].push(1500);
+                                    if (i == 0) {
+                                        this.state.nut[1].push(0);
+                                        this.state.nut[3].push(0);
+                                        this.state.nut[5].push(0);
+                                        this.state.nut[1].push(0);
+                                        this.state.nut[3].push(0);
+                                        this.state.nut[5].push(0);
+                                        this.state.nut[1].push(0);
+                                        this.state.nut[3].push(0);
+                                        this.state.nut[5].push(0);
 
-                                    this.state.nut_2[2].push(55);
+                                        this.state.nut[1].push(300);
+                                        this.state.nut[3].push(3500);
+                                        this.state.nut[5].push(1500);
+
+                                        this.state.nut_2[2].push(0);
+                                        this.state.nut_2[2].push(0);
+                                        this.state.nut_2[2].push(0);
+                                        this.state.nut_2[2].push(65);
+                                    }
+
+                                    this.state.nut[0].push(res.nutrients_list[i][0].nutrient_cholesterol);
+                                    this.state.nut[2].push(res.nutrients_list[i][0].nutrient_kamium);
+                                    this.state.nut[4].push(res.nutrients_list[i][0].nutrient_salt);
+
+                                    this.state.nut_2[0].push(res.nutrients_list[i][0].nutrient_carbohydrate);
+                                    this.state.nut_2[1].push(res.nutrients_list[i][0].nutrient_protein);
+                                    this.state.nut_2[3].push(res.nutrients_list[i][0].nutrient_fat);
+
+                                    this.state.kcal.push(res.nutrients_list[i][0].nutrient_carbohydrate * 4);
+                                    this.state.kcal.push(res.nutrients_list[i][0].nutrient_fat * 9);
+                                    this.state.kcal.push(res.nutrients_list[i][0].nutrient_protein * 4);
+                                }
+                            } else {
+                                for (let i = 0; i < res.nutrients_list.length; i++) {
+
+                                    if (i == 0) {
+                                        this.state.nut[1].push(300);
+                                        this.state.nut[3].push(3500);
+                                        this.state.nut[5].push(1500);
+
+                                        this.state.nut_2[2].push(55);
+                                    }
+
+                                    this.state.nut[0].push(res.nutrients_list[i][0].nutrient_cholesterol);
+                                    this.state.nut[2].push(res.nutrients_list[i][0].nutrient_kamium);
+                                    this.state.nut[4].push(res.nutrients_list[i][0].nutrient_salt);
+
+                                    this.state.nut_2[0].push(res.nutrients_list[i][0].nutrient_carbohydrate);
+                                    this.state.nut_2[1].push(res.nutrients_list[i][0].nutrient_protein);
+                                    this.state.nut_2[3].push(res.nutrients_list[i][0].nutrient_fat);
+
+                                    this.state.kcal.push(res.nutrients_list[i][0].nutrient_carbohydrate * 4);
+                                    this.state.kcal.push(res.nutrients_list[i][0].nutrient_fat * 9);
+                                    this.state.kcal.push(res.nutrients_list[i][0].nutrient_protein * 4);
                                 }
 
-                                this.state.nut[0].push(res.nutrients_list[i][0].nutrient_cholesterol);
-                                this.state.nut[2].push(res.nutrients_list[i][0].nutrient_kamium);
-                                this.state.nut[4].push(res.nutrients_list[i][0].nutrient_salt);
-
-                                this.state.nut_2[0].push(res.nutrients_list[i][0].nutrient_carbohydrate);
-                                this.state.nut_2[1].push(res.nutrients_list[i][0].nutrient_protein);
-                                this.state.nut_2[3].push(res.nutrients_list[i][0].nutrient_fat);
-
-                                this.state.kcal.push(res.nutrients_list[i][0].nutrient_carbohydrate*4);
-                                this.state.kcal.push(res.nutrients_list[i][0].nutrient_fat*9);
-                                this.state.kcal.push(res.nutrients_list[i][0].nutrient_protein*4);
                             }
-
+                            this.setState({
+                                count: res.nutrients_list.length
+                            });
                         }
-                        this.setState({
-                            count:res.nutrients_list.length
-                        });
-                    }     
-                })
-                .catch(error=>console.error(error)); 
-        });  
+                    })
+                .catch(error => console.error(error));
+        });
 
         // 이 스크린에 focus 가 맞춰지면 무조건 안의 함수가 실행됨
         navigator.geolocation.getCurrentPosition(position => {
@@ -186,9 +185,26 @@ class HomeTab extends React.Component {
                     </Header>
                     <ScrollView style={{ backgroundColor: "#E6E6E6" }}>
                         <View style={{ flex: 1, backgroundColor: "white", marginTop: 20, marginLeft: 5, marginRight: 5 }}>
-                            <Text style={{ marginLeft: 13, marginTop: 20, fontWeight: "bold", fontSize: 20, color: "black" }}>
+                            <Text style={{ marginLeft: 13, marginTop: 20, fontWeight: "bold", fontSize: 20, color: "black", marginBottom: 20 }}>
                                 영양소
                             </Text>
+                            <Text style={{ fontSize: 13, color: "black", marginRight: 5, marginBottom: 5, textAlign: 'center' }}>
+                                탄단지 이상적 비율</Text>
+                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+
+                                <View style={{ width: 20, height: 20, backgroundColor: "#FF6E6E" }}>
+                                </View>
+                                <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
+                                    35%</Text>
+                                <View style={{ width: 20, height: 20, backgroundColor: "#0A6EFF" }}>
+                                </View>
+                                <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
+                                    35%</Text>
+                                <View style={{ width: 20, height: 20, backgroundColor: "#FFFA82" }}>
+                                </View>
+                                <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
+                                    30%</Text>
+                            </View>
                             <PieChart
                                 data={[
                                     {
