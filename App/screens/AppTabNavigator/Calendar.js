@@ -278,16 +278,12 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import firebase from 'firebase';
-import Eaten from '../../assets/databases/Eaten';
-import * as SQLite from 'expo-sqlite';
 import Dialog from 'react-native-dialog';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
 import { Container, Content, Icon, Thumbnail, Header, Left, Right, Body, Tab, Tabs, TabHeading } from 'native-base';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import CalendarDetail from './CalendarDetail';
-
 import {
     BarChart,
     LineChart,
@@ -296,8 +292,6 @@ import {
 
 const screenWidth = Dimensions.get("window").width;
 
-
-const db = SQLite.openDatabase('database.db');
 
 class App extends React.Component {
     constructor(props) {
@@ -557,8 +551,6 @@ const styles = StyleSheet.create({
 });
 
 const main = createStackNavigator({
-    //이동할 페이지들 리스트 
-    CalendarDetail: { screen: CalendarDetail },
     Calendar: {
         screen: App, navigationOptions: ({ navigation }) => ({
             header: null

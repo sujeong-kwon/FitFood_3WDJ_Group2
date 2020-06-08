@@ -31,7 +31,7 @@ class App extends React.Component {
       user_name: null,
       email: null,
       name: null,
-      aßge: null,
+      age: null,
       weight: null,
       height: null,
       user_data: null,
@@ -41,7 +41,23 @@ class App extends React.Component {
 
   componentDidMount() {
     let user_email = firebase.auth().currentUser.email;
-
+    let formData = new FormData();
+    formData.append('user_email',user_email);
+    fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/user`,{
+      method:'POST',
+      body: formData
+    })
+    .then(res=>res.json())
+    .then(res=>{
+      this.setState({
+        user_name: res[0].user_name,
+        age: res[0].user_birthday,
+        weight : res[0].user_weight,
+        height: res[0].user_height,
+        gender: res[0].user_gender
+      })
+    })
+    .catch(err=>console.error(err));
   }
 
   render() {
@@ -79,8 +95,7 @@ class App extends React.Component {
                   textAlign: 'center'
                 }}
               >
-                {/* {this.state.name} */}
-                  tester
+                {this.state.user_name}
                 </Text>
             </View>
             <View
@@ -107,25 +122,28 @@ class App extends React.Component {
                 <ListItem >
                   <Body>
                     <Text style={{ fontSize: 17 }}>나이</Text>
-                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>28</Text>
+                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>{this.state.age}</Text>
                   </Body>
                 </ListItem>
                 <ListItem>
                   <Body>
                     <Text style={{ fontSize: 17 }}>성별</Text>
-                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>Male</Text>
+                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>
+                      {this.state.gender=='M'
+                      ? 'Male' : 'Female'}
+                    </Text>
                   </Body>
                 </ListItem>
                 <ListItem>
                   <Body>
                     <Text style={{ fontSize: 17 }}>키</Text>
-                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>175</Text>
+                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>{this.state.height}</Text>
                   </Body>
                 </ListItem>
                 <ListItem>
                   <Body>
                     <Text style={{ fontSize: 17 }}>몸무게</Text>
-                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>68</Text>
+                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>{this.state.weight}</Text>
                   </Body>
                 </ListItem>
               </List>
