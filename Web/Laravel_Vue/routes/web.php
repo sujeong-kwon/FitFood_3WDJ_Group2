@@ -23,6 +23,11 @@ Route::get('/show/{key}','LoginController@show');
 Route::post('/signup','SignupController@signup');
 Route::get('/logout','LoginController@logout');
 
+// fitfood 앱 회원가입 
+Route::post('/singup_app', 'UserController@store');
+// fitfood 앱 로그인 요청
+Route::post('/login_app', 'UserController@check');
+
 Route::get('/showStore', 'StoreController@index');
 Route::post('/storeReview', 'ReviewController@store');
 Route::get('/showReview', 'ReviewController@index');

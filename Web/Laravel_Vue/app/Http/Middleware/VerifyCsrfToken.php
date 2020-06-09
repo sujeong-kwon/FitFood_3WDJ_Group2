@@ -12,10 +12,10 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        '/singup',
-        'http://ec2-52-72-52-75.compute-1.amazonaws.com/signup',
-        '/login',
-        'http://ec2-52-72-52-75.compute-1.amazonaws.com/login',
+        '/singup_app',
+        'http://ec2-52-72-52-75.compute-1.amazonaws.com/signup_app',
+        '/login_app',
+        'http://ec2-52-72-52-75.compute-1.amazonaws.com/login_app',
         '/app_eaten',
         'http://ec2-52-72-52-75.compute-1.amazonaws.com/app_eaten',
         '/eaten_data',
