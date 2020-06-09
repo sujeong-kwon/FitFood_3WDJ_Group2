@@ -299,14 +299,14 @@ class App extends React.Component {
         this.state = {
             day: {},
             list: null,
-            tableHead: ['', '음식', '가격', '식사 시간'],
+            tableHead: ['', '음식', '칼로리', '가격', '식사 시간'],
             tableTitle: ['아침', '점심', '저녁'],
             tableData: [1, 2, 4, 5],
             detailPage: false,
             data1: [1, 1, 1],
             data2: [1, 1, 1],
             data1_: [1, 1, 1],
-            data2_: [1, 1, 1],            
+            data2_: [1, 1, 1],
         }
     }
 
@@ -319,7 +319,7 @@ class App extends React.Component {
             tableData: []
         })
         const data = new FormData();
-        data.append('user_email',firebase.auth().currentUser.email);
+        data.append('user_email', firebase.auth().currentUser.email);
         data.append('date', day.dateString);
         fetch('http://ec2-52-72-52-75.compute-1.amazonaws.com/eaten_data',
             { method: 'POST', body: data }
@@ -379,7 +379,7 @@ class App extends React.Component {
     }
 
     render() {
-        if(!this.state.detailPage) {
+        if (!this.state.detailPage) {
             return (
                 <Container style={styles.container}>
                     <Header style={{ backgroundColor: "#1fa518" }}>
@@ -455,24 +455,31 @@ class App extends React.Component {
             return (
                 <Container style={styles.container}>
                     <Header style={{ backgroundColor: "#1fa518" }}>
-                        <Body style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <Left>
+                            <Icon name='md-arrow-back' style={{ color: 'white', paddingLeft: 10 }} onPress={() => console.log('back')}></Icon>
+                        </Left>
+                        <Body style={{ alignItems: 'center', justifyContent: 'center', paddingLeft: 80 }}>
                             <Text style={{ fontSize: 15, color: "white" }}>
                                 캘린더상세</Text>
                         </Body>
+                        <Right>
+                        </Right>
                     </Header>
                     <ScrollView>
                         <View style={styles.viewcontainer}>
-                            <Text style={{ fontSize: 20, paddingTop: 30, paddingBottom: 30 }}>2020/06/05</Text>
+                            <Text style={{ fontSize: 20, paddingTop: 30, paddingBottom: 30, textAlign: 'center' }}>2020/06/05</Text>
                             <View style={styles.tablecontainer}>
                                 <Table>
-                                    <Row data={state.tableHead} flexArr={[1, 2, 1, 1]} style={styles.head} textStyle={styles.text} />
+                                    <Row data={state.tableHead} flexArr={[1, 1, 1, 1]} style={styles.head} textStyle={styles.text} />
                                     <TableWrapper style={styles.wrapper}>
                                         <Col data={state.tableTitle} style={styles.title} heightArr={[28, 28]} textStyle={styles.text} />
-                                        <Rows data={state.tableData} flexArr={[2, 1, 1]} style={styles.row} textStyle={styles.text} />
+                                        <Rows data={state.tableData} flexArr={[1, 1, 1]} style={styles.row} textStyle={styles.text} />
                                     </TableWrapper>
                                 </Table>
                             </View>
-                            <Text style={{ fontSize: 16, paddingTop: 10, paddingBottom: 20, paddingRight: 250 }}>총 식비 : 30000원</Text>
+                            <Text style={{ fontSize: 16, paddingTop: 10, paddingBottom: 20, paddingRight: 250, paddingLeft: 15 }}>
+                                총 식비 : 30000원
+                            </Text>
                             <View style={{ flex: 1, flexDirection: 'row', marginTop: 10, alignItems: 'center', justifyContent: 'center' }}>
                                 <View style={{ width: 20, height: 20, backgroundColor: "#FF4646", marginLeft: 15 }}>
                                 </View>
@@ -530,7 +537,7 @@ class App extends React.Component {
                 </Container >
             );
         }
-        
+
     }
 }
 const styles = StyleSheet.create({
@@ -541,12 +548,10 @@ const styles = StyleSheet.create({
     row: { height: 28 },
     text: { textAlign: 'center' },
     tablecontainer: {
-        height: 50,
-        width: 400,
-        marginBottom: 90,
+        marginBottom: 10,
         paddingLeft: 10,
-        paddingRight: 10
-
+        paddingRight: 10,
+        //backgroundColor: 'red'
     }
 });
 
