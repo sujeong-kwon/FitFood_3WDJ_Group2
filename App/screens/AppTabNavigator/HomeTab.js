@@ -168,7 +168,7 @@ class HomeTab extends React.Component {
         if (this.state.count == 0) {
             return (
                 <View style={styles.maincontainer}>
-                    <Text style={{ marginTop: 50, marginLeft: 30, fontSize: 35, color: 'white' }}>사진을 찍고 {"\n"}건강한 식사를 {"\n"}시작하세요. </Text>
+                    <Text style={{ marginTop: 90, marginLeft: 30, fontSize: 35, color: 'white' }}>사진을 찍고 {"\n"}건강한 식사를 {"\n"}시작하세요. </Text>
                     <Image
                         style={{ marginTop: 50, width: 415, height: 300 }}
                         source={require('./main1.png')} />
@@ -189,21 +189,39 @@ class HomeTab extends React.Component {
                                 영양소
                             </Text>
                             <Text style={{ fontSize: 13, color: "black", marginRight: 5, marginBottom: 5, textAlign: 'center' }}>
-                                탄단지 이상적 비율</Text>
+                                탄단지 비율 비교</Text>
                             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
 
                                 <View style={{ width: 20, height: 20, backgroundColor: "#FF6E6E" }}>
                                 </View>
+                                <Text style={{ fontSize: 13, color: "#FF6E6E", marginLeft: 2 }}>
+                                    35</Text>
+                                <Text style={{ fontSize: 13, color: "black", marginRight: 2 }}>
+                                    %</Text>
+                                <Text style={{ fontSize: 13, color: "black", marginRight: 2, fontWeight: 'bold' }}>
+                                    /</Text>
                                 <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
-                                    35%</Text>
+                                    권장%</Text>
                                 <View style={{ width: 20, height: 20, backgroundColor: "#0A6EFF" }}>
                                 </View>
+                                <Text style={{ fontSize: 13, color: "#0A6EFF", marginLeft: 2 }}>
+                                    35</Text>
+                                <Text style={{ fontSize: 13, color: "black", marginRight: 2 }}>
+                                    %</Text>
+                                <Text style={{ fontSize: 13, color: "black", marginRight: 2, fontWeight: 'bold' }}>
+                                    /</Text>
                                 <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
-                                    35%</Text>
-                                <View style={{ width: 20, height: 20, backgroundColor: "#FFFA82" }}>
+                                    권장%</Text>
+                                <View style={{ width: 20, height: 20, backgroundColor: "#c56cf0" }}>
                                 </View>
+                                <Text style={{ fontSize: 13, color: "#c56cf0", marginLeft: 2 }}>
+                                    30</Text>
+                                <Text style={{ fontSize: 13, color: "black", marginRight: 2 }}>
+                                    %</Text>
+                                <Text style={{ fontSize: 13, color: "black", marginRight: 2, fontWeight: 'bold' }}>
+                                    /</Text>
                                 <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
-                                    30%</Text>
+                                    권장%</Text>
                             </View>
                             <PieChart
                                 data={[
@@ -224,7 +242,7 @@ class HomeTab extends React.Component {
                                     {
                                         name: '지방',
                                         ratio: 253,
-                                        color: '#FFFA82',
+                                        color: '#c56cf0',
                                         legendFontColor: '#7F7F7F',
                                         legendFontSize: 15,
                                     }
