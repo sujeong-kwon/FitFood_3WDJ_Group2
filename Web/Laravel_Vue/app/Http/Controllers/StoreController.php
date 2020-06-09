@@ -42,7 +42,11 @@ class StoreController extends Controller
         ]);
 
         // $store_id = DB::select('select MIN(store_id) from stores');
-        $store_id = DB::select('select MAX(store_id) from stores'); // 간헐적 에러발생(마크)
+        // $store_id = DB::select('select MAX(store_id) from stores'); // 간헐적 에러발생(마크)
+        $store_id = 1;
+
+        // $food_name = DB::select('select * from foods where food_name = ?', $request->items);    // 사용자가 입력한 메뉴이름을 테이블에서 찾음.
+                                                                        // 뭘로, 어디에 저장해야 하지? nutrient? foods? 근데 foods에 하면 지금 한거랑 같아서 의미가 없는데?
 
         // $food=\App\Food::create([
         //     // 'food_name' => $request->items->food_name,

@@ -1,5 +1,3 @@
-/* 회원가입 페이지 */
-
 <template>
     <v-layout justify-center>
         <v-flex xs12 sm12 md12 class="pa-5">
@@ -108,7 +106,7 @@
                             <v-layout row wrap justify-center style="margin-top:30px;">
                                 <v-flex xs12 sm8 md6>
                                     <v-btn
-                                        type="submit" form="check-register-form"
+                                        type="submit" @click="register"
                                         color="success" large block
                                         class="headline font-weight-bold mt-3">
                                         회원가입
@@ -123,6 +121,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {   
     name: 'signup',
@@ -149,7 +148,7 @@ export default {
             phone:'', //핸드폰
             gender: this.gender, //성별
             //gender:0, //성별
-            Height:'',//신장
+            Height:'',//신장, double형식인데 string으로 갔기때문에 여차하면 number형으로 바꿔주자
             HeightRules: [
             v => !!v || '신장을 입력해 주세요!',
             ],
@@ -169,7 +168,7 @@ export default {
     },
      methods: {
         register(){
-            axios.post('/signup',
+            axios.post('/signup',   // SignupController@signup
             {
                 user_name: this.name,
                 user_email: this.email,
@@ -177,7 +176,8 @@ export default {
                 user_birthday: this.date,
                 user_height: this.Height,
                 user_weight: this.Weight,
-                user_gender: this.gender
+                user_gender: this.gender,
+                user_activity_index: this.radio,
             })
             .then((res) => {
                 console.log(res);          
@@ -193,11 +193,11 @@ export default {
             this.$refs.menu.save(date)
         },
     },
-    methods: {
-      save (date) {
-        this.$refs.menu.save(date)
-      },
-    },
+    // methods: {
+    //   save (date) {
+    //     this.$refs.menu.save(date)
+    //   },
+    // },
     //핸드폰 숫자만 입력가능
     //  watch:{
     //         phone(){

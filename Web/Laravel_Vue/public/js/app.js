@@ -2347,133 +2347,132 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
+/* harmony default export */ __webpack_exports__["default"] = ({
   name: 'signup',
   data: function data() {
     var _this = this;
@@ -2509,7 +2508,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       //성별
       //gender:0, //성별
       Height: '',
-      //신장
+      //신장, double형식인데 string으로 갔기때문에 여차하면 number형으로 바꿔주자
       HeightRules: [function (v) {
         return !!v || '신장을 입력해 주세요!';
       }],
@@ -2536,14 +2535,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     register: function register() {
-      axios.post('/signup', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/signup', // SignupController@signup
+      {
         user_name: this.name,
         user_email: this.email,
         user_password: this.password,
         user_birthday: this.date,
         user_height: this.Height,
         user_weight: this.Weight,
-        user_gender: this.gender
+        user_gender: this.gender,
+        user_activity_index: this.radio
       }).then(function (res) {
         console.log(res);
         var key = res.data;
@@ -2556,12 +2557,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     save: function save(date) {
       this.$refs.menu.save(date);
     }
-  }
-}, "methods", {
-  save: function save(date) {
-    this.$refs.menu.save(date);
-  }
-}));
+  } // methods: {
+  //   save (date) {
+  //     this.$refs.menu.save(date)
+  //   },
+  // },
+  //핸드폰 숫자만 입력가능
+  //  watch:{
+  //         phone(){
+  //         return this.phone = this.phone.replace(/[^0-9]/g, '');
+  //                 }
+  //         },
+
+});
 
 /***/ }),
 
@@ -43935,11 +43943,11 @@ var render = function() {
                                 staticClass: "headline font-weight-bold mt-3",
                                 attrs: {
                                   type: "submit",
-                                  form: "check-register-form",
                                   color: "success",
                                   large: "",
                                   block: ""
-                                }
+                                },
+                                on: { click: _vm.register }
                               },
                               [
                                 _vm._v(
@@ -107129,8 +107137,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\teamP\FitFood_3WDJ_Group2\Web\Laravel_Vue\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\teamP\FitFood_3WDJ_Group2\Web\Laravel_Vue\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Sejin.B\Desktop\FitFood_3WDJ_Group2\Web\Laravel_Vue\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Sejin.B\Desktop\FitFood_3WDJ_Group2\Web\Laravel_Vue\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

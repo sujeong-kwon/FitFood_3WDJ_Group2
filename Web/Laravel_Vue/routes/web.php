@@ -20,7 +20,7 @@ Route::get('/', function () {
 Route::post('/check','LoginController@index');
 
 Route::get('/show/{key}','LoginController@show');
-Route::post('/signup','SignupController@index');
+Route::post('/signup','SignupController@signup');
 Route::get('/logout','LoginController@logout');
 
 Route::get('/showStore', 'StoreController@index');
