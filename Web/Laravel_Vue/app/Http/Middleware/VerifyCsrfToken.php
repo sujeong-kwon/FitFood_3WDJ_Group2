@@ -26,5 +26,7 @@ class VerifyCsrfToken extends Middleware
         'http://ec2-52-72-52-75.compute-1.amazonaws.com/get_store_id',
         '/gps',
         'http://ec2-52-72-52-75.compute-1.amazonaws.com/gps',
+        '/user',
+        'http://ec2-52-72-52-75.compute-1.amazonaws.com/user',
     ];
 }

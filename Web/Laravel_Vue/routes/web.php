@@ -41,9 +41,14 @@ Route::post('/get_store_id', 'StoreController@select_id');
 // 위도, 경도에 따른 가까운 가게 정보 반환
 Route::post('/gps', 'StoreController@select_gps');
 // 일별 영양섭취 데이터 반환
-Route::get('graph_days', 'GraphController@days');
+Route::get('/graph_days', 'GraphController@days');
 // 월별 영양섭취 데이터 반환
-Route::get('graph_months', 'GraphController@months');
+Route::get('/graph_months', 'GraphController@months');
+// email 받았을 시 유저 데이터 반환
+Route::post('/user', 'UserController@user_select');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/eaten_data', 'FoodeatenController@show');

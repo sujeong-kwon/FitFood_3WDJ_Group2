@@ -51,12 +51,14 @@ class FoodeatenController extends Controller
         $eat_user_gender_a = DB::table('users')->where('user_id', $eat_user_id)->pluck('user_gender');
         $eat_user_gender = $eat_user_gender_a[0];
         
-        $eat_food_id_json = DB::select('select food_id from foodeatens where user_id = ? and date_format(eaten_start, ?) = date(?)', [$eat_user_id, '%Y-%m-%d', $eaten_start_date]);
+        $eat_food_id_json = DB::select('select food_id, eaten_start from foodeatens where user_id = ? and date_format(eaten_start, ?) = date(?)', [$eat_user_id, '%Y-%m-%d', $eaten_start_date]);
         $json_list = count($eat_food_id_json);
         $eat_food_id_a = Array();
+        $eaten_start = Array();
         for ($i = 0; $i < $json_list; $i++)
         {
             array_push($eat_food_id_a, $eat_food_id_json[$i]->food_id);
+            array_push($eaten_start, $eat_food_id_json[$i]->eaten_start);
         }
         
         $eat_food_list = Array();
@@ -77,7 +79,7 @@ class FoodeatenController extends Controller
         }
 
 
-        $eaten_data = array('user_gender'=>$eat_user_gender, 'food_list'=>$eat_food_list, 'nutrients_list'=>$nutrients_list);
+        $eaten_data = array('user_gender'=>$eat_user_gender, 'food_list'=>$eat_food_list, 'eaten_start_list'=>$eaten_start, 'nutrients_list'=>$nutrients_list);
         $eaten_data_json = json_encode($eaten_data);
         
         return $eaten_data_json;
