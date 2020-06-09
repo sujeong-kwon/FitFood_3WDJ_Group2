@@ -31,12 +31,22 @@
             }}
           </v-chip>
         </template>
+        <template v-slot:item.actions> 
+          <v-chip>
+             <v-btn class="mx-0" @click="editItem(1)">
+                <v-icon color="teal">{{ icons.mdiPencil }}</v-icon>
+              </v-btn>
+              <v-btn icon class="mx-0" @click="deleteItem(1)">
+                <v-icon dark color="pink">{{ icons.mdiDelete }}</v-icon>
+              </v-btn>
+          </v-chip>
+        </template>
       </v-data-table>
     </v-card>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="headline orange--text">리뷰작성</span>
+          <span class="headline orange--text">{{ formTitle }}</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -73,6 +83,10 @@
 
 <script>
 import axios from "axios";
+import {
+    mdiPencil,
+    mdiDelete
+  } from '@mdi/js'
 
 export default {
   name: "review",
@@ -84,8 +98,13 @@ export default {
         review_message: "",
         review_star_rating: 0
       },
+       icons: {
+        mdiPencil,
+        mdiDelete
+      },
       updateMode: false,
       reviews: [],
+      editedIndex: -1,
       headers: [
         { text: "제목", value: "review_title", sortable: true },
         {
@@ -100,7 +119,10 @@ export default {
           sortable: true,
           width: 300,
           class: "hidden-sm-and-down"
-        }
+        },
+        { 
+          text: '액션',
+          value: 'actions', sortable: false }
       ],
       loading: false
     };
@@ -108,6 +130,13 @@ export default {
   created() {
     this.getSuggestions();
   },
+
+  computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? '리뷰 작성' : '리뷰 수정'
+      }
+    },
+
   methods: {
     rowClick(item) {
       this.$router.push({
@@ -118,9 +147,9 @@ export default {
     mdUp() {
       this.dialog = true;
       this.updateMode = false;
-      this.form.review_title = "";
-      this.form.review_message = "";
-      this.form.review_star_rating = 0;
+      // this.form.review_title = "";
+      // this.form.review_message = "";
+      // this.form.review_star_rating = 0;
     },
     getSuggestions() {
       if (this.loading) return;
@@ -166,8 +195,23 @@ export default {
       return new Date(
         parseInt(_id.substring(0, 8), 16) * 1000
       ).toLocaleString();
-    }
+    },
+    editItem(id){
+    console.log("에디트 실행");
+    this.editedIndex = 1
+    this.dialog=true
+    this.updateMode = true;
+  },
+    deleteItem(id) {
+    console.log("딜리트 실행");
+  },
+    close(){
+    this.dialog=false
   }
+  },
+  save () {
+       
+      }
 };
 </script>
 

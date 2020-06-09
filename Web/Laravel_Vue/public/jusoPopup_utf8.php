@@ -5,7 +5,8 @@
 <title>fitfood address</title>
 <?php
    $ADDR['inputYn'] = $_POST['inputYn'];
-   $ADDR['roadFullAddr'] = $_POST['roadFullAddr'];
+   $ADDR['roadAddrPart1'] = $_POST['roadAddrPart1'];
+   $ADDR['addrDetail'] = $_POST['addrDetail'];
    $ADDR['zipNo'] = $_POST['zipNo'];
 ?>
 </head>
@@ -13,7 +14,7 @@
 function init(){
    var url = location.href;
    // var url = 'http://localhost:8000/';
-   var confmKey = "devU01TX0FVVEgyMDIwMDYwMjIyNTkzNTEwOTgyNDQ=";
+   var confmKey = "devU01TX0FVVEgyMDIwMDYwODIzMjAxMjEwOTg0NTg=";
    var resultType = "2"; // 도로명주소 검색결과 화면 출력유형, 1 : 도로명, 2 : 도로명+지번
    // php.ini 에 short_open_tag 가 On 으로 설정되어 되어 있는 경우 아래 소스 코드 사용
    var inputYn= "<?=$ADDR['inputYn']?>";
@@ -22,16 +23,17 @@ function init(){
       document.form.confmKey.value = confmKey;
       document.form.returnUrl.value = url;
       document.form.resultType.value = resultType;
-      document.form.action="http://www.juso.go.kr/addrlink/addrEngUrl.do"; //인터넷망
+      document.form.action="http://www.juso.go.kr/addrlink/addrLinkUrl.do"; //인터넷망
       document.form.submit();
       }else{
-         jusoCallBack('<?=$ADDR['roadFullAddr']?>','<?= $ADDR['zipNo']?>');
+         jusoCallBack('<?=$ADDR['roadAddrPart1']?>','<?=$ADDR['addrDetail']?>','<?= $ADDR['zipNo']?>');
          window.close();
       }
    }
-   function jusoCallBack(roadFullAddr,zipNo){
-            opener.document.getElementById('roadFullAddr').value = roadFullAddr;
-            opener.document.getElementById('zipNo').value = zipNo;
+   function jusoCallBack(roadAddrPart1,addrDetail,zipNo){
+         opener.document.getElementById('roadAddrPart1').value = roadAddrPart1;
+         opener.document.getElementById('addrDetail').value = addrDetail;
+         opener.document.getElementById('zipNo').value = zipNo;
     }
    window.onload=init;
 </script>
