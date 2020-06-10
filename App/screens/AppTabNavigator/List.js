@@ -105,25 +105,15 @@ class List extends React.Component {
                         <Button style={style.button}><Text style={style.textO} onPress={this.showAlertYes.bind(this)}>네</Text></Button>
                         {/* 네 눌렀을 경우 다이얼로그 */}
                         <Dialog.Container visible={this.state.dialogVisible}>
-                            <Dialog.Title>메뉴를 입력해주세요.</Dialog.Title>
+                            <Dialog.Title>아침으로 무엇을 드셨나요?</Dialog.Title>
                             <Dialog.Input onChangeText={(value) => {
                                 this.setState({
                                     breakfast: value
                                 })
                             }} />
                             <View style={{ marginLeft: 10 }}>
-                                <Text style={{ fontWeight: "700", fontSize: 15, marginBottom: 5 }}>점심</Text>
+                                <Text style={{ fontSize: 15, marginBottom: 5 }}>점심은 어떻게 드실건가요?</Text>
                                 <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                                    {/* 라디오버튼 사용법
-                                    <TouchableOpacity
-                                        style={styles.radioCircle}
-                                        onPress={() => {
-                                            this.setState({
-                                                value: res.key,
-                                            });
-                                        }}>
-                                        {value === res.key && <View style={styles.selectedRb} />}
-                                    </TouchableOpacity> */}
                                     <TouchableOpacity
                                         style={styles.radioCircle}
                                         onPress={() => {
@@ -139,7 +129,7 @@ class List extends React.Component {
                                     </TouchableOpacity>
                                     <Text style={styles.radioText}>레시피</Text>
                                 </View>
-                                <Text style={{ fontWeight: "700", fontSize: 15, marginBottom: 5 }}>저녁</Text>
+                                <Text style={{ fontSize: 15, marginBottom: 5, marginTop: 10 }}>저녁은 어떻게 드실건가요?</Text>
                                 <View style={{ flexDirection: 'row', marginBottom: 5 }}>
                                     <TouchableOpacity
                                         style={styles.radioCircle}
