@@ -115,7 +115,7 @@
                             <v-card-text>
                                 <label for="file" class="input-plus">사진 추가</label>
                                 <!-- <input type="file" id ="file" class="inputfile" @click="upload()"> -->
-                                <input type="file" id ="file" class="inputfile" v-on:change="upload">
+                                <input type="file" multiple id ="file" class="inputfile" v-on:change="upload">
                                 <v-text-field
                                     type="input" label="메뉴 이름" v-model="food_name" required>
                                 </v-text-field>
@@ -153,7 +153,8 @@
                                 :key="item.name">
 
                                 <v-list-item-avatar>
-                                <v-img :src="item.img"></v-img>
+                                <!-- <v-img :src="item.img"></v-img> -->
+                                <v-img v-bind:src="item.img"></v-img>
                                 </v-list-item-avatar>
 
                                 <v-list-item-content>
@@ -217,7 +218,10 @@ export default {
             //     'img' : this.imgSrc,
             //     'name' : this.food_name,
             // } // 사진 추가 리스트
-            items: [],
+            items: {
+                img: '',
+                name: '',
+            },
         }     
     },
     methods:{
@@ -289,6 +293,7 @@ export default {
                 .catch(err => {
                     console.log(err);
                 })
+                // console.log(this.items);
             },
             upload(e){
                 let file = e.target.files;
@@ -301,20 +306,21 @@ export default {
                 }
             },
             // save_menu(){
-            //    this.dialog = false;
-            //    this.items = this.form.food_name;
-            // },
+            //     axios.post('/storeMenu',
+            //     {
+            //         img : this.imgSrc,
+            //         name: this.food_name,
+            //     })
+            //     .then(res => {
+            //         this.items = res.data;
+            //         this.dialog = false;
+            //         console.log(items);
+            //     })
+            // }
             save_menu(){
-                axios.post('/storeMenu',
-                {
-                    img : this.imgSrc,
-                    name: this.food_name,
-                })
-                .then(res => {
-                    this.items = res.data;
-                    this.dialog = false;
-                    // console.log(res);
-                })
+                this.items.name = this.food_name;
+                this.items.img = this.imgSrc;
+                this.dialog = false;
             }
     }
 }

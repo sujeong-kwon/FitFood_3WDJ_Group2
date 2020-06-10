@@ -34,6 +34,8 @@ Route::get('/showReview', 'ReviewController@index');
 
 Route::get('/recommendShow', 'RecommendController@index');
 Route::post('/saveStore', 'StoreController@store');
+
+// NewStore.vue script부분에서 자체구현 성공. 현재 안쓰이는 라우팅주소
 Route::post('/storeMenu', 'StoreController@storeMenu');
 
 // 음식이름, 이메일, 가게이름(번호) 받으면 foodeatens 테이블에 저장
