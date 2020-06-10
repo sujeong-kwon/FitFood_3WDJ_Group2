@@ -34,6 +34,7 @@ Route::get('/showReview', 'ReviewController@index');
 
 Route::get('/recommendShow', 'RecommendController@index');
 Route::post('/saveStore', 'StoreController@store');
+Route::post('/storeMenu', 'StoreController@storeMenu');
 
 // 음식이름, 이메일, 가게이름(번호) 받으면 foodeatens 테이블에 저장
 Route::post('/app_eaten', 'FoodeatenController@store');

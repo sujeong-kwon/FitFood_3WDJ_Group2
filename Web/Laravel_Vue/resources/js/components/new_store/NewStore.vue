@@ -113,9 +113,11 @@
                             <v-card-title class="green--text headline">메뉴 추가</v-card-title>
 
                             <v-card-text>
-                                <v-btn color="success">사진 추가</v-btn>
+                                <label for="file" class="input-plus">사진 추가</label>
+                                <!-- <input type="file" id ="file" class="inputfile" @click="upload()"> -->
+                                <input type="file" id ="file" class="inputfile" v-on:change="upload">
                                 <v-text-field
-                                    type="input" label="메뉴 이름" v-model="form.food_name" required>
+                                    type="input" label="메뉴 이름" v-model="food_name" required>
                                 </v-text-field>
                             </v-card-text>
 
@@ -205,11 +207,17 @@ export default {
             storetime:'',//가게 운영시간->빼고 작업
             stoestoretimertime:'', // 가게 운영 시간->빼고 작업
             storecomeouttime:'', //음식 나오는 시간->빼고 작업
-            form: {
-                food_name: "",
-                //food_image:
-            },
-            items:[] // 사진 추가 리스트
+            imgSrc : '',
+            food_name: '',
+            // form: {
+            //     food_name: "",
+            //     //food_image:
+            // },
+            // items:{
+            //     'img' : this.imgSrc,
+            //     'name' : this.food_name,
+            // } // 사진 추가 리스트
+            items: [],
         }     
     },
     methods:{
@@ -282,9 +290,31 @@ export default {
                     console.log(err);
                 })
             },
+            upload(e){
+                let file = e.target.files;
+                let reader = new FileReader();
+
+                reader.readAsDataURL(file[0]);
+                reader.onload = e => {
+                    // console.log(e.target.result);
+                    this.imgSrc = e.target.result;
+                }
+            },
+            // save_menu(){
+            //    this.dialog = false;
+            //    this.items = this.form.food_name;
+            // },
             save_menu(){
-               this.dialog = false;
-               this.items = this.form.food_name;
+                axios.post('/storeMenu',
+                {
+                    img : this.imgSrc,
+                    name: this.food_name,
+                })
+                .then(res => {
+                    this.items = res.data;
+                    this.dialog = false;
+                    // console.log(res);
+                })
             }
     }
 }

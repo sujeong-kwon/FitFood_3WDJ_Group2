@@ -118,4 +118,10 @@ class StoreController extends Controller
 
         return $store_data;
     }
+
+    public function storeMenu(Request $request){
+        $items = array("img" => $request->img, "name" => $request->name);
+
+        return $items;
+    }
 }
