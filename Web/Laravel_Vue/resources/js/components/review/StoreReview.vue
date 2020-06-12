@@ -96,7 +96,7 @@ export default {
       form: {
         review_title: "",
         review_message: "",
-        review_star_rating: 0
+        review_star_rating: 0,
       },
        icons: {
         mdiPencil,
