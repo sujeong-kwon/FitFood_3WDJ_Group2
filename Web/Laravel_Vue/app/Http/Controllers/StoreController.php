@@ -31,36 +31,33 @@ class StoreController extends Controller
 
         $store=\App\Store::create([
             'store_name' => $request->store_name,
-            // 'store_name' => '맛있어져라테스트',
             'store_address' => $request->store_address,
-            // 'store_address' => '맛있는미각의지역',
             'store_category' => $store_category,
-            // 'store_category' => '한식',
             'store_issuance_number' => $request->store_issuance_number,
-            // 'store_issuance_number' => 123123,
-            // 'store_model_route' => '', 이렇게 비워보고 fillable에 걸리면 주석해제
         ]);
 
-        // $store_id = DB::select('select MIN(store_id) from stores');
-        // $store_id = DB::select('select MAX(store_id) from stores'); // 간헐적 에러발생(마크)
-        $store_id = 1;
+        // $store_id = DB::select('select store_id from stores order by store_id desc limit 1');
+        $store_id = DB::table('stores')->max('store_id');
+        // $store_id = create()->id();  //☆
+        // // $store_id = DB::select('select MAX(store_id) from stores'); // 간헐적 에러발생(마크)
+        // $store_id = 1;
 
-        // $food_name = DB::select('select * from foods where food_name = ?', $request->items);    // 사용자가 입력한 메뉴이름을 테이블에서 찾음.
-                                                                        // 뭘로, 어디에 저장해야 하지? nutrient? foods? 근데 foods에 하면 지금 한거랑 같아서 의미가 없는데?
+        // // $food_name = DB::select('select * from foods where food_name = ?', $request->items);    // 사용자가 입력한 메뉴이름을 테이블에서 찾음.
+        //                                                                 // 뭘로, 어디에 저장해야 하지? nutrient? foods? 근데 foods에 하면 지금 한거랑 같아서 의미가 없는데?
 
-        // $food=\App\Food::create([
-        //     // 'food_name' => $request->items->food_name,
-        //     'food_name' => '맛있는테스트메뉴',
-        //     'store_id' => $store_id,
-        // ]);
+        // // $food=\App\Food::create([
+        // //     // 'food_name' => $request->items->food_name,
+        // //     'food_name' => '맛있는테스트메뉴',
+        // //     'store_id' => $store_id,
+        // // ]);
 
         $food = DB::table('foods')->insert([
-            'food_name' => $request->items,
-            // 'store_id' => $store_id,
+            'food_name' => $request->items->name,
             'store_id' => $store_id,
         ]);
 
         return "success";
+        // return $store_id;
     }
 
     public function show(Request $req)
@@ -117,5 +114,23 @@ class StoreController extends Controller
         $store_data = DB::select("select * from stores where store_gps_latitude = ? and store_gps_longitude = ?", [$select_gps_latitude, $select_gps_longitude]);
 
         return $store_data;
+    }
+
+    public function storeMenu(Request $request){
+        // NewStore.vue script부분에서 자체처리함. 안쓰이는 함수
+        // $items = array("img" => $request->img, "name" => $request->name);
+
+        // return $items;
+        return $request;
+    }
+
+    public function storeImg(Request $request){
+        // $uploadedFiles = $request->pics;
+
+        // foreach ($uploadedFiles as $file){
+        //     $file->store('dummy');  // 파일 저장
+        // }
+
+        return response(['status'=>'success'], 200);
     }
 }

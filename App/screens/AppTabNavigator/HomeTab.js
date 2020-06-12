@@ -183,12 +183,12 @@ class HomeTab extends React.Component {
                                 당일 섭취 영양소</Text>
                         </Body>
                     </Header>
-                    <ScrollView style={{ backgroundColor: "#E6E6E6" }}>
-                        <View style={{ flex: 1, backgroundColor: "white", marginTop: 20, marginLeft: 5, marginRight: 5 }}>
+                    <ScrollView style={{ backgroundColor: "#ecf0f1" }}>
+                        <View style={{ flex: 1, backgroundColor: "white", marginTop: 30, marginLeft: 5, marginRight: 5 }}>
                             <Text style={{ marginLeft: 13, marginTop: 20, fontWeight: "bold", fontSize: 20, color: "black", marginBottom: 20 }}>
-                                영양소
+                                탄단지 비율 비교 그래프
                             </Text>
-                            <Text style={{ fontSize: 13, color: "black", marginRight: 5, marginBottom: 5, textAlign: 'center' }}>
+                            <Text style={{ fontSize: 13, color: "#636e72", marginRight: 5, marginBottom: 5, textAlign: 'center' }}>
                                 탄단지 비율 비교</Text>
                             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
 
@@ -268,6 +268,11 @@ class HomeTab extends React.Component {
                                 paddingLeft="15"
                                 absolute //for the absolute number remove if you want percentage
                             />
+                        </View>
+                        <View style={{ flex: 1, backgroundColor: "white", marginTop: 40, marginLeft: 5, marginRight: 5, marginBottom: 5 }}>
+                            <Text style={{ marginLeft: 13, marginTop: 20, fontWeight: "bold", fontSize: 20, color: "black", marginBottom: 20 }}>
+                                기타 영양소 비교 그래프
+                            </Text>
                             <View style={{ flex: 1, flexDirection: 'row', marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
                                 <View style={{ width: 20, height: 20, backgroundColor: "#FA5858" }}>
                                     {/* <Text style={{ fontSize: 13, color: "white", textAlign: "center" }}>
@@ -315,13 +320,8 @@ class HomeTab extends React.Component {
                                 }}
                             />
                         </View>
-                        {/* <View style={{ flex: 1, backgroundColor: "white", marginTop: 40, marginLeft: 5, marginRight: 5, marginBottom: 40 }}>
-                            <Text style={{ marginLeft: 13, marginTop: 20, fontWeight: "bold", fontSize: 20, color: "black" }}>
-                                칼로리
-                        </Text>
-                        </View> */}
                         <View style={{ flex: 1, backgroundColor: "white", marginTop: 40, marginLeft: 5, marginRight: 5, marginBottom: 5 }}>
-                            <Text style={{ marginLeft: 13, marginTop: 20, fontWeight: "bold", fontSize: 20, color: "black" }}>
+                            <Text style={{ marginLeft: 13, marginTop: 20, fontWeight: "bold", fontSize: 20, color: "black", marginBottom: 10 }}>
                                 칼로리
                         </Text>
                             <ProgressCircle

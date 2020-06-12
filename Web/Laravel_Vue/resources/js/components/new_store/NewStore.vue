@@ -113,9 +113,12 @@
                             <v-card-title class="green--text headline">메뉴 추가</v-card-title>
 
                             <v-card-text>
-                                <v-btn color="success">사진 추가</v-btn>
+                                <label for="file" class="input-plus">사진 추가</label>
+                                <!-- <input type="file" id ="file" class="inputfile" @click="upload()"> -->
+                                <!-- <input type="file" multiple id ="input_imgs" v-on:change="handleImgFileSelect()"> -->
+                               <input id = "upload-file" type = "file" multiple class = "form-control" @change="fieldChange">
                                 <v-text-field
-                                    type="input" label="메뉴 이름" v-model="form.food_name" required>
+                                    id = "img-name" type="input" label="메뉴 이름" v-model="food_name" required>
                                 </v-text-field>
                             </v-card-text>
 
@@ -130,10 +133,15 @@
                                 CANCEL
                             </v-btn>
 
+                            <!-- <v-btn
+                                color="green darken-1"
+                                text
+                                @click="submitAction()"
+                            > -->
                             <v-btn
                                 color="green darken-1"
                                 text
-                                @click="save_menu"
+                                @click="uploadFile"
                             >
                                 SAVE
                             </v-btn>
@@ -151,7 +159,8 @@
                                 :key="item.name">
 
                                 <v-list-item-avatar>
-                                <v-img :src="item.img"></v-img>
+                                <!-- <v-img :src="item.img"></v-img> -->
+                                <v-img v-bind:src="item.img"></v-img>
                                 </v-list-item-avatar>
 
                                 <v-list-item-content>
@@ -205,11 +214,20 @@ export default {
             storetime:'',//가게 운영시간->빼고 작업
             stoestoretimertime:'', // 가게 운영 시간->빼고 작업
             storecomeouttime:'', //음식 나오는 시간->빼고 작업
-            form: {
-                food_name: "",
-                //food_image:
-            },
-            items:[] // 사진 추가 리스트
+            // imgs: [],   // 현재 선택된 이미지배열
+            attachments:[], // 이미지배열
+            form: new FormData,
+            menuInfo: [], // 이미지, 이름 모두 들어간 배열
+            food_name: '',
+            // form: {
+            //     food_name: "",
+            //     //food_image:
+            // },
+            // items: {
+            //     img: '',
+            //     name: '',
+            // },
+            items: [],
         }     
     },
     methods:{
@@ -266,25 +284,95 @@ export default {
             });    
             },
             register(){
-                axios.post('/saveStore',
-                {
-                    store_name: this.store_name,
-                    store_address: this.roadFullAddr,
-                    store_category: this.store_category,
-                    store_issuance_number: this.store_issuance_number,
-                    items: this.items,
-                })
-                .then(res => {
-                    console.log(res.data);
-                    // window.location.href='/';
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+                // axios.post('/saveStore',
+                // {
+                //     store_name: this.store_name,
+                //     store_address: this.roadFullAddr,
+                //     store_category: this.store_category,
+                //     store_issuance_number: this.store_issuance_number,
+                //     items: this.items,
+                // })
+                // .then(res => {
+                //     console.log(res.data);
+                //     // window.location.href='/';
+                // })
+                // .catch(err => {
+                //     console.log(err);
+                // })
+                console.log(this.items);
             },
-            save_menu(){
-               this.dialog = false;
-               this.items = this.form.food_name;
+            // handleImgFileSelect(e){
+            //     this.imgs = []; // 이벤트가 다시 작동되었을 시 현재 선택된 이미지 목록 배열 초기화
+
+            //     var files = e.target.files;
+            //     var filesArr = Array.prototype.slice.call(files);
+
+            //     filesArr.forEach(function(f){
+            //         if(!f.type.match("image.*")){
+            //             alert("이미지 파일만 등록가능합니다");
+            //             return;
+            //         }
+
+            //         this.imgs.push(f);
+
+            //         var reader = new FileReader();
+            //         reader.onload = e => {
+            //         console.log(e.target.result);
+            //     }
+
+            //         reader.readAsDataURL(f);
+            //     })
+            // },
+            fieldChange(e){
+                let selectedFiles = e.target.files; // 사용자 선택 파일
+
+                if(!selectedFiles.length){
+                    return false;
+                }
+
+                for(let i = 0; i<selectedFiles.length; i++){ // 선택된 파일 갯수만큼 반복
+                    this.attachments.push(selectedFiles[i]);
+                }
+
+                console.log(this.attachments);
+            },
+            // submitAction(){
+            //     var data = new FormData();
+
+            //     for(var i = 0, len = this.imgs.length; i < len; i++){
+            //         var name = this.food_name+i;
+            //         data.append(name, this.imgs[i]);
+            //     }
+            //     data.append("image_count", this.imgs.length);    // 서버로 이미지가 몇 개 전송되는가
+
+            //     axios.post('/storeMenu', {
+            //         data: data
+            //     })
+            //     .then(res => {
+            //         console.log(res);
+            //     })
+            // }
+            uploadFile(){
+                
+                for(let i = 0; i<this.attachments.length; i++){
+                    // this.form.append('pics[]', this.attachments[i]);
+                    var name = this.food_name;
+                    this.menuInfo.push(this.attachments[name, i]);
+                    this.form.append(name, this.attachments[i]);
+                }
+
+                const config = { headers: { 'Content-Type' : 'multipart/form-data' } };
+
+                axios.post('/upload', this.form, config)
+                    .then(response=> {
+                        console.log(response);
+                        document.getElementById('upload-file').value=[];    //초기화
+                        document.getElementById('img-name').value='';
+                        console.log(this.menuInfo);
+                    })
+                    .catch(response=> {
+
+                    });
             }
     }
 }

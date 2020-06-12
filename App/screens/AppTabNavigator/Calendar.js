@@ -275,8 +275,8 @@
 //   });
 // export default Calendars;
 
-import React from 'react';
-import { Button, StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import React, { Component } from 'react';
+import { Button, StyleSheet, Text, View, ScrollView, Dimensions, TextInput, Platform } from 'react-native';
 import firebase from 'firebase';
 import Dialog from 'react-native-dialog';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
@@ -285,10 +285,12 @@ import { Container, Content, Icon, Thumbnail, Header, Left, Right, Body, Tab, Ta
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import {
-    BarChart,
     LineChart,
-    StackedBarChart
+    PieChart
 } from "react-native-chart-kit";
+import Plan from './Plan';
+import DatePicker from 'react-native-datepicker'
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -307,6 +309,8 @@ class App extends React.Component {
             data2: [1, 1, 1],
             data1_: [1, 1, 1],
             data2_: [1, 1, 1],
+            dialog: false,
+            date: new Date()
         }
     }
 
@@ -378,7 +382,15 @@ class App extends React.Component {
 
     }
 
+    handleDelete() {
+        this.setState({
+            dialog: false,
+        })
+    }
+
     render() {
+        const { date } = this.state;
+
         if (!this.state.detailPage) {
             return (
                 <Container style={styles.container}>
@@ -442,9 +454,90 @@ class App extends React.Component {
                             </View>
                         </Tab>
                         <Tab heading={<TabHeading style={{ backgroundColor: '#1fa518' }}>
-                            <Text style={{ color: '#ffffff' }}>주간 계획 설정</Text>
+                            <Text style={{ color: '#ffffff' }}>주간 식단 설정</Text>
                         </TabHeading>}>
-                            <Text>주간 계획 설정 탭</Text>
+                            <Container style={style.container}>
+                                <Content>
+                                    <View style={{ marginBottom: 10, marginTop: 15 }}>
+                                        <Icon name='ios-add' style={{ color: 'black', paddingLeft: 380 }} onPress={() => {
+                                            this.setState({
+                                                dialog: true
+                                            });
+                                        }}>
+                                        </Icon>
+                                        <Dialog.Container visible={this.state.dialog}>
+                                            <Dialog.Title style={{ textAlign: 'center', fontWeight: 'bold' }}>Add</Dialog.Title>
+                                            <View style={{ justifyContent: 'center' }}>
+                                                <View style={{ justifyContent: 'center', marginBottom: 10 }}>
+                                                    <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>아침</Text>
+                                                    <TextInput
+                                                        style={{ height: 40 }}
+                                                        placeholder="아침을 입력하세요."
+                                                    />
+                                                </View>
+                                                <View style={{ justifyContent: 'center', marginBottom: 10 }}>
+                                                    <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>점심</Text>
+                                                    <TextInput
+                                                        style={{ height: 40 }}
+                                                        placeholder="점심을 입력하세요."
+                                                    />
+                                                </View>
+                                                <View style={{ justifyContent: 'center', marginBottom: 10 }}>
+                                                    <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>저녁</Text>
+                                                    <TextInput
+                                                        style={{ height: 40 }}
+                                                        placeholder="저녁을 입력하세요."
+                                                    />
+                                                </View>
+                                                <View style={{ justifyContent: 'center', marginBottom: 10 }}>
+                                                    <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>날짜</Text>
+                                                    <DatePicker
+                                                        style={{ width: 200 }}
+                                                        date={this.state.date}
+                                                        mode="date"
+                                                        placeholder="select date"
+                                                        format="YYYY-MM-DD"
+                                                        minDate="2020-06-01"
+                                                        maxDate="2021-06-01"
+                                                        confirmBtnText="Confirm"
+                                                        cancelBtnText="Cancel"
+                                                        customStyles={{
+                                                            dateIcon: {
+                                                                position: 'absolute',
+                                                                left: 0,
+                                                                top: 4,
+                                                                marginLeft: 0
+                                                            },
+                                                            dateInput: {
+                                                                marginLeft: 36
+                                                            }
+                                                            // ... You can check the source to find the other keys.
+                                                        }}
+                                                        onDateChange={(date) => { this.setState({ date: date }) }}
+                                                    />
+                                                    {/* <Button onPress={showDatepicker} title="Show date picker!" />
+                                                    <DateTimePicker
+                                                        value={date}
+                                                        mode='default'
+                                                        display='default'
+                                                        onChange={date => this.setState({ date })} /> */}
+                                                </View>
+                                            </View>
+                                            <Dialog.Button style={{ textAlign: 'center', height: 40, color: "black" }} label="저장" onPress={this.handleDelete.bind(this)} />
+                                            <Dialog.Button style={{ textAlign: 'center', height: 40, color: "black" }} label="취소" onPress={this.handleDelete.bind(this)} />
+                                        </Dialog.Container>
+                                    </View>
+                                    <View style={styles.card}>
+                                        <Plan />
+                                        <Plan />
+                                        <Plan />
+                                        <Plan />
+                                        <Plan />
+                                        <Plan />
+                                        <Plan />
+                                    </View>
+                                </Content>
+                            </Container>
                         </Tab>
                     </Tabs>
                 </Container>
@@ -458,80 +551,169 @@ class App extends React.Component {
                         <Left>
                             <Icon name='md-arrow-back' style={{ color: 'white', paddingLeft: 10 }} onPress={() => console.log('back')}></Icon>
                         </Left>
-                        <Body style={{ alignItems: 'center', justifyContent: 'center', paddingLeft: 80 }}>
+                        <Body style={{ alignItems: 'center', justifyContent: 'center', paddingLeft: 70 }}>
                             <Text style={{ fontSize: 15, color: "white" }}>
                                 캘린더상세</Text>
                         </Body>
                         <Right>
                         </Right>
                     </Header>
-                    <ScrollView>
+                    <ScrollView style={{ backgroundColor: "#1fa518" }}>
                         <View style={styles.viewcontainer}>
-                            <Text style={{ fontSize: 20, paddingTop: 30, paddingBottom: 30, textAlign: 'center' }}>2020/06/05</Text>
-                            <View style={styles.tablecontainer}>
-                                <Table>
-                                    <Row data={state.tableHead} flexArr={[1, 1, 1, 1]} style={styles.head} textStyle={styles.text} />
-                                    <TableWrapper style={styles.wrapper}>
-                                        <Col data={state.tableTitle} style={styles.title} heightArr={[28, 28]} textStyle={styles.text} />
-                                        <Rows data={state.tableData} flexArr={[1, 1, 1]} style={styles.row} textStyle={styles.text} />
-                                    </TableWrapper>
-                                </Table>
-                            </View>
-                            <Text style={{ fontSize: 16, paddingTop: 10, paddingBottom: 20, paddingRight: 250, paddingLeft: 15 }}>
-                                총 식비 : 30000원
+                            <Text style={{ fontSize: 20, paddingTop: 30, paddingBottom: 30, textAlign: 'center', color: 'white' }}>2020/06/05</Text>
+                            <View style={{ flex: 1, backgroundColor: "white", marginTop: 10, marginLeft: 5, marginRight: 5 }}>
+                                <Text style={{ fontWeight: 'bold', marginLeft: 13, fontSize: 17, paddingTop: 20, paddingBottom: 5, color: 'black' }}>오늘 섭취 목록</Text>
+                                <View style={styles.tablecontainer}>
+                                    <Table>
+                                        <Row data={state.tableHead} flexArr={[1, 1, 1, 1]} style={styles.head} textStyle={styles.text} />
+                                        <TableWrapper style={styles.wrapper}>
+                                            <Col data={state.tableTitle} style={styles.title} heightArr={[28, 28]} textStyle={styles.text} />
+                                            <Rows data={state.tableData} flexArr={[1, 1, 1]} style={styles.row} textStyle={styles.text} />
+                                        </TableWrapper>
+                                    </Table>
+                                </View>
+                                <Text style={{ fontSize: 16, paddingTop: 10, paddingBottom: 20, paddingRight: 250, paddingLeft: 15 }}>
+                                    총 식비 : 30000원
                             </Text>
-                            <View style={{ flex: 1, flexDirection: 'row', marginTop: 10, alignItems: 'center', justifyContent: 'center' }}>
-                                <View style={{ width: 20, height: 20, backgroundColor: "#FF4646", marginLeft: 15 }}>
-                                </View>
-                                <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
-                                    실제섭취량</Text>
-                                <View style={{ width: 20, height: 20, backgroundColor: "#1478CD" }}>
-                                </View>
-                                <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
-                                    권장섭취량</Text>
                             </View>
-                            <LineChart
-                                data={{
-                                    labels: [
-                                        '칼로리',
-                                        '탄수화물',
-                                        '단백질',
-                                        '지방',
-                                        '콜레스트롤',
-                                        '칼륨',
-                                        '염분'
-                                    ],
-                                    datasets: [
+                            <View style={{ flex: 1, backgroundColor: "white", marginTop: 30, marginLeft: 5, marginRight: 5 }}>
+                                <Text style={{ fontWeight: 'bold', marginLeft: 13, fontSize: 17, paddingTop: 20, paddingBottom: 5, color: 'black' }}>영양소 비교 그래프</Text>
+                                <View style={{ flex: 1, flexDirection: 'row', marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
+                                    <View style={{ width: 20, height: 20, backgroundColor: "#FF4646", marginLeft: 15 }}>
+                                    </View>
+                                    <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
+                                        실제섭취량</Text>
+                                    <View style={{ width: 20, height: 20, backgroundColor: "#1478CD" }}>
+                                    </View>
+                                    <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
+                                        권장섭취량</Text>
+                                </View>
+                                <LineChart
+                                    data={{
+                                        labels: [
+                                            '칼로리',
+                                            '탄수화물',
+                                            '단백질',
+                                            '지방',
+                                            '콜레스트롤',
+                                            '칼륨',
+                                            '염분'
+                                        ],
+                                        datasets: [
+                                            {
+                                                data: [20, 45, 28, 80, 99, 43, 40],
+                                                //strokeWidth: 2,
+                                                color: () => '#FF4646'
+                                            },
+                                            {
+                                                data: [25, 35, 38, 40, 59, 63, 30],
+                                                color: () => '#1478CD'
+                                            }
+                                        ],
+                                    }}
+                                    width={Dimensions.get('window').width - 16} // from react-native
+                                    height={220}
+                                    //yAxisLabel={'Rs'}
+                                    chartConfig={{
+                                        backgroundGradientFrom: "#1E2923",
+                                        backgroundGradientFromOpacity: 0,
+                                        backgroundGradientTo: "#08130D",
+                                        backgroundGradientToOpacity: 0.1,
+                                        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                        strokeWidth: 2, // optional, default 3
+                                        barPercentage: 0.5,
+                                        useShadowColorFromDataset: true, // optional
+                                    }}
+                                    bezier
+                                    style={{
+                                        marginVertical: 8,
+                                        borderRadius: 16,
+                                    }}
+                                />
+                            </View>
+                            <View style={{ flex: 1, backgroundColor: "white", marginTop: 30, marginLeft: 5, marginRight: 5, marginBottom: 10 }}>
+                                <Text style={{ fontWeight: 'bold', marginLeft: 13, fontSize: 17, paddingTop: 20, paddingBottom: 10, color: 'black' }}>탄단지 비율 비교 그래프</Text>
+                                <Text style={{ fontSize: 13, color: "black", marginRight: 5, marginBottom: 5, textAlign: 'center' }}>
+                                    탄단지 비율 비교</Text>
+                                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+
+                                    <View style={{ width: 20, height: 20, backgroundColor: "#FF6E6E" }}>
+                                    </View>
+                                    <Text style={{ fontSize: 13, color: "#FF6E6E", marginLeft: 2 }}>
+                                        35</Text>
+                                    <Text style={{ fontSize: 13, color: "black", marginRight: 2 }}>
+                                        %</Text>
+                                    <Text style={{ fontSize: 13, color: "black", marginRight: 2, fontWeight: 'bold' }}>
+                                        /</Text>
+                                    <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
+                                        권장%</Text>
+                                    <View style={{ width: 20, height: 20, backgroundColor: "#0A6EFF" }}>
+                                    </View>
+                                    <Text style={{ fontSize: 13, color: "#0A6EFF", marginLeft: 2 }}>
+                                        35</Text>
+                                    <Text style={{ fontSize: 13, color: "black", marginRight: 2 }}>
+                                        %</Text>
+                                    <Text style={{ fontSize: 13, color: "black", marginRight: 2, fontWeight: 'bold' }}>
+                                        /</Text>
+                                    <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
+                                        권장%</Text>
+                                    <View style={{ width: 20, height: 20, backgroundColor: "#c56cf0" }}>
+                                    </View>
+                                    <Text style={{ fontSize: 13, color: "#c56cf0", marginLeft: 2 }}>
+                                        30</Text>
+                                    <Text style={{ fontSize: 13, color: "black", marginRight: 2 }}>
+                                        %</Text>
+                                    <Text style={{ fontSize: 13, color: "black", marginRight: 2, fontWeight: 'bold' }}>
+                                        /</Text>
+                                    <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
+                                        권장%</Text>
+                                </View>
+                                <PieChart
+                                    data={[
                                         {
-                                            data: [20, 45, 28, 80, 99, 43, 40],
-                                            //strokeWidth: 2,
-                                            color: () => '#FF4646'
+                                            name: '탄수화물',
+                                            ratio: 215,
+                                            color: '#FF6E6E',
+                                            legendFontColor: '#7F7F7F',
+                                            legendFontSize: 15,
                                         },
                                         {
-                                            data: [25, 35, 38, 40, 59, 63, 30],
-                                            color: () => '#1478CD'
+                                            name: '단백질',
+                                            ratio: 280,
+                                            color: '#0A6EFF',
+                                            legendFontColor: '#7F7F7F',
+                                            legendFontSize: 15,
+                                        },
+                                        {
+                                            name: '지방',
+                                            ratio: 253,
+                                            color: '#c56cf0',
+                                            legendFontColor: '#7F7F7F',
+                                            legendFontSize: 15,
                                         }
-                                    ],
-                                }}
-                                width={Dimensions.get('window').width - 16} // from react-native
-                                height={220}
-                                //yAxisLabel={'Rs'}
-                                chartConfig={{
-                                    backgroundGradientFrom: "#1E2923",
-                                    backgroundGradientFromOpacity: 0,
-                                    backgroundGradientTo: "#08130D",
-                                    backgroundGradientToOpacity: 0.1,
-                                    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                                    strokeWidth: 2, // optional, default 3
-                                    barPercentage: 0.5,
-                                    useShadowColorFromDataset: true, // optional
-                                }}
-                                bezier
-                                style={{
-                                    marginVertical: 8,
-                                    borderRadius: 16,
-                                }}
-                            />
+                                    ]}
+                                    width={Dimensions.get('window').width - 16}
+                                    height={220}
+                                    chartConfig={{
+                                        backgroundColor: '#1cc910',
+                                        backgroundGradientFrom: '#eff3ff',
+                                        backgroundGradientTo: '#efefef',
+                                        decimalPlaces: 2,
+                                        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                        style: {
+                                            borderRadius: 16,
+                                        },
+                                    }}
+                                    style={{
+                                        marginVertical: 8,
+                                        borderRadius: 16,
+                                    }}
+                                    accessor="ratio"
+                                    backgroundColor="transparent"
+                                    paddingLeft="15"
+                                    absolute //for the absolute number remove if you want percentage
+                                />
+                            </View>
                         </View>
                     </ScrollView>
                 </Container >
@@ -541,7 +723,7 @@ class App extends React.Component {
     }
 }
 const styles = StyleSheet.create({
-    container: { flex: 1, },
+    container: { flex: 1 },
     head: { height: 40, backgroundColor: '#FFDBC1' },
     wrapper: { flexDirection: 'row' },
     title: { flex: 1, backgroundColor: '#FFF0F0' },
@@ -551,7 +733,23 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         paddingLeft: 10,
         paddingRight: 10,
-        //backgroundColor: 'red'
+        paddingTop: 20
+    },
+    card: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 10,
+        backgroundColor: '#ecf0f1',
+        paddingRight: 20,
+        paddingLeft: 20
+    },
+});
+
+const style = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#ecf0f1'
     }
 });
 
