@@ -31,12 +31,12 @@
             }}
           </v-chip>
         </template>
-        <template v-slot:item.actions> 
+        <template v-slot:item.review_id="{item}"> 
           <v-chip>
-             <v-btn class="mx-0" @click="editItem(item)">
+             <v-btn class="mx-0" @click="editItem(item.review_id)">
                 <v-icon color="teal">{{ icons.mdiPencil }}</v-icon>
               </v-btn>
-              <v-btn icon class="mx-0" @click="deleteItem(item)">
+              <v-btn icon class="mx-0" @click="deleteItem(item.review_id)">
                 <v-icon dark color="pink">{{ icons.mdiDelete }}</v-icon>
               </v-btn>
           </v-chip>
@@ -46,7 +46,7 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="headline orange--text">{{ formTitle }}</span>
+          <span class="headline orange--text">리뷰 작성</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -73,8 +73,44 @@
         </v-card-text>
         <v-card-actions>
           <div class="flex-grow-1"></div>
-          <v-btn color="orange darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn color="orange darken-1" text @click="postSuggestion">Save</v-btn>
+          <v-btn color="orange darken-1" text @click="close()">Close</v-btn>
+          <v-btn color="orange darken-1" text @click="postSuggestion()">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+        <v-dialog v-model="edit_dialog" persistent max-width="600px">
+      <v-card>
+        <v-card-title>
+          <span class="headline orange--text">리뷰 수정</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field label="제목" v-model="edit_form.review_title" required></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-textarea label="내용" v-model="edit_form.review_message" required></v-textarea>
+              </v-col>
+              <v-col cols="12" sm="6" md="4">
+                <v-rating
+                  v-model="edit_form.review_star_rating"
+                  color="yellow darken-3"
+                  background-color="grey darken-1"
+                  empty-icon="$vuetify.icons.ratingFull"
+                  half-increments
+                  hover
+                ></v-rating>
+              </v-col>
+            </v-row>
+          </v-container>
+          <small>부적절한 내용은 처벌의 대상이 될 수 있습니다.</small>
+        </v-card-text>
+        <v-card-actions>
+          <div class="flex-grow-1"></div>
+          <v-btn color="orange darken-1" text @click="close()">Close</v-btn>
+          <v-btn color="orange darken-1" text @click="edit_postSuggestion()">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -93,7 +129,14 @@ export default {
   data() {
     return {
       dialog: false,
+      edit_dialog:false,
       form: {
+        review_title: "",
+        review_message: "",
+        review_star_rating: 0,
+      },
+      edit_form: {
+        review_id:0, //수정할 아이디값
         review_title: "",
         review_message: "",
         review_star_rating: 0,
@@ -122,7 +165,7 @@ export default {
         },
         { 
           text: '액션',
-          value: 'actions', sortable: false }
+          value: 'review_id', sortable: false }
       ],
       loading: false
     };
@@ -131,11 +174,11 @@ export default {
     this.getSuggestions();
   },
 
-  computed: {
-      formTitle () {
-        return this.editedIndex ? '리뷰 수정' : '리뷰 작성'
-      }
-    },
+  // computed: {
+  //     formTitle () {
+  //       return this.editedIndex ? '리뷰 수정' : '리뷰 작성'
+  //     }
+  //   },
 
   methods: {
     rowClick(item) {
@@ -145,13 +188,10 @@ export default {
       });
     },
     mdUp() {
-      this.editedIndex = false;
+      // this.editedIndex = false;
       this.dialog = true;
-      this.editedIndex = -1;
+      // this.editedIndex = -1;
       this.updateMode = false;
-      // this.form.review_title = "";
-      // this.form.review_message = "";
-      // this.form.review_star_rating = 0;
     },
     getSuggestions() {
       if (this.loading) return;
@@ -161,8 +201,8 @@ export default {
         .then(response => {
           this.reviews = response.data;
           this.loading = false;
-          console.log(this.reviews);
-          console.log(response);
+          console.log("리뷰",this.reviews);
+          // console.log(response);
         })
         .catch(e => {
           console.log(e);
@@ -183,12 +223,17 @@ export default {
         })
         .then(res => {
           // this.getSuggestions();
-          console.log(res.data);
+          console.log("스토어리뷰",res.data);
         })
         .catch(e => {
           console.log(e);
         });
     },
+
+    edit_postSuggestion() {
+      console.log("수정 아이디값",this.edit_form.review_id) // 여기서 수정 요청
+    },
+
     id2date(_id) {
       if (!_id) return "잘못된 시간 정보";
       return new Date(
@@ -197,8 +242,10 @@ export default {
     },
     editItem(id){
     console.log("에디트 실행");
-    this.editedIndex = true;
-    this.dialog=true;
+    // this.editedIndex = true;
+    this.edit_form.review_id = id;
+    // console.log("수정 아이디값", this.edit_form.review_id);
+    this.edit_dialog=true;
     this.updateMode = true;
     
     axios.post('/updateReview', {
@@ -220,11 +267,15 @@ export default {
   },
     close(){
     this.dialog=false
+    this.edit_dialog=false
+    this.form.review_title = "";
+    this.form.review_message = "";
+    this.form.review_star_rating = 0;
+    this.edit_form.review_title = "";
+    this.edit_form.review_message = "";
+    this.edit_form.review_star_rating = 0;
   }
   },
-  save () {
-       
-      }
 };
 </script>
 
