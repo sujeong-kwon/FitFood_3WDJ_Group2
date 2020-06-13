@@ -96,7 +96,7 @@ export default {
       form: {
         review_title: "",
         review_message: "",
-        review_star_rating: 0
+        review_star_rating: 0,
       },
        icons: {
         mdiPencil,
@@ -104,7 +104,7 @@ export default {
       },
       updateMode: false,
       reviews: [],
-      editedIndex: -1,
+      editedIndex: false,
       headers: [
         { text: "제목", value: "review_title", sortable: true },
         {
@@ -133,7 +133,7 @@ export default {
 
   computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '리뷰 작성' : '리뷰 수정'
+        return this.editedIndex ? '리뷰 수정' : '리뷰 작성'
       }
     },
 
@@ -145,6 +145,7 @@ export default {
       });
     },
     mdUp() {
+      this.editedIndex = false;
       this.dialog = true;
       this.editedIndex = -1;
       this.updateMode = false;
@@ -196,8 +197,8 @@ export default {
     },
     editItem(id){
     console.log("에디트 실행");
-    this.editedIndex = 1
-    this.dialog=true
+    this.editedIndex = true;
+    this.dialog=true;
     this.updateMode = true;
     
     // axios.post('/updateReview/'+id, {

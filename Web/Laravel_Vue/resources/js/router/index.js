@@ -6,7 +6,7 @@ import Graph from "../../views/graphView/Graph.vue";
 import MonthChart from "../components/graph/MonthChart.vue";
 import DayChart from "../components/graph/DayChart.vue";
 
-import Recommend from "../components/Recommend/Recommend.vue";
+// import Recommend from "../components/Recommend/Recommend.vue";
 import FootRecommend from '../components/foot_recommend/FootRecommend';
 import RecommendMain from '../../views/RecommendMain.vue'
 
@@ -73,11 +73,12 @@ const routes = [
     path: "/recommendmain",
     name: "RecommendMain",
     component: RecommendMain,
-    children: [{
-        path: "recommend",
-        name: "Recommend",
-        component: Recommend
-    },
+    children: [
+    // {
+    //     path: "recommend",
+    //     name: "Recommend",
+    //     component: Recommend
+    // },
     {
         path: "footrecommend",
         name: "FootRecommend",
