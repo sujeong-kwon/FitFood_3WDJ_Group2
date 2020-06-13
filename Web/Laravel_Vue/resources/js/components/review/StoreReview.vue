@@ -33,10 +33,10 @@
         </template>
         <template v-slot:item.actions> 
           <v-chip>
-             <v-btn class="mx-0" @click="editItem(1)">
+             <v-btn class="mx-0" @click="editItem(review_id)">
                 <v-icon color="teal">{{ icons.mdiPencil }}</v-icon>
               </v-btn>
-              <v-btn icon class="mx-0" @click="deleteItem(1)">
+              <v-btn icon class="mx-0" @click="deleteItem(review_id)">
                 <v-icon dark color="pink">{{ icons.mdiDelete }}</v-icon>
               </v-btn>
           </v-chip>
@@ -146,6 +146,7 @@ export default {
     },
     mdUp() {
       this.dialog = true;
+      this.editedIndex = -1;
       this.updateMode = false;
       // this.form.review_title = "";
       // this.form.review_message = "";
@@ -155,11 +156,12 @@ export default {
       if (this.loading) return;
       this.loading = true;
       axios
-        .get("/showReview")
+        .get("/showReview/"+this.$route.params.id)
         .then(response => {
           this.reviews = response.data;
           this.loading = false;
           console.log(this.reviews);
+          console.log(response);
         })
         .catch(e => {
           console.log(e);
@@ -167,13 +169,9 @@ export default {
         });
     },
     postSuggestion() {
-      // db에 입력된 양식을 저장하는 이벤트를 등록한 함수
+
       this.dialog = false;
-      // let formData = new FormData();
-      // formData.append('review_title', this.review_title);
-      // formData.append('review_message', this.review_message);
-      // formData.append('review_star_rating', this.review_star_rating);
-      // formData.append('key', localStorage.getItem('current_user'));
+
         axios
         .post('/storeReview', 
         {
@@ -201,6 +199,19 @@ export default {
     this.editedIndex = 1
     this.dialog=true
     this.updateMode = true;
+    
+    // axios.post('/updateReview/'+id, {
+    //   review_title: this.form.review_title,
+    //   review_message: this.form.review_message,
+    //   review_star_rating: this.form.review_star_rating,
+    //   store_id: this.$route.params.id
+    // })
+    // .then(response => {
+
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // })
   },
     deleteItem(id) {
     console.log("딜리트 실행");

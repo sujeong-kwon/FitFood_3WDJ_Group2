@@ -155,12 +155,12 @@
                     <v-flex xs12 sm8 md6>
                         <v-list >
                             <v-list-item
-                                v-for="item in items"
+                                v-for="item in menuInfo"
                                 :key="item.name">
 
                                 <v-list-item-avatar>
                                 <!-- <v-img :src="item.img"></v-img> -->
-                                <v-img v-bind:src="item.img"></v-img>
+                                <v-img v-bind:src="item.attachments"></v-img>
                                 </v-list-item-avatar>
 
                                 <v-list-item-content>
@@ -284,22 +284,22 @@ export default {
             });    
             },
             register(){
-                // axios.post('/saveStore',
-                // {
-                //     store_name: this.store_name,
-                //     store_address: this.roadFullAddr,
-                //     store_category: this.store_category,
-                //     store_issuance_number: this.store_issuance_number,
-                //     items: this.items,
-                // })
-                // .then(res => {
-                //     console.log(res.data);
-                //     // window.location.href='/';
-                // })
-                // .catch(err => {
-                //     console.log(err);
-                // })
-                console.log(this.items);
+                axios.post('/saveStore',
+                {
+                    store_name: this.store_name,
+                    store_address: this.roadAddrPart1,
+                    store_category: this.store_category,
+                    store_issuance_number: this.store_issuance_number,
+                    menuInfo: this.menuInfo,
+                })
+                .then(res => {
+                    console.log(res.data);
+                    // window.location.href='/';
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+                // console.log(this.items);
             },
             // handleImgFileSelect(e){
             //     this.imgs = []; // 이벤트가 다시 작동되었을 시 현재 선택된 이미지 목록 배열 초기화
@@ -353,11 +353,14 @@ export default {
             //     })
             // }
             uploadFile(){
-                
+                var name = this.food_name;
+                this.menuInfo.push(name);
+
                 for(let i = 0; i<this.attachments.length; i++){
                     // this.form.append('pics[]', this.attachments[i]);
-                    var name = this.food_name;
-                    this.menuInfo.push(this.attachments[name, i]);
+                    // var name = this.food_name;
+                    // this.menuInfo.push(name, this.attachments[i]);
+                    this.menuInfo.push(this.attachments[i]);
                     this.form.append(name, this.attachments[i]);
                 }
 

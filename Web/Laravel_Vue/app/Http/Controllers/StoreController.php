@@ -36,25 +36,19 @@ class StoreController extends Controller
             'store_issuance_number' => $request->store_issuance_number,
         ]);
 
-        // $store_id = DB::select('select store_id from stores order by store_id desc limit 1');
-        $store_id = DB::table('stores')->max('store_id');
-        // $store_id = create()->id();  //☆
-        // // $store_id = DB::select('select MAX(store_id) from stores'); // 간헐적 에러발생(마크)
-        // $store_id = 1;
-
-        // // $food_name = DB::select('select * from foods where food_name = ?', $request->items);    // 사용자가 입력한 메뉴이름을 테이블에서 찾음.
-        //                                                                 // 뭘로, 어디에 저장해야 하지? nutrient? foods? 근데 foods에 하면 지금 한거랑 같아서 의미가 없는데?
-
-        // // $food=\App\Food::create([
-        // //     // 'food_name' => $request->items->food_name,
-        // //     'food_name' => '맛있는테스트메뉴',
-        // //     'store_id' => $store_id,
-        // // ]);
+        // $store_id = $store->value('store_id')->last();
+        $store_id = DB::select('select store_id from stores where store_id = (select max(store_id) from stores)');
 
         $food = DB::table('foods')->insert([
-            'food_name' => $request->items->name,
-            'store_id' => $store_id,
+            'food_name' => $request->menuInfo[0],
+            'store_id' => $store_id,    // 임시값
         ]);
+
+        // $where_food_id = DB::select('select food_id from foods where food_id(select max(food_id) from foods)');
+
+        // $insert_store_id = DB::table('foods')
+        //     ->where('food_id', $where_food_id)
+        //     ->update(['store_id' => $store_id]);
 
         return "success";
         // return $store_id;
