@@ -57,7 +57,19 @@ class ReviewController extends Controller
             'review_title' => $request->review_title,
             'review_message' => $request->review_message,
             'review_star_rating' => $request->review_star_rating,
+            'review_id' => $review_id
             ]);
+
+        return "success";
+    }
+
+    public function delete(Request $request)
+    {
+        $delete_review_id = $request->review_id;
+
+        $delete_review = DB::table('reviews')
+                            ->where('review_id', $delete_review_id)
+                            ->delete();
 
         return "success";
     }
