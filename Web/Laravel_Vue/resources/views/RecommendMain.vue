@@ -49,7 +49,14 @@
                         </div>
 
                         <div v-else class="d-flex flex-wrap" xs1 sm3 md6 style="justify-content:center; margin-top:30px;">   
-                            <h1>아침 레시피 수정중</h1>
+                            <div v-for="(recommend,i) in recommends" v-bind:key="`${i}-${recommend.id}`">
+                                <v-card v-for="(recommend2,i) in recommend" v-bind:key="`${i}-${recommend2.id}`">
+                                        <router-link rounded :to="{ name: 'Detailed',params : {id: recommend2.id}}">
+                                        <v-img height="300px" :src="recommend2.image"></v-img>
+                                        </router-link>
+                                        <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">{{recommend2.recommend_name}}</v-card-text>
+                                </v-card>
+                            </div>
                         </div>
                         </v-flex>
 
@@ -78,7 +85,14 @@
                             </v-layout>
                         </div>
                         <div v-else>
-                            <h1>점심 레시피 수정중</h1>
+                            <div v-for="(recommend,i) in recommends" v-bind:key="`${i}-${recommend.id}`">
+                                <v-card v-for="(recommend2,i) in recommend" v-bind:key="`${i}-${recommend2.id}`">
+                                        <router-link rounded :to="{ name: 'Detailed',params : {id: recommend2.id}}">
+                                        <v-img height="300px" :src="recommend2.image"></v-img>
+                                        </router-link>
+                                        <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">{{recommend2.recommend_name}}</v-card-text>
+                                </v-card>
+                            </div>
                         </div>
                         </v-flex>
 
@@ -98,7 +112,7 @@
                                         <v-card v-for="(recommend,i) in recommends" v-bind:key="`${i}-${recommend.store_id}`"
                                             style="margin-top: 80px; height: 300px; width:400px; margin-right:25px; margin-left:25px;">
                                             <router-link rounded :to="{ name: 'Detailed',params : {id: recommend.store_id}}">
-                                            <!-- <v-img height="300px" :src="recommend.store_image"></v-img> -->
+                                            <v-img height="300px" :src="recommend.store_image"></v-img>
                                             </router-link>
                                             <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">{{recommend.store_name}}</v-card-text>
                                         </v-card>
@@ -107,7 +121,14 @@
                             </v-layout>
                         </div>
                         <div v-else>
-                            <h1>저녁 레시피 수정중</h1>
+                            <div v-for="(recommend,i) in recommends" v-bind:key="`${i}-${recommend.id}`">
+                                <v-card v-for="(recommend2,i) in recommend" v-bind:key="`${i}-${recommend2.id}`">
+                                        <router-link rounded :to="{ name: 'Detailed',params : {id: recommend2.id}}">
+                                        <v-img height="300px" :src="recommend2.image"></v-img>
+                                        </router-link>
+                                        <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">{{recommend2.recommend_name}}</v-card-text>
+                                </v-card>
+                            </div>
                         </div>
                         </v-flex>
                 </v-layout>
@@ -132,9 +153,6 @@ export default {
             break_mealkind:"0",
             lunch_mealkind:"0",
             dinner_mealkind:"0",
-            breakfast:[],
-            lunch:[],
-            dinner:[],
             check: true,
             breakfast_check : true,
             value:0, // 3이면 아점저, 2면 점저, 1이면 저녁만 보여줄 것
@@ -153,6 +171,19 @@ export default {
             this.check= false;
             this.mealKind = "0,0,0";
             console.log("아침 안 먹음",this.mealKind);
+
+            var formData = new FormData();
+            formData.append('kind',this.mealKind);
+            axios.post('http://127.0.0.1:5000/recommend/'+this.user_id,formData,{
+            headers: {'Access-Control-Allow-Origin':'*'},
+            })
+            .then((res)=>{
+            this.recommends = res.data.recommendMeals;
+            console.log("최초 데이터",this.recommends);  
+            })
+            .catch((err)=>{
+                console.log("실패",err)
+            })
         },
         lunch_yes(){
             this.value=1;
@@ -175,14 +206,14 @@ export default {
             console.log("유저아이디:",this.user_id);
             console.log(this.mealKind);
 
-           fetch('http://127.0.0.1:5000/recommend/'+this.user_id,{
+            var formData = new FormData();
+            formData.append('kind',this.mealKind);
+            axios.post('http://127.0.0.1:5000/recommend/'+this.user_id,formData,{
             headers: {'Access-Control-Allow-Origin':'*'},
-            method: 'POST',
-            
             })
             .then((res)=>{
-            this.breakfast = res.data;
-            console.log("아침 데이터",this.breakfast);
+            this.recommends = res.data.recommendMeals;
+            console.log("아침 데이터",this.recommends);
             })
             .catch((err)=>{
                 console.log("유저값 실패",err)
@@ -205,16 +236,14 @@ export default {
             console.log("유저아이디:",this.user_id);
             console.log(this.mealKind);       
 
-            fetch('http://127.0.0.1:5000/recommend/'+this.user_id,{
+            var formData = new FormData();
+            formData.append('kind',this.mealKind);
+            axios.post('http://127.0.0.1:5000/recommend/'+this.user_id,formData,{
             headers: {'Access-Control-Allow-Origin':'*'},
-            method: 'POST',
-            data:{
-                maelkind : this.mealKind
-            }
             })
             .then((res)=>{
-            this.lunch = res.data;
-            console.log("점심 데이터",this.lunch);  
+            this.recommends = res.data.recommendMeals;
+            console.log("점심 데이터",this.recommends);  
             })
             .catch((err)=>{
                 console.log("실패",err)
@@ -240,16 +269,21 @@ export default {
             console.log("유저아이디:",this.user_id);
             console.log(this.mealKind);
 
-            fetch('http://127.0.0.1:5000/recommend/'+this.user_id,{
-            headers: {'Access-Control-Allow-Origin':'*'},
-            method: 'POST',
-            data:{
-                maelkind : this.mealKind
-            }
+            var formData = new FormData();
+            formData.append('kind',this.mealKind);
+            // console.log(formData);
+            // for (var key of formData.keys()) {
+            // console.log(key);
+            // }
+            // for (var value of formData.values()) {
+            // console.log(value);
+            // }
+            axios.post('http://127.0.0.1:5000/recommend/'+this.user_id,formData,{
+            headers: {'Access-Control-Allow-Origin':'*'},     
             })
             .then((res)=>{
-             this.dinner = res.data;
-            console.log("저녁 데이터",this.dinner);  
+                this.recommends = res.data.recommendMeals;
+                console.log(this.recommends);
             })
             .catch((err)=>{
                 console.log("실패",err)
@@ -268,15 +302,14 @@ export default {
         .catch(err=>console.error(err))
 
             
-        axios.get('/recommendShow')
-        .then((response) => {
-            this.recommends = response.data;
-            console.log(this.recommends);
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
-            
+        // axios.get('/recommendShow')
+        // .then((response) => {
+        //     this.recommends = response.data;
+        //     console.log(this.recommends);
+        // })
+        // .catch((err)=>{
+        //     console.log(err);
+        // })
     },   
 }
 </script>
