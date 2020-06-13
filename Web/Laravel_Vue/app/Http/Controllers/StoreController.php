@@ -36,12 +36,13 @@ class StoreController extends Controller
             'store_issuance_number' => $request->store_issuance_number,
         ]);
 
-        // $store_id = $store->value('store_id')->last();
-        $store_id = DB::select('select store_id from stores where store_id = (select max(store_id) from stores)');
+        $store_id = $store->value('store_id');
+        // $store_id = DB::select('select store_id from stores where store_id = (select max(store_id) from stores)');
+        $food_name = $request->menuInfo[0];
 
         $food = DB::table('foods')->insert([
-            'food_name' => $request->menuInfo[0],
-            'store_id' => $store_id,    // 임시값
+            'food_name' => $food_name,
+            'store_id' => $store_id,
         ]);
 
         // $where_food_id = DB::select('select food_id from foods where food_id(select max(food_id) from foods)');

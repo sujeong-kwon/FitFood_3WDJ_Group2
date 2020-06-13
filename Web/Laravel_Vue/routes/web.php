@@ -30,7 +30,7 @@ Route::post('/login_app', 'UserController@check');
 
 Route::get('/showStore', 'StoreController@index');
 Route::post('/storeReview', 'ReviewController@store');
-Route::post('/updateReview/{id}', 'ReviewController@update');
+Route::post('/updateReview', 'ReviewController@update');
 Route::get('/showReview/{id}', 'ReviewController@index');
 
 Route::get('/recommendShow', 'RecommendController@index');

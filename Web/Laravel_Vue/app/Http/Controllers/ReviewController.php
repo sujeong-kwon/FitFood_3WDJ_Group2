@@ -47,10 +47,12 @@ class ReviewController extends Controller
         return "success";
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $review_id = $request->review_id;
+
         $update_review = DB::table('reviews')
-            ->where('review_id', $id)
+            ->where('review_id', $review_id)
             ->update([
             'review_title' => $request->review_title,
             'review_message' => $request->review_message,

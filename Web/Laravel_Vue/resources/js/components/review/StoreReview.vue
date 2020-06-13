@@ -33,10 +33,10 @@
         </template>
         <template v-slot:item.actions> 
           <v-chip>
-             <v-btn class="mx-0" @click="editItem(review_id)">
+             <v-btn class="mx-0" @click="editItem(item)">
                 <v-icon color="teal">{{ icons.mdiPencil }}</v-icon>
               </v-btn>
-              <v-btn icon class="mx-0" @click="deleteItem(review_id)">
+              <v-btn icon class="mx-0" @click="deleteItem(item)">
                 <v-icon dark color="pink">{{ icons.mdiDelete }}</v-icon>
               </v-btn>
           </v-chip>
@@ -201,18 +201,19 @@ export default {
     this.dialog=true;
     this.updateMode = true;
     
-    // axios.post('/updateReview/'+id, {
-    //   review_title: this.form.review_title,
-    //   review_message: this.form.review_message,
-    //   review_star_rating: this.form.review_star_rating,
-    //   store_id: this.$route.params.id
-    // })
-    // .then(response => {
+    axios.post('/updateReview', {
+      review_title: this.form.review_title,
+      review_message: this.form.review_message,
+      review_star_rating: this.form.review_star_rating,
+      store_id: this.$route.params.id,
+      review_id: id.review_id
+    })
+    .then(response => {
 
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // })
+    })
+    .catch(err => {
+      console.log(err);
+    })
   },
     deleteItem(id) {
     console.log("딜리트 실행");
