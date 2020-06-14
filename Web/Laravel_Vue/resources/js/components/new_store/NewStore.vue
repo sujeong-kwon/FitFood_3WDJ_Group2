@@ -184,7 +184,20 @@
                             </v-flex>
                         </v-layout>
                     </v-card-actions>
-
+                    <v-card-actions>
+                        <v-layout row wrap justify-center style="margin-top:30px;">
+                            <v-flex xs12 sm8 md6>
+                                <v-btn
+                                    color="success" large block
+                                    class="headline font-weight-bold mt-3"
+                                    text
+                                    @click="send"
+                                >
+                                    전송
+                                </v-btn>
+                            </v-flex>
+                        </v-layout>
+                    </v-card-actions>
                 </span>
             </v-form>
         </v-flex>
@@ -228,6 +241,12 @@ export default {
             //     name: '',
             // },
             items: [],
+            store_gps_latitude: '',
+            store_gps_longitude: '',
+            arrIndex: 0,
+            select_file: [],
+            menuImgs : {},
+            created_store_id : 0,
         }     
     },
     methods:{
@@ -250,7 +269,9 @@ export default {
                 // };  
 
                 // 지도를 생성합니다    
-                // var map = new kakao.maps.Map(mapContainer, mapOption); 
+                // var map = new kakao.maps.Map(mapContainer, mapOption);
+                var store_gps_latitude = this.store_gps_latitude;
+                var store_gps_longitude = this.store_gps_longitude; 
 
                 // 주소-좌표 변환 객체를 생성합니다
                 var geocoder = new kakao.maps.services.Geocoder();
@@ -280,6 +301,8 @@ export default {
 
                         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                         // map.setCenter(coords);
+                        store_gps_latitude = coords.Ga;
+                        store_gps_longitude = coords.Ha;
                 } 
             });    
             },
@@ -290,11 +313,15 @@ export default {
                     store_address: this.roadAddrPart1,
                     store_category: this.store_category,
                     store_issuance_number: this.store_issuance_number,
-                    menuInfo: this.menuInfo,
+                    // menuImgs: this.menuImgs[name],
+                    food_name: this.food_name,
+                    store_gps_latitude: this.store_gps_latitude,
+                    store_gps_longitude: this.store_gps_longitude
                 })
                 .then(res => {
                     console.log(res.data);
                     // window.location.href='/';
+                    this.created_store_id = res.data;
                 })
                 .catch(err => {
                     console.log(err);
@@ -331,10 +358,10 @@ export default {
                 }
 
                 for(let i = 0; i<selectedFiles.length; i++){ // 선택된 파일 갯수만큼 반복
-                    this.attachments.push(selectedFiles[i]);
+                    this.select_file.push(selectedFiles[i]);
                 }
 
-                console.log(this.attachments);
+                // console.log(this.attachments);
             },
             // submitAction(){
             //     var data = new FormData();
@@ -353,24 +380,76 @@ export default {
             //     })
             // }
             uploadFile(){
+                this.dialog = false;
                 var name = this.food_name;
-                this.menuInfo.push(name);
+                // this.menuInfo.push(name);
+                // this.form.append(name);
+                this.menuImgs[name] = new Array();
 
-                for(let i = 0; i<this.attachments.length; i++){
-                    // this.form.append('pics[]', this.attachments[i]);
-                    // var name = this.food_name;
-                    // this.menuInfo.push(name, this.attachments[i]);
-                    this.menuInfo.push(this.attachments[i]);
-                    this.form.append(name, this.attachments[i]);
+                for(let i = 0; i<this.select_file.length; i++){ // 선택된 파일 갯수만큼 반복
+                    this.attachments.push(name, this.select_file[i]);
+                    this.menuImgs[name].push(this.select_file[i]);
                 }
+                document.getElementById('upload-file').value=[];    //초기화
+                document.getElementById('img-name').value='';
+                this.attachments = [];
+                // this.food_name = ''; 오류 발생시 주석 해제
+                this.select_file = [];
+
+                console.log(this.menuImgs);
+
+                // for(let i = 0; i<this.attachments.length; i++){
+                //     // this.form.append('pics[]', this.attachments[i]);
+                //     // var name = this.food_name;
+                //     // this.menuInfo.push(name, this.attachments[i]);
+                //     // this.menuInfo.push(this.attachments[i]);
+                //     this.menuImgs[name].push(this.attachments[i]);
+                // }
+
+
+                // const config = { headers: { 'Content-Type' : 'multipart/form-data' } };
+
+                // axios.post('/upload', this.form, config)
+                //     .then(response=> {
+                //         console.log(response);
+                //         document.getElementById('upload-file').value=[];    //초기화
+                //         document.getElementById('img-name').value='';
+                //         this.attachments = [];
+                //         this.food_name = '';
+                //         console.log(this.menuInfo);
+                //     })
+                //     .catch(response=> {
+
+                //     });
+            },
+            send() {
+                console.log(this.menuImgs)
+
+                var sendData = new FormData();
+                // Object.keys(this.menuImgs)
+                var menus = ''
+                for(var key in this.menuImgs) { // menuIngs내용물 만큼 반복
+                    var index = 0
+                    menus += key + ','
+                    this.menuImgs[key].forEach(img => {
+                        console.log(String(key)+String(index))
+                        sendData.append(String(key)+String(index), img)
+                        index += 1;
+                    });
+                    sendData.append(String(key)+'size', index)
+                }
+                sendData.append('menus',menus, this.created_store_id)  // sendData에 store_id를 담아서 보내야한다.
+                console.log(sendData)
 
                 const config = { headers: { 'Content-Type' : 'multipart/form-data' } };
 
-                axios.post('/upload', this.form, config)
+                axios.post('http://127.0.0.1:5000/send', sendData, config)
                     .then(response=> {
                         console.log(response);
                         document.getElementById('upload-file').value=[];    //초기화
                         document.getElementById('img-name').value='';
+                        this.attachments = [];
+                        this.food_name = '';
                         console.log(this.menuInfo);
                     })
                     .catch(response=> {

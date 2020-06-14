@@ -34,14 +34,16 @@ class StoreController extends Controller
             'store_address' => $request->store_address,
             'store_category' => $store_category,
             'store_issuance_number' => $request->store_issuance_number,
+            'store_gps_latitude' => $request->store_gps_latitude,
+            'store_gps_longitude' => $request->store_gps_longitude
         ]);
 
-        $store_id = $store->value('store_id');
+        // $store_id = $store->value('store_id');
         // $store_id = DB::select('select store_id from stores where store_id = (select max(store_id) from stores)');
-        $food_name = $request->menuInfo[0];
+        $store_id =\App\Store::max('store_id');
 
         $food = DB::table('foods')->insert([
-            'food_name' => $food_name,
+            'food_name' => $request->food_name,
             'store_id' => $store_id,
         ]);
 
@@ -51,7 +53,7 @@ class StoreController extends Controller
         //     ->where('food_id', $where_food_id)
         //     ->update(['store_id' => $store_id]);
 
-        return "success";
+        return $store_id;
         // return $store_id;
     }
 
