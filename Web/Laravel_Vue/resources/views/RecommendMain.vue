@@ -24,7 +24,7 @@
                                             <div v-for="(recommend,i) in breakfast" v-bind:key="`${i}-${recommend.id}`">              
                                                 <v-card style="margin-top: 80px; height: 300px; width:400px; margin-right:25px; margin-left:25px;">
                                                     <div v-if="break_mealkind == 0">
-                                                        <router-link rounded :to="{ name: 'Detailed',params : {id: recommend.id}}">
+                                                        <router-link rounded :to="{ name: 'Detailed',params : {id: recommend.store_id}}">
                                                         <v-img height="300px" width="400px" :src="recommend.image"></v-img>
                                                         </router-link>
                                                     </div>
@@ -53,7 +53,7 @@
                                             <div v-for="(recommend,i) in lunch" v-bind:key="`${i}-${recommend.id}`">              
                                                 <v-card style="margin-top: 80px; height: 300px; width:400px; margin-right:25px; margin-left:25px;">
                                                     <div v-if="lunch_mealkind == 0">
-                                                        <router-link rounded :to="{ name: 'Detailed',params : {id: recommend.id}}">
+                                                        <router-link rounded :to="{ name: 'Detailed',params : {id: recommend.store_id}}">
                                                         <v-img height="300px" width="400px" :src="recommend.image"></v-img>
                                                         </router-link>
                                                     </div>
@@ -82,7 +82,7 @@
                                             <div v-for="(recommend,i) in dinner" v-bind:key="`${i}-${recommend.id}`">              
                                                 <v-card style="margin-top: 80px; height: 300px; width:400px; margin-right:25px; margin-left:25px;">
                                                     <div v-if="dinner_mealkind == 0">
-                                                        <router-link rounded :to="{ name: 'Detailed',params : {id: recommend.id}}">
+                                                        <router-link rounded :to="{ name: 'Detailed',params : {id: recommend.store_id}}">
                                                         <v-img height="300px" width="400px" :src="recommend.image"></v-img>
                                                         </router-link>
                                                     </div>
@@ -261,8 +261,17 @@ export default {
             this.recommends = res.data.recommendMeals;
             console.log("데이터",this.recommends);
             this.recommends.forEach(arr =>{
+                if(this.break_mealkind == 1){
+                    arr[0].id = Math.abs(arr[0].id);
+                }
                 this.breakfast.push(arr[0]);
+                if(this.lunch_mealkind == 1){
+                    arr[1].id = Math.abs(arr[1].id);
+                }
                 this.lunch.push(arr[1]);
+                if(this.dinner_mealkind == 1){
+                    arr[2].id = Math.abs(arr[2].id);
+                }
                 this.dinner.push(arr[2]);
             })
             console.log("아침",this.breakfast);

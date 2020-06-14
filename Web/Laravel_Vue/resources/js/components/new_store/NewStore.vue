@@ -14,9 +14,7 @@
                         <v-text-field
                             type="input" label="사업번호" v-model="store_issuance_number" required>
                         </v-text-field>
-                        <v-text-field
-                            type="input" label="전화번호" v-model="tall" required>
-                        </v-text-field>
+                        
                     </v-flex>  
                 </v-layout>
 
@@ -219,7 +217,7 @@ export default {
             dialog: false,
             store_name:'', //업체명
             store_issuance_number: 0, //사업번호
-            tall:'', //전화번호->전화번호 안받음
+            
             store_category:this.store_category, // 가게 타입.
             roadAddrPart1:'', //주소, db에는 store_address로 저장되어야 한다.
             addrDetail:'', //상세주소
