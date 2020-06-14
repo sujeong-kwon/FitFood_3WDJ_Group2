@@ -95,7 +95,6 @@ export default {
         { title: 'Recommend', icon: 'mdi-image', route:'/recommendmain'},
         { title: 'Review', icon: 'mdi-help-box', route:'/review'},
         { title: 'NewStore', icon: 'mdi-alpha-n-box-outline', route:'/newstore'},
-        { title: 'test', icon: 'mdi-alpha-n-box-outline', route:'/test'},
       ],
       right: null,
       miniVariant: false,
