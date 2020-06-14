@@ -123,7 +123,6 @@ import {
     mdiPencil,
     mdiDelete
   } from '@mdi/js'
-
 export default {
   name: "review",
   data() {
@@ -173,13 +172,7 @@ export default {
   created() {
     this.getSuggestions();
   },
-
-  // computed: {
-  //     formTitle () {
-  //       return this.editedIndex ? '리뷰 수정' : '리뷰 작성'
-  //     }
-  //   },
-
+  
   methods: {
     rowClick(item) {
       this.$router.push({
@@ -210,9 +203,7 @@ export default {
         });
     },
     postSuggestion() {
-
       this.dialog = false;
-
         axios
         .post('/storeReview', 
         {
@@ -229,11 +220,28 @@ export default {
           console.log(e);
         });
     },
-
     edit_postSuggestion() {
+
+      this.dialog = false;
+        axios
+        .post('/updateReview', 
+        {
+          review_title: this.edit_form.review_title,
+          review_message: this.edit_form.review_message,
+          review_star_rating: this.edit_form.review_star_rating,
+          store_id: this.$route.params.id,
+          review_id: this.edit_form.review_id
+        })
+        .then(res => {
+          // this.getSuggestions();
+          console.log("스토어리뷰",res.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+
       console.log("수정 아이디값",this.edit_form.review_id) // 여기서 수정 요청
     },
-
     id2date(_id) {
       if (!_id) return "잘못된 시간 정보";
       return new Date(
@@ -247,22 +255,23 @@ export default {
     // console.log("수정 아이디값", this.edit_form.review_id);
     this.edit_dialog=true;
     this.updateMode = true;
-    
-    axios.post('/updateReview', {
-      review_title: this.form.review_title,
-      review_message: this.form.review_message,
-      review_star_rating: this.form.review_star_rating,
-      store_id: this.$route.params.id,
-      review_id: id.review_id
-    })
-    .then(response => {
-
-    })
-    .catch(err => {
-      console.log(err);
-    })
   },
     deleteItem(id) {
+
+      this.edit_form.review_id = id;
+
+      axios
+        .post('/deleteReview', 
+        {
+          review_id: this.edit_form.review_id
+        })
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+
     console.log("딜리트 실행");
   },
     close(){
