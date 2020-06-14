@@ -150,14 +150,14 @@ export default {
     data(){
         return{
             recommends: [],
-            break_mealkind:"0",
-            lunch_mealkind:"0",
-            dinner_mealkind:"0",
-            check: true,
-            breakfast_check : true,
+            break_mealkind:"0", //아침 여부
+            lunch_mealkind:"0", //점심 여부 
+            dinner_mealkind:"0", //저녁 여부
+            check: true, //히든
+            breakfast_check : true, //아침 히든
             value:0, // 3이면 아점저, 2면 점저, 1이면 저녁만 보여줄 것
-            mealKind: "", 
-            user_id : "",
+            mealKind: "", //아점저 식당 레시피 0,0,0
+            user_id : "", //유저 아이디
         }
     },
 
@@ -204,7 +204,7 @@ export default {
             this.mealKind = "";
             this.mealKind += String(this.break_mealkind+ ","+lun+","+din); 
             console.log("유저아이디:",this.user_id);
-            console.log(this.mealKind);
+            console.log("이것",this.mealKind);
 
             var formData = new FormData();
             formData.append('kind',this.mealKind);

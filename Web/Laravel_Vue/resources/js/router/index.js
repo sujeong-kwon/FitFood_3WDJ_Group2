@@ -11,6 +11,7 @@ import FootRecommend from '../components/foot_recommend/FootRecommend';
 import RecommendMain from '../../views/RecommendMain.vue'
 
 import ReviewMain from "../../views/reviewView/ReviewMain.vue";
+import test from "../../views/test.vue";
 import ReviewDetail from "../../views/reviewView/ReviewDetail.vue";
 import Store from "../components/review/Store.vue";
 import StoreReview from "../components/review/StoreReview.vue";
@@ -128,6 +129,12 @@ const routes = [
     path: '/ReviewTest',
     name: 'ReviewTest',
     component: ReviewTest
+},
+{
+    path: '/test',
+    name: 'test',
+    component: test
+
 },
 ];
 
