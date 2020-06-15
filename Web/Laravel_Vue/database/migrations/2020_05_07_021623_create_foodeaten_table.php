@@ -21,11 +21,13 @@ class CreateFoodeatenTable extends Migration
             $table->datetime('eaten_end')->nullable();
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->unsignedBigInteger('food_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('recipe_id')->unsigned()->nullable();
             $table->unsignedBigInteger('store_id')->unsigned()->nullable();
             $table->unsignedBigInteger('nutrient_id')->unsigned()->nullable();
 
             $table->foreign('user_id')->references('user_id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('food_id')->references('food_id')->on('foods')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('recipe_id')->references('recipe_id')->on('recipes')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('store_id')->references('store_id')->on('stores')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('nutrient_id')->references('nutrient_id')->on('nutrients')->onUpdate('cascade')->onDelete('cascade');
         });

@@ -16,13 +16,13 @@ class CreateStoreTable extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->bigIncrements('store_id');
             $table->string('store_name');
+            $table->string('store_gps_latitude')->nullable()->default(0);
+            $table->string('store_gps_longitude')->nullable()->default(0);
             $table->string('store_address')->nullable();
-            $table->string('store_gps_latitude')->nullable();
-            $table->string('store_gps_longitude')->nullable();
             $table->float('store_star_rating')->nullable()->default(0);
-            $table->string('store_category');
-            $table->string('store_model_route');
-            $table->string('store_image');
+            $table->string('store_category')->nullable();
+            $table->string('store_model_route')->nullable()->default('지정안됨');
+            $table->string('store_image')->nullable();
             $table->integer('store_issuance_number')->nullable();
             $table->timestamps();
         });

@@ -22,9 +22,11 @@ class CreateNutrientTable extends Migration
             $table->float('nutrient_salt')->nullable();
             $table->float('nutrient_cholesterol')->nullable();
             $table->float('nutrient_kamium')->nullable();
-            $table->unsignedBigInteger('food_id')->unsigned();
+            $table->unsignedBigInteger('food_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('recipe_id')->unsigned()->nullable();
             
             $table->foreign('food_id')->references('food_id')->on('foods')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('recipe_id')->references('recipe_id')->on('recipes')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
