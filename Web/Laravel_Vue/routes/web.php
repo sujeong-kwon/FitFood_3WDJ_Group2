@@ -36,6 +36,7 @@ Route::get('/showReview/{id}', 'ReviewController@index');
 
 Route::get('/recommendShow', 'RecommendController@index');
 Route::post('/saveStore', 'StoreController@store');
+Route::post('/saveBreak', 'FoodeatenController@save_breakfast');
 
 // NewStore.vue script부분에서 자체구현 성공. 현재 안쓰이는 라우팅주소
 Route::post('/storeMenu', 'StoreController@storeMenu');
@@ -59,6 +60,9 @@ Route::post('/user', 'UserController@user_select');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/get_recommend_detail/{id}', 'StoreController@detail');
+Route::get('/get_recipe_detail/{id}', 'RecommendController@recipe_detail');
 
 
 Route::get('/eaten_data', 'FoodeatenController@show');

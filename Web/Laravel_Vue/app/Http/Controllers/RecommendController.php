@@ -20,4 +20,13 @@ class RecommendController extends Controller
     {
 
     }
+
+    public function recipe_detail($id)
+    {
+        $selected_recipe_detail = DB::table('recipes')->where('recipe_id', $id)->get();
+
+        $recipe_nutrient = DB::table('nutrients')->where('recipe_id', $id)->get();
+
+        return [$selected_recipe_detail, $recipe_nutrient];
+    }
 }

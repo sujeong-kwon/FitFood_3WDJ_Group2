@@ -222,7 +222,7 @@ export default {
             lunch_mealkind:"0", //다이얼 창 점심 라디오 버튼
             dinner_mealkind:"0", //다이얼 창 저녁 라디오 버튼
             check:true,
-            mealKind: "", //아점저 식당 레시피 0,0,0
+            mealKind: "", //아점저 식당 레시피 0,0,0 보낼때는 kind로 보낼것
             // mealKind: "", //아점저 체크
             value:"", // 3이면 아점저, 2면 점저
             breakfast:[], //아침밥 추천값
@@ -247,6 +247,16 @@ export default {
             this.dialog1 = false;
             this.dialog2 = false;
             this.check= false;
+
+            axios.post('/saveBreak',{   // foods에서 사용자가 먹은 음식 이름 토대로 정보 검색 후 foodeatens에 저장
+                food_name: this.break_input,
+            })
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log("실패", err);
+            })
 
             this.mealKind = "";
             console.log("아침, 점심, 저녁 : ",this.break_mealkind,this.lunch_mealkind,this.dinner_mealkind);

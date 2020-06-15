@@ -57,18 +57,31 @@ export default {
     data(){
         return{
             food:'',
-            materials:'',
+            materials:'', // recipes에 recipe_material값으로 들어가있음. 바꿔서 쓸 것
             recipes:'',
+            nutrients: '',
         };
     },
 
     created : function(){
-        axios.get('/static/footrecommend.json')
-        .then((response) => {
-            this.food=response.data.footrecommend.filter(data=>data.foot_id == this.$route.params.id)[0];
-            this.materials=this.food.foot_material;
-            this.recipes=this.food.foot_recipe;
+        // axios.get('/static/footrecommend.json')
+        // .then((response) => {
+        //     this.food=response.data.footrecommend.filter(data=>data.foot_id == this.$route.params.id)[0];
+        //     this.materials=this.food.foot_material;
+        //     this.recipes=this.food.foot_recipe;
+        //     console.log(this.recipes);
+        // })
+        // .catch((err) => {
+        //     console.log(err);
+        // });
+
+        axios.get('/get_recipe_detail/'+this.$route.params.id)
+        .then(res => {
+            console.log(res);
+            this.recipes = res.data[0]; // 현재 페이지 id값을 가진 레시피 데이터
+            this.nutrients = res.data[1]; // 현재 가게에 등록된 모든 음식 데이터
             console.log(this.recipes);
+            console.log(this.nutrients);
         })
         .catch((err) => {
             console.log(err);

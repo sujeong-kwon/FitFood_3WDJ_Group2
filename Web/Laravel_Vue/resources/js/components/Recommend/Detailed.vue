@@ -49,12 +49,29 @@ export default {
         };
     },
 
+    // created : function(){
+    //     axios.get('/static/recommend.json')
+    //     .then((response) => {
+    //         this.shop=response.data.recommend.filter(data=>data.id == this.$route.params.id)[0];
+    //         this.menus=this.shop.recommend_menu;
+    //         console.log(this.menus);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
+    // },
     created : function(){
-        axios.get('/static/recommend.json')
-        .then((response) => {
-            this.shop=response.data.recommend.filter(data=>data.id == this.$route.params.id)[0];
-            this.menus=this.shop.recommend_menu;
-            console.log(this.menus);
+
+        axios.get('/get_recommend_detail/'+this.$route.params.id)
+        .then(res => {
+            // this.shop=res.data[0].filter(data=>data.store_id == this.$route.params.id)[0]; // 에러나면 data.store_id를 data.id로 바꿔볼것
+            // this.menus=this.data[1];
+            // console.log(this.menus);
+            console.log(res);
+            this.shop = res.data[0]; // 현재 페이지 id값을 가진 가게 데이터
+            this.menu = res.data[1]; // 현재 가게에 등록된 모든 음식 데이터
+            console.log(this.shop);
+            console.log(this.menu);
         })
         .catch((err) => {
             console.log(err);

@@ -436,7 +436,8 @@ export default {
                     });
                     sendData.append(String(key)+'size', index)
                 }
-                sendData.append('menus',menus, this.created_store_id)  // sendData에 store_id를 담아서 보내야한다.
+                sendData.append('menus',menus);
+                sendData.append('store_id', this.created_store_id);
                 console.log(sendData)
 
                 const config = { headers: { 'Content-Type' : 'multipart/form-data' } };

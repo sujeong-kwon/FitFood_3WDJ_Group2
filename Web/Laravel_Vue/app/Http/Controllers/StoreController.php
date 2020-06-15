@@ -130,4 +130,15 @@ class StoreController extends Controller
 
         return response(['status'=>'success'], 200);
     }
+
+    public function detail($id)
+    {
+        $store_id = $id;
+
+        $detail_store_info = DB::table('stores')->where('store_id', $store_id)->get();
+
+        $detail_food_info = DB::table('foods')->where('store_id', $store_id)->get();
+
+        return [$detail_store_info, $detail_food_info];
+    }
 }

@@ -84,4 +84,23 @@ class FoodeatenController extends Controller
         
         return $eaten_data_json;
     }
+
+    public function save_breakfast(Request $request)
+    {
+        $user = $request->session()->get('key');
+        $user_ = $request->session()->get($user)->user_email;
+        $user_id = DB::table('users')->where('user_email', $user_)->value('user_id'); 
+        $food_id = DB::table('foods')->where('food_name', $request->food_name)->value('food_id');
+        $nutrient_id = DB::table('nutrients')->where('food_id', $food_id)->value('nutrient_id');
+
+        $user_foodeatens = DB::table('foodeatens')->insert([
+            'eaten_start' => \Carbon\Carbon::now(),
+            'eaten_end' => \Carbon\Carbon::now(),
+            'user_id' => $user_id,
+            'food_id' => $food_id,
+            'nutrient_id' => $nutrient_id
+        ]);
+
+        return "success";
+    }
 }
