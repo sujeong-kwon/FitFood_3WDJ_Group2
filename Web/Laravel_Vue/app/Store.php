@@ -12,4 +12,8 @@ class Store extends Model
     protected $fillable = [
         'store_name', 'store_address', 'store_category', 'store_model_route'
     ];
+
+    // public function store_id(){
+    //     return $this->store_id;
+    // }
 }

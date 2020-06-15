@@ -1,0 +1,422 @@
+[
+     {
+      "food_id": 1,
+      "food_name": "찜닭",
+      "food_price": 17000,
+      "store_id": 7
+    },
+     {
+      "food_id": 2,
+      "food_name": "라볶이",
+      "food_price": 4000,
+      "store_id": 17
+    },
+     {
+      "food_id": 3,
+      "food_name": "떡볶이",
+      "food_price": 3000,
+      "store_id": 17
+    },
+     {
+      "food_id": 4,
+      "food_name": "회냉면",
+      "food_price": 7000,
+      "store_id": 22
+    },
+     {
+      "food_id": 5,
+      "food_name": "갈비탕",
+      "food_price": 9000,
+      "store_id": 22
+    },
+     {
+      "food_id": 6,
+      "food_name": "간짜장",
+      "food_price": 6000,
+      "store_id": 29
+    },
+     {
+      "food_id": 7,
+      "food_name": "짜장면",
+      "food_price": 5000,
+      "store_id": 29
+    },
+     {
+      "food_id": 8,
+      "food_name": "울면",
+      "food_price": 6500,
+      "store_id": 29
+    },
+     {
+      "food_id": 9,
+      "food_name": "우동",
+      "food_price": 6000,
+      "store_id": 29
+    },
+     {
+      "food_id": 10,
+      "food_name": "짬뽕",
+      "food_price": 6000,
+      "store_id": 29
+    },
+     {
+      "food_id": 11,
+      "food_name": "즉석떡볶이",
+      "food_price": 3000,
+      "store_id": 30
+    },
+     {
+      "food_id": 12,
+      "food_name": "칼국수",
+      "food_price": 5000,
+      "store_id": 36
+    },
+     {
+      "food_id": 13,
+      "food_name": "콩국수",
+      "food_price": 6000,
+      "store_id": 36
+    },
+     {
+      "food_id": 14,
+      "food_name": "잔치국수",
+      "food_price": 4000,
+      "store_id": 36
+    },
+     {
+      "food_id": 15,
+      "food_name": "돼지불고기",
+      "food_price": 10000,
+      "store_id": 36
+    },
+     {
+      "food_id": 16,
+      "food_name": "짜장면",
+      "food_price": 4000,
+      "store_id": 37
+    },
+     {
+      "food_id": 17,
+      "food_name": "짬뽕",
+      "food_price": 5000,
+      "store_id": 37
+    },
+     {
+      "food_id": 18,
+      "food_name": "해물칼국수",
+      "food_price": 6000,
+      "store_id": 38
+    },
+     {
+      "food_id": 19,
+      "food_name": "들깨칼국수",
+      "food_price": 6000,
+      "store_id": 38
+    },
+     {
+      "food_id": 20,
+      "food_name": "된장찌개",
+      "food_price": 5500,
+      "store_id": 38
+    },
+     {
+      "food_id": 21,
+      "food_name": "물냉면",
+      "food_price": 0,
+      "store_id": 40
+    },
+     {
+      "food_id": 22,
+      "food_name": "육개장",
+      "food_price": 0,
+      "store_id": 40
+    },
+     {
+      "food_id": 23,
+      "food_name": "갈비탕",
+      "food_price": 0,
+      "store_id": 40
+    },
+     {
+      "food_id": 24,
+      "food_name": "두루치기",
+      "food_price": 8000,
+      "store_id": 41
+    },
+     {
+      "food_id": 25,
+      "food_name": "해물된장찌개",
+      "food_price": 7000,
+      "store_id": 41
+    },
+     {
+      "food_id": 26,
+      "food_name": "장어덮밥",
+      "food_price": 15000,
+      "store_id": 47
+    },
+     {
+      "food_id": 27,
+      "food_name": "간짜장",
+      "food_price": 6000,
+      "store_id": 53
+    },
+     {
+      "food_id": 28,
+      "food_name": "짜장면",
+      "food_price": 4500,
+      "store_id": 53
+    },
+     {
+      "food_id": 29,
+      "food_name": "우동",
+      "food_price": 6500,
+      "store_id": 53
+    },
+     {
+      "food_id": 30,
+      "food_name": "짬뽕",
+      "food_price": 6000,
+      "store_id": 53
+    },
+     {
+      "food_id": 31,
+      "food_name": "선지해장국",
+      "food_price": 7000,
+      "store_id": 54
+    },
+     {
+      "food_id": 32,
+      "food_name": "물냉면",
+      "food_price": 8000,
+      "store_id": 56
+    },
+     {
+      "food_id": 33,
+      "food_name": "갈비탕",
+      "food_price": 12000,
+      "store_id": 56
+    },
+     {
+      "food_id": 34,
+      "food_name": "막창",
+      "food_price": 8000,
+      "store_id": 58
+    },
+     {
+      "food_id": 35,
+      "food_name": "어묵탕",
+      "food_price": 10000,
+      "store_id": 58
+    },
+     {
+      "food_id": 36,
+      "food_name": "떡볶이",
+      "food_price": 3000,
+      "store_id": 61
+    },
+     {
+      "food_id": 37,
+      "food_name": "막창",
+      "food_price": 8000,
+      "store_id": 61
+    },
+     {
+      "food_id": 38,
+      "food_name": "후라이드치킨",
+      "food_price": 12000,
+      "store_id": 61
+    },
+     {
+      "food_id": 39,
+      "food_name": "잔치국수",
+      "food_price": 4000,
+      "store_id": 69
+    },
+     {
+      "food_id": 40,
+      "food_name": "곱창전골",
+      "food_price": 20000,
+      "store_id": 78
+    },
+     {
+      "food_id": 41,
+      "food_name": "칼국수",
+      "food_price": 4000,
+      "store_id": 80
+    },
+     {
+      "food_id": 42,
+      "food_name": "잔치국수",
+      "food_price": 4000,
+      "store_id": 80
+    },
+     {
+      "food_id": 43,
+      "food_name": "멸치국수",
+      "food_price": 4000,
+      "store_id": 81
+    },
+     {
+      "food_id": 44,
+      "food_name": "카레돈까스",
+      "food_price": 5500,
+      "store_id": 82
+    },
+     {
+      "food_id": 45,
+      "food_name": "낙지볶음밥",
+      "food_price": 4500,
+      "store_id": 82
+    },
+     {
+      "food_id": 46,
+      "food_name": "통새우볶음밥",
+      "food_price": 4500,
+      "store_id": 82
+    },
+     {
+      "food_id": 47,
+      "food_name": "참치비빔밥",
+      "food_price": 3200,
+      "store_id": 82
+    },
+     {
+      "food_id": 48,
+      "food_name": "샐러드",
+      "food_price": 2900,
+      "store_id": 82
+    },
+     {
+      "food_id": 49,
+      "food_name": "육개장",
+      "food_price": 4500,
+      "store_id": 82
+    },
+     {
+      "food_id": 50,
+      "food_name": "콩나물국밥",
+      "food_price": 5000,
+      "store_id": 84
+    },
+     {
+      "food_id": 51,
+      "food_name": "뼈해장국",
+      "food_price": 6000,
+      "store_id": 84
+    },
+     {
+      "food_id": 52,
+      "food_name": "부대찌개",
+      "food_price": 9000,
+      "store_id": 85
+    },
+     {
+      "food_id": 53,
+      "food_name": "깻잎전",
+      "food_price": 5000,
+      "store_id": 94
+    },
+     {
+      "food_id": 54,
+      "food_name": "감자전",
+      "food_price": 5000,
+      "store_id": 94
+    },
+     {
+      "food_id": 55,
+      "food_name": "콩나물국밥",
+      "food_price": 5000,
+      "store_id": 95
+    },
+     {
+      "food_id": 56,
+      "food_name": "곱창전골",
+      "food_price": 40000,
+      "store_id": 104
+    },
+     {
+      "food_id": 57,
+      "food_name": "크림 파스타",
+      "food_price": 5900,
+      "store_id": 105
+    },
+     {
+      "food_id": 58,
+      "food_name": "쇠고기 스테이크",
+      "food_price": 9500,
+      "store_id": 105
+    },
+     {
+      "food_id": 59,
+      "food_name": "콤비네이션피자",
+      "food_price": 9900,
+      "store_id": 105
+    },
+     {
+      "food_id": 60,
+      "food_name": "제육덮밥",
+      "food_price": 7000,
+      "store_id": 107
+    },
+     {
+      "food_id": 61,
+      "food_name": "닭갈비",
+      "food_price": 7000,
+      "store_id": 107
+    },
+     {
+      "food_id": 62,
+      "food_name": "밀면",
+      "food_price": 7000,
+      "store_id": 107
+    },
+     {
+      "food_id": 63,
+      "food_name": "잔치국수",
+      "food_price": 4000,
+      "store_id": 108
+    },
+     {
+      "food_id": 64,
+      "food_name": "제육볶음",
+      "food_price": 5000,
+      "store_id": 108
+    },
+     {
+      "food_id": 65,
+      "food_name": "김치볶음밥",
+      "food_price": 5000,
+      "store_id": 108
+    },
+     {
+      "food_id": 66,
+      "food_name": "알밥",
+      "food_price": 4500,
+      "store_id": 108
+    },
+     {
+      "food_id": 67,
+      "food_name": "떡만둣국",
+      "food_price": 5000,
+      "store_id": 108
+    },
+     {
+      "food_id": 68,
+      "food_name": "참치비빔밥",
+      "food_price": 5000,
+      "store_id": 108
+    },
+     {
+      "food_id": 69,
+      "food_name": "우동",
+      "food_price": 5000,
+      "store_id": 109
+    },
+     {
+      "food_id": 70,
+      "food_name": "불고기",
+      "food_price": 5500,
+      "store_id": 109
+    }
+  ]

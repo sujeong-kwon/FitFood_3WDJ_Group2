@@ -30,10 +30,15 @@ Route::post('/login_app', 'UserController@check');
 
 Route::get('/showStore', 'StoreController@index');
 Route::post('/storeReview', 'ReviewController@store');
-Route::get('/showReview', 'ReviewController@index');
+Route::post('/updateReview', 'ReviewController@update');
+Route::post('/deleteReview', 'ReviewController@delete');
+Route::get('/showReview/{id}', 'ReviewController@index');
 
 Route::get('/recommendShow', 'RecommendController@index');
 Route::post('/saveStore', 'StoreController@store');
+
+// NewStore.vue script부분에서 자체구현 성공. 현재 안쓰이는 라우팅주소
+Route::post('/storeMenu', 'StoreController@storeMenu');
 
 // 음식이름, 이메일, 가게이름(번호) 받으면 foodeatens 테이블에 저장
 Route::post('/app_eaten', 'FoodeatenController@store');
@@ -55,5 +60,7 @@ Route::post('/user', 'UserController@user_select');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// test
-Route::get('/eaten_dataa', 'FoodeatenController@show');
+
+Route::get('/eaten_data', 'FoodeatenController@show');
+
+Route::post('/upload', 'StoreController@storeImg');

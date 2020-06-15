@@ -1,55 +1,87 @@
 <template>
-    <div class="d-flex flex-wrap" xs12 sm12 md6 style="margin-left:50px;">                   
-        <v-card v-for="recommend in recommends" v-bind:key="recommend.id"
-            style="margin-top: 100px; height: 400px; width:500px; margin-right:50px;">
-            <router-link rounded :to="{ name: 'Detailed',params : {id: recommend.id}}">
-                <v-img height="300px" :src="recommend.image"></v-img>
-            </router-link>
-            <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">{{recommend.store_name}}</v-card-text>
-        </v-card>
-    </div>
+    <v-layout justify-center style="margin-top: 50px;">
+        
 
-<!-- 
-                    <v-card style="margin-top: 100px; height: 400px; width:500px;">
-                        <v-img height="300px" src="/static/b.jpg"></v-img>
+            <v-flex xs12 sm10 md6 class="pa-5">           
+                <div class="green--text font-weight-bold" style="text-align:center;">아침</div>
+                <v-layout justify-center>
+                    <v-radio-group row v-model="morning" class="justify-center">
+                        <v-radio label="식당"  color="success" value="1" ></v-radio>
+                        <v-radio label="레시피"  color="success" value="2"></v-radio>
+                    </v-radio-group>
+                </v-layout>
+                <div class="d-flex flex-wrap" xs1 sm3 md6 style="justify-content:center; margin-top:30px;">   
+                <v-layout>
+                    <v-flex xs3 sm3 md12>
+                        <v-card class="d-flex flex-wrap" style="margin-top:30px;" >                   
+                            <v-card v-for="(recommend,i) in recommends" v-bind:key="`${i}-${recommend.id}`"
+                                style="margin-top: 80px; height: 300px; width:400px; margin-right:25px; margin-left:25px;">
+                                <router-link rounded :to="{ name: 'Detailed',params : {id: recommend.id}}">
+                                <v-img height="300px" :src="recommend.image"></v-img>
+                                </router-link>
+                                <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">{{recommend.recommend_name}}</v-card-text>
+                            </v-card>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+            </div>
+            </v-flex>
 
-                        <v-card-text>
-                            <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">도미노 피자</v-card-text>
-                        </v-card-text>
-                    </v-card>
-            
-                    <v-card style="margin-top: 150px; height: 400px; width:500px; margin-right:50px;">
-                        <v-img height="300px" src="/static/c.jpg"></v-img>
+            <v-flex xs12 sm10 md6 justify-center class="pa-5">
+                <div class="green--text font-weight-bold" style="text-align:center;">점심</div>
+                <v-layout justify-center>
+                    <v-radio-group row v-model="lunch" class="justify-center">
+                        <v-radio label="식당"  color="success" value="1" ></v-radio>
+                        <v-radio label="레시피"  color="success" value="2"></v-radio>
+                    </v-radio-group>
+                </v-layout>
 
-                        <v-card-text>
-                            <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">작은 이태리</v-card-text>
-                        </v-card-text>
-                    </v-card>
+                <div class="d-flex flex-wrap" xs1 sm3 md6 style="justify-content:center; margin-top:30px;">                   
+                <v-layout>
+                    <v-flex xs3 sm10 md12>
+                        <v-card class="d-flex flex-wrap" style="margin-top:30px;">                   
+                            <v-card v-for="(recommend,i) in recommends" v-bind:key="`${i}-${recommend.id}`"
+                                style="margin-top: 80px; height: 300px; width:400px; margin-right:25px; margin-left:25px;">
+                                <router-link rounded :to="{ name: 'Detailed',params : {id: recommend.id}}">
+                                <v-img height="300px" :src="recommend.image"></v-img>
+                                </router-link>
+                                <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">{{recommend.recommend_name}}</v-card-text>
+                            </v-card>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+            </div>
+            </v-flex>
 
-                    <v-card style="margin-top: 150px; height: 400px; width:500px;">
-                        <v-img height="300px" src="/static/d.jpg"></v-img>
+            <v-flex xs12 sm12 md6 justify-center class="pa-5">
+                <div class="green--text font-weight-bold" style="text-align:center;">저녁</div>
+                <v-layout justify-center>
+                    <v-radio-group row v-model="dinner" class="justify-center">
+                        <v-radio label="식당"  color="success" value="1" ></v-radio>
+                        <v-radio label="레시피"  color="success" value="2"></v-radio>
+                    </v-radio-group>
+                </v-layout>
 
-                        <v-card-text>
-                            <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">석수 반점</v-card-text>
-                        </v-card-text>
-                    </v-card>
-            
-                    <v-card style="margin-top: 150px; height: 400px; width:500px; margin-right:50px;">
-                        <v-img height="300px" src="/static/e.jpg"></v-img>
+                <div class="d-flex flex-wrap" xs1 sm3 md6 style="justify-content:center; margin-top:30px;">                   
+                <v-layout>
+                    <v-flex xs3 sm3 md12>
+                        <v-card class="d-flex flex-wrap" style="margin-top:30px;">                   
+                            <v-card v-for="(recommend,i) in recommends" v-bind:key="`${i}-${recommend.id}`"
+                                style="margin-top: 80px; height: 300px; width:400px; margin-right:25px; margin-left:25px;">
+                                <router-link rounded :to="{ name: 'Detailed',params : {id: recommend.id}}">
+                                <v-img height="300px" :src="recommend.image"></v-img>
+                                </router-link>
+                                <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">{{recommend.recommend_name}}</v-card-text>
+                            </v-card>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+            </div>
+            </v-flex>
 
-                        <v-card-text>
-                            <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">양팀장</v-card-text>
-                        </v-card-text>
-                    </v-card>
 
-                    <v-card style="margin-top: 150px; height: 400px; width:500px;">
-                        <v-img height="3`px" src="/static/f.jpg"></v-img>
-
-                        <v-card-text>
-                            <v-card-text class="display-1 black--text font-weight-bold" style="text-align:center;">막걸리 한주막</v-card-text>
-                        </v-card-text>
-                    </v-card>-->
-
+    
+    </v-layout>
 </template>
 
 <script>
@@ -60,6 +92,9 @@ export default {
     data(){
         return{
             recommends: [],
+            morning:'',
+            lunch:'',
+            dinner:'',
         }; 
     },
     created : function(){

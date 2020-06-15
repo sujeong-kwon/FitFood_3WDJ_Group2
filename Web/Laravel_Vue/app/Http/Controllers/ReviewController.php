@@ -10,9 +10,15 @@ use Review;
 class ReviewController extends Controller
 {
     //
-    public function index()
+    public function index($id)
     {   
-        return DB::select('select * from reviews');
+        $store_id = $id;
+
+        $reviews = DB::table('reviews')->where('store_id', $store_id)->get();
+        $reviews_data_json = json_encode($reviews);
+
+        // return DB::select('select * from reviews');
+        return $reviews_data_json;
     }
 
     public function store(Request $request)
@@ -21,9 +27,7 @@ class ReviewController extends Controller
         $user_ = $request->session()->get($user)->user_email;
         $user_id = DB::table('users')->where('user_email', $user_)->value('user_id');
 
-
-        $store_id = 1;
-
+        // $store_id = 1;
 
         // $review = \App\Review::create([ // user_id와 store_id를 기반으로 표기.
         //     'review_title' => $request->review_title,
@@ -37,8 +41,35 @@ class ReviewController extends Controller
             'review_message' => $request->review_message,
             'review_star_rating' => $request->review_star_rating,
             'user_id' => $user_id,
-            'store_id' => $store_id,
+            'store_id' => $request->store_id,
         ]);
+
+        return "success";
+    }
+
+    public function update(Request $request)
+    {
+        $review_id = $request->review_id;
+
+        $update_review = DB::table('reviews')
+            ->where('review_id', $review_id)
+            ->update([
+            'review_title' => $request->review_title,
+            'review_message' => $request->review_message,
+            'review_star_rating' => $request->review_star_rating,
+            'review_id' => $review_id
+            ]);
+
+        return "success";
+    }
+
+    public function delete(Request $request)
+    {
+        $delete_review_id = $request->review_id;
+
+        $delete_review = DB::table('reviews')
+                            ->where('review_id', $delete_review_id)
+                            ->delete();
 
         return "success";
     }
