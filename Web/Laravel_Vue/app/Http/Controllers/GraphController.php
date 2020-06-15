@@ -49,9 +49,11 @@ class GraphController extends Controller
                 $sum_kamium = 0;
                 
                 $eaten_food = DB::select('select food_id from foodeatens where user_id = ? and date_format(eaten_start, ?) = ? and date_format(eaten_start, ?) = ? ', [$user_id, '%m', $month, '%d', $i]);
+                $eaten_recipe_food = DB::select('select recipe_id from foodeatens where user_id = ? and date_format(eaten_start, ?) = ? and date_format(eaten_start, ?) = ? ', [$user_id, '%m', $month, '%d', $i]);
                 $eaten_food_list = count($eaten_food);
+                $eaten_recipe_food_list = count($eaten_recipe_food);
                 
-                if ($eaten_food_list == 0) {
+                if ($eaten_food_list == 0 && $eaten_recipe_food_list == 0) {
                     array_push($calorie, $sum_calorie);
                     array_push($carbohydrate, $sum_carbohydrate);
                     array_push($protein, $sum_protein);
@@ -79,6 +81,28 @@ class GraphController extends Controller
                         $sum_salt += $eat_food_nutrient[0]->nutrient_salt;
                         $sum_cholesterol += $eat_food_nutrient[0]->nutrient_cholesterol;
                         $sum_kamium += $eat_food_nutrient[0]->nutrient_kamium;
+                    } else {
+                        
+                    }
+                }
+
+                $eaten_recipe_food_a = Array();
+                for ($f = 0; $f < $eaten_recipe_food_list; $f++) {
+                    array_push($eaten_recipe_food_a, $eaten_recipe_food[$f]->recipe_id);
+                }
+
+                foreach ($eaten_recipe_food_a as $recipe_id) {
+                    $eat_recipe_food_nutrient = DB::select('select nutrient_calorie, nutrient_carbohydrate, nutrient_protein, 
+                    nutrient_fat, nutrient_salt, nutrient_cholesterol, nutrient_kamium from nutrients where recipe_id = ?', [$recipe_id]);
+                    
+                    if ($eat_recipe_food_nutrient) {
+                        $sum_calorie += $eat_recipe_food_nutrient[0]->nutrient_calorie;
+                        $sum_carbohydrate += $eat_recipe_food_nutrient[0]->nutrient_carbohydrate;
+                        $sum_protein += $eat_recipe_food_nutrient[0]->nutrient_protein;
+                        $sum_fat += $eat_recipe_food_nutrient[0]->nutrient_fat;
+                        $sum_salt += $eat_recipe_food_nutrient[0]->nutrient_salt;
+                        $sum_cholesterol += $eat_recipe_food_nutrient[0]->nutrient_cholesterol;
+                        $sum_kamium += $eat_recipe_food_nutrient[0]->nutrient_kamium;
                     } else {
                         
                     }
@@ -141,9 +165,11 @@ class GraphController extends Controller
                 $sum_kamium = 0;
 
                 $eaten_food = DB::select('select food_id from foodeatens where user_id = ? and date_format(eaten_start, ?) = ? and date_format(eaten_start, ?) = ? ', [$user_id, '%Y', $year, '%m', $i]);
+                $eaten_recipe_food = DB::select('select recipe_id from foodeatens where user_id = ? and date_format(eaten_start, ?) = ? and date_format(eaten_start, ?) = ? ', [$user_id, '%Y', $year, '%m', $i]);
                 $eaten_food_list = count($eaten_food);
+                $eaten_recipe_food_list = count($eaten_recipe_food);
 
-                if ($eaten_food_list == 0) {
+                if ($eaten_food_list == 0 && $eaten_recipe_food_list == 0) {
                     array_push($calorie, $sum_calorie);
                     array_push($carbohydrate, $sum_carbohydrate);
                     array_push($protein, $sum_protein);
@@ -175,6 +201,29 @@ class GraphController extends Controller
                         
                     }
                 }
+
+                $eaten_recipe_food_a = Array();
+                for ($f = 0; $f < $eaten_recipe_food_list; $f++) {
+                    array_push($eaten_recipe_food_a, $eaten_recipe_food[$f]->recipe_id);
+                }
+
+                foreach ($eaten_recipe_food_a as $recipe_id) {
+                    $eat_recipe_food_nutrient = DB::select('select nutrient_calorie, nutrient_carbohydrate, nutrient_protein, 
+                    nutrient_fat, nutrient_salt, nutrient_cholesterol, nutrient_kamium from nutrients where recipe_id = ?', [$recipe_id]);
+                    
+                    if ($eat_recipe_food_nutrient) {
+                        $sum_calorie += $eat_recipe_food_nutrient[0]->nutrient_calorie;
+                        $sum_carbohydrate += $eat_recipe_food_nutrient[0]->nutrient_carbohydrate;
+                        $sum_protein += $eat_recipe_food_nutrient[0]->nutrient_protein;
+                        $sum_fat += $eat_recipe_food_nutrient[0]->nutrient_fat;
+                        $sum_salt += $eat_recipe_food_nutrient[0]->nutrient_salt;
+                        $sum_cholesterol += $eat_recipe_food_nutrient[0]->nutrient_cholesterol;
+                        $sum_kamium += $eat_recipe_food_nutrient[0]->nutrient_kamium;
+                    } else {
+                        
+                    }
+                }
+
 
                 array_push($calorie, $sum_calorie);
                 array_push($carbohydrate, $sum_carbohydrate);

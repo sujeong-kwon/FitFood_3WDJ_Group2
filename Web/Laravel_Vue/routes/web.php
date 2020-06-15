@@ -55,5 +55,5 @@ Route::post('/user', 'UserController@user_select');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-Route::get('/eaten_data', 'FoodeatenController@show');
+// test
+Route::get('/eaten_dataa', 'FoodeatenController@show');
