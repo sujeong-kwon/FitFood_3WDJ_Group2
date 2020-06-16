@@ -12,8 +12,8 @@ class FoodeatenController extends Controller
         if ($req->has('store_id')) {
             
             $store_id = $req->store_id; 
-            // $food_name = $req->food_name; 
-            $food_id = $req->food_id;
+            $food_name = $req->food_name; 
+            // $food_id = $req->food_id;
             $user_email = $req->user_email; 
             // $store_id = 29;
             // $food_name = "간짜장";
@@ -21,15 +21,12 @@ class FoodeatenController extends Controller
             $mytime = date("Y-m-d H:i:s");
             $mytime = date("Y-m-d H:i:s", strtotime("+9 hours"));
             
-            $eat_store_id_a = DB::table('stores')->where('store_id', $store_id)->pluck('store_id');
-            $eat_store_id = $eat_store_id_a[0];
+            $eat_store_id = $store_id;
             
-            // $eat_food_id_a = DB::table('foods')->where([['store_id', $eat_store_id], ['food_name', $food_name]])->pluck('food_id');
-            // $eat_food_id = $eat_food_id_a[0]; 
-            $eat_food_id = $food_id;
+            // $eat_food_id = $food_id;
+            $eat_food_id = DB::table('foods')->where([['store_id', $eat_store_id], ['food_name', $food_name]])->value('food_id');
             
-            $eat_user_id_a = DB::table('users')->where('user_email', $user_email)->pluck('user_id');
-            $eat_user_id = $eat_user_id_a[0];
+            $eat_user_id = DB::table('users')->where('user_email', $user_email)->value('user_id');
 
             $eat_food_nutrient = DB::table('nutrients')->where('food_id', $eat_food_id)->value('nutrient_id');
             
@@ -42,22 +39,23 @@ class FoodeatenController extends Controller
             );
             
             return "Success";
+            // return $req;
         }else { // {'user_email', 'food_name'}
 
             $food_name = $req->food_name; 
+            // $recipe_id = $req->food_id;
             $user_email = $req->user_email; 
             // $food_name = "가지볶음밥";
             // $user_email = "tester@tester.com"
             $mytime = date("Y-m-d H:i:s");
             $mytime = date("Y-m-d H:i:s", strtotime("+9 hours"));
             
-            $eat_food_recipe_id_a = DB::table('recipes')->where('recipe_food', $food_name)->pluck('recipe_id');
-            $eat_food_recipe_id = $eat_food_recipe_id_a[0]; 
+            // $eat_food_recipe_id = $recipe_id;
+            $eat_food_recipe_id = DB::table('recipes')->where('recipe_food', $food_name)->value('recipe_id');
 
             $eat_food_recipe_nutrient = DB::table('nutrients')->where('recipe_id', $eat_food_recipe_id)->value('nutrient_id');
             
-            $eat_user_id_a = DB::table('users')->where('user_email', $user_email)->pluck('user_id');
-            $eat_user_id = $eat_user_id_a[0];
+            $eat_user_id = DB::table('users')->where('user_email', $user_email)->value('user_id');
             
             DB::table('foodeatens')->insert(
                 ['eaten_start'=>$mytime, 
@@ -73,10 +71,10 @@ class FoodeatenController extends Controller
 
     public function show(Request $req)
     {
-        $user_email = 'tester@tester.com'; 
-        $eaten_start_date = '2020-06-14';
-        // $user_email = $req->user_email; 
-        // $eaten_start_date = $req->date; 
+        // $user_email = 'tester@tester.com'; 
+        // $eaten_start_date = '2020-06-14';
+        $user_email = $req->user_email; 
+        $eaten_start_date = $req->date; 
         
         $eat_user_id_a = DB::table('users')->where('user_email', $user_email)->pluck('user_id');
         $eat_user_id = $eat_user_id_a[0];

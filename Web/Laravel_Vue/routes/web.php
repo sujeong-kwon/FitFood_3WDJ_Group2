@@ -61,6 +61,4 @@ Route::post('/user', 'UserController@user_select');
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('/eaten_data', 'FoodeatenController@show');
-
 Route::post('/upload', 'StoreController@storeImg');
