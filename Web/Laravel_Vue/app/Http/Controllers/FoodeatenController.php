@@ -158,13 +158,15 @@ class FoodeatenController extends Controller
         $user_id = DB::table('users')->where('user_email', $user_)->value('user_id'); 
         $food_id = DB::table('foods')->where('food_name', $request->food_name)->value('food_id');
         $nutrient_id = DB::table('nutrients')->where('food_id', $food_id)->value('nutrient_id');
+        $store_id = DB::table('foods')->where('food_name', $request->food_name)->value('store_id');
 
         $user_foodeatens = DB::table('foodeatens')->insert([
             'eaten_start' => \Carbon\Carbon::now(),
             'eaten_end' => \Carbon\Carbon::now(),
             'user_id' => $user_id,
             'food_id' => $food_id,
-            'nutrient_id' => $nutrient_id
+            'nutrient_id' => $nutrient_id,
+            'store_id' => $store_id
         ]);
 
         return "success";
