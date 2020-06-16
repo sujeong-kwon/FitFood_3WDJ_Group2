@@ -76,11 +76,14 @@ class FoodeatenController extends Controller
         $user_email = $req->user_email; 
         $eaten_start_date = $req->date; 
         
-        $eat_user_id_a = DB::table('users')->where('user_email', $user_email)->pluck('user_id');
-        $eat_user_id = $eat_user_id_a[0];
+        // $eat_user_id_a = DB::table('users')->where('user_email', $user_email)->pluck('user_id');
+        // $eat_user_id = $eat_user_id_a[0];
 
-        $eat_user_gender_a = DB::table('users')->where('user_id', $eat_user_id)->pluck('user_gender');
-        $eat_user_gender = $eat_user_gender_a[0];
+        // $eat_user_gender_a = DB::table('users')->where('user_id', $eat_user_id)->pluck('user_gender');
+        // $eat_user_gender = $eat_user_gender_a[0];
+        $eat_user_data = DB::table('users')->where('user_email', $user_email)->select('user_id', 'user_gender');
+        $eat_user_id = $eat_user_data[0]->user_id;
+        $eat_user_gender = $eat_user_data[0]->user_gender;
         
         $eat_food_id_json = DB::select('select food_id, eaten_start from foodeatens where user_id = ? and date_format(eaten_start, ?) = date(?)', [$eat_user_id, '%Y-%m-%d', $eaten_start_date]);
         $eat_recipe_food_id_json = DB::select('select recipe_id, eaten_start from foodeatens where user_id = ? and date_format(eaten_start, ?) = date(?)', [$eat_user_id, '%Y-%m-%d', $eaten_start_date]);
@@ -147,5 +150,26 @@ class FoodeatenController extends Controller
         $eaten_data_json = json_encode($eaten_data);
         
         return $eaten_data_json;
+    }
+
+    public function save_breakfast(Request $request)
+    {
+        $user = $request->session()->get('key');
+        $user_ = $request->session()->get($user)->user_email;
+        $user_id = DB::table('users')->where('user_email', $user_)->value('user_id'); 
+        $food_id = DB::table('foods')->where('food_name', $request->food_name)->value('food_id');
+        $nutrient_id = DB::table('nutrients')->where('food_id', $food_id)->value('nutrient_id');
+        $store_id = DB::table('foods')->where('food_name', $request->food_name)->value('store_id');
+
+        $user_foodeatens = DB::table('foodeatens')->insert([
+            'eaten_start' => \Carbon\Carbon::now(),
+            'eaten_end' => \Carbon\Carbon::now(),
+            'user_id' => $user_id,
+            'food_id' => $food_id,
+            'nutrient_id' => $nutrient_id,
+            'store_id' => $store_id
+        ]);
+
+        return "success";
     }
 }
