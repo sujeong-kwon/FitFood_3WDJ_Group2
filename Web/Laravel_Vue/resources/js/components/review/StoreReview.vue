@@ -213,8 +213,8 @@ export default {
           store_id: this.$route.params.id
         })
         .then(res => {
-          // this.getSuggestions();
           console.log("스토어리뷰",res.data);
+          this.getSuggestions();
         })
         .catch(e => {
           console.log(e);
@@ -233,8 +233,8 @@ export default {
           review_id: this.edit_form.review_id
         })
         .then(res => {
-          // this.getSuggestions();
           console.log("스토어리뷰",res.data);
+          this.getSuggestions();
         })
         .catch(e => {
           console.log(e);
@@ -267,6 +267,7 @@ export default {
         })
         .then(res => {
           console.log(res.data);
+          this.getSuggestions();
         })
         .catch(e => {
           console.log(e);
