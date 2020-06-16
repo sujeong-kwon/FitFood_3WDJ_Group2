@@ -268,14 +268,12 @@ export default {
 
                 // 지도를 생성합니다    
                 // var map = new kakao.maps.Map(mapContainer, mapOption);
-                var store_gps_latitude = this.store_gps_latitude;
-                var store_gps_longitude = this.store_gps_longitude; 
 
                 // 주소-좌표 변환 객체를 생성합니다
                 var geocoder = new kakao.maps.services.Geocoder();
 
                 // 주소로 좌표를 검색합니다
-                geocoder.addressSearch(this.roadAddrPart1, function(result, status) {
+                geocoder.addressSearch(this.roadAddrPart1, (result, status) => {
                     console.log("함수실행");
 
                     // 정상적으로 검색이 완료됐으면 
@@ -299,8 +297,9 @@ export default {
 
                         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                         // map.setCenter(coords);
-                        store_gps_latitude = coords.Ga;
-                        store_gps_longitude = coords.Ha;
+                        this.store_gps_latitude = coords.Ga;
+                        this.store_gps_longitude = coords.Ha;
+                        console.log(this.store_gps_latitude);
                 } 
             });    
             },
