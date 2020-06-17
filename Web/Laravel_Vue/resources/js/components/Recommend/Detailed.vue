@@ -1,19 +1,19 @@
 /*가게 추천 상세보기 */
 <template>
 <v-container>
-        <v-layout>
-            <v-flex>
-                <div class="display-2 green--text font-weight-bold" style="text-align:center;">상세보기</div>
+        <v-layout justify-center>
+            <v-flex justify-center>
+                <div class="display-2 green--text font-weight-bold" style="text-align:center;" justify-center>상세보기</div>
 
-                <v-layout class="d-flex flex-wrap" style="margin-top: 100px;">
-                    <div style="margin-right:100px;" xs12 sm12 md6>
-                        <div id="roadview" style="width:500px; height: 400px; margin-top:50px; margin-bottom : 50px;"></div>
+                <v-layout class="d-flex flex-wrap" style="margin-top: 100px;" justify-center>
+                    <div style="margin-right:100px;" xs12 sm12 md6 justify-center>
+                        <div id="roadview" style="width:500px; height: 400px; margin-top:50px; margin-bottom : 50px;" justify-center></div>
                         <!-- <v-img style="width:500px; height: 400px; margin-top:50px; margin-bottom : 50px;" height="300px" :src="shop.image"></v-img> -->
                     </div>
 
-                    <div xs12 sm12 md6>
-                        <div style="width:500px; height: 400px;">
-                                <div class="display-1 font-weight-bold">{{shop.store_name}}</div>
+                    <div xs12 sm12 md6 justify-center>
+                        <div style="width:500px; height: 400px;" justify-center>
+                                <div class="display-2 font-weight-bold">{{shop.store_name}}</div>
                                 <br>
                                 <h1 class="green--text font-weight-bold" style="margin-bottom : 50px;">메뉴</h1>
                                 <h2 class="font-weight-bold" v-for="(menus,key) in menu" v-bind:key="key">
@@ -23,12 +23,12 @@
                     </div>                    
                 </v-layout>
 
-                <div>
+                <div justify-center>
                     
-                    <v-flex class="text-md-center" xs12 sm12 md12>
-                        <div class="display-1 font-weight-bold" style="margin-top:100px; text-align:center;">가게 위치</div>
-                        <v-img style="  margin-top: 25px;"  :src="shop.gps"></v-img>
-                        <div id="map" style="width:1000px; height: 500px; margin-top:50px; margin-bottom : 50px;" ></div>
+                    <v-flex class="text-md-center" xs12 sm12 md12 justify-center>
+                        <div class="display-1 font-weight-bold" style="margin-top:400px; text-align:center;">가게 위치</div>
+                        <v-img style="margin-top: 25px;" :src="shop.gps" justify-center></v-img>
+                        <div id="map" style="width:1000px; height: 500px; margin-top:50px; margin-bottom : 50px;" justify-center></div>
                     </v-flex>
                     
                 </div>

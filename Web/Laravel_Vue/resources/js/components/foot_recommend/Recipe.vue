@@ -6,27 +6,26 @@
                 <div class="display-2 green--text font-weight-bold" style="text-align:center;">RECIPE</div>
 
                 <v-layout class="d-flex flex-wrap" style="margin-top: 100px;" justify-center>
-                    <div style="margin-right:100px;" xs12 sm12 md6>
-                        <v-img style="width:500px; height: 400px; margin-top:50px; margin-left:60px; margin-bottom : 50px;" height="300px" :src="recipes.recipe_image_2"></v-img>
+                    <div style="margin-right:100px;" xs12 sm12 md6 justify-center>
+                        <v-img justify-center style="width:500px; height: 400px; margin-top:50px; margin-left:60px; margin-bottom : 50px;" height="300px" :src="recipes.recipe_image_2"></v-img>
                     </div>
 
                     <div xs12 sm12 md6 justify-center>
-                        <div style="width:500px; height: 400px;">
-                            <div class="display-1 font-weight-bold">{{recipes.recipe_food}}</div>
+                        <div style="width:500px; height: 400px;" justify-center>
+                            <div class="display-2 font-weight-bold" style="margin-bottom : 50px;">{{recipes.recipe_food}}</div>
                             <br>
-                            <h2 class="font-weight-bold">영양소</h2>
+                            <h2 class="green--text font-weight-bold">영양소</h2>
                             <div style="margin-right:50px;">
-                                중량(1인분):{{nutrients.foot_weight}}
                                 칼로리:{{nutrients.nutrient_calorie}}
-                                탄수화물:{{nutrients.carbohydrate}}
-                                콜레스테롤:{{nutrients.cholesterol}}
-                                단백질:{{nutrients.protein}}
-                                지방:{{nutrients.fat}}
-                                나트륨:{{nutrients.salt}}
+                                탄수화물:{{nutrients.nutrient_carbohydrate}}
+                                콜레스테롤:{{nutrients.nutrient_cholesterol}}
+                                단백질:{{nutrients.nutrient_protein}}
+                                지방:{{nutrients.nutrient_fat}}
+                                나트륨:{{nutrients.nutrient_salt}}
                             </div>
                             <br>
-                            <h2 class="green--text font-weight-bold">재료</h2>
-                            <div class="d-flex flex-wrap">
+                            <h2 class="green--text font-weight-bold" style="margin-top : 50px;">재료</h2>
+                            <div class="d-flex flex-wrap" justify-center>
                                 <h3 style="margin-right:30px;">
                                     {{recipes.recipe_material}}
                                 </h3>                           
@@ -36,38 +35,38 @@
                 </v-layout>
 
                 <v-layout justify-center>  
-                    <v-flex class="text-md-center" style="margin-top:50px;" justify-center xs12 sm12 md12>
-                        <div class="display-1 font-weight-bold" style="margin-top:100px; text-align:center;">만드는 방법</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_1"></v-img>
-                        <div>{{recipes.how_to_make_1}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_2"></v-img>
-                        <div>{{recipes.how_to_make_2}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_3"></v-img>
-                        <div>{{recipes.how_to_make_3}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_4"></v-img>
-                        <div>{{recipes.how_to_make_4}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_5"></v-img>
-                        <div>{{recipes.how_to_make_5}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_6"></v-img>
-                        <div>{{recipes.how_to_make_6}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_7"></v-img>
-                        <div>{{recipes.how_to_make_7}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_8"></v-img>
-                        <div>{{recipes.how_to_make_8}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_9"></v-img>
-                        <div>{{recipes.how_to_make_9}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_10"></v-img>
-                        <div>{{recipes.how_to_make_10}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_11"></v-img>
-                        <div>{{recipes.how_to_make_11}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_12"></v-img>
-                        <div>{{recipes.how_to_make_12}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_13"></v-img>
-                        <div>{{recipes.how_to_make_13}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_14"></v-img>
-                        <div>{{recipes.how_to_make_14}}</div>
-                        <v-img style="margin-top: 25px; width:600px;" :src="recipes.how_to_make_image_15"></v-img>
-                        <div>{{recipes.how_to_make_15}}</div>
+                    <v-flex class="text-md-center" style="margin-top:50px;" xs12 sm12 md6 justify-center>
+                        <div class="display-1 font-weight-bold" style="margin-top:100px; margin-bottom:50px; text-align:center;"> 만드는 방법 </div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px; text-align:center;" :src="recipes.how_to_make_image_1" justify-center></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_1}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_2"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_2}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_3"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_3}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_4"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_4}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_5"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_5}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_6"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_6}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_7"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_7}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_8"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_8}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_9"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_9}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_10"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_10}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_11"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_11}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_12"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_12}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_13"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_13}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_14"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_14}}</div>
+                        <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_15"></v-img>
+                        <div class="font-weight-bold">{{recipes.how_to_make_15}}</div>
                 </v-flex>
                 </v-layout>
 
