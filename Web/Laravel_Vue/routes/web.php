@@ -65,6 +65,4 @@ Route::get('/get_recommend_detail/{id}', 'StoreController@detail');
 Route::get('/get_recipe_detail/{id}', 'RecommendController@recipe_detail');
 
 
-Route::get('/eaten_data', 'FoodeatenController@show');
-
 Route::post('/upload', 'StoreController@storeImg');
