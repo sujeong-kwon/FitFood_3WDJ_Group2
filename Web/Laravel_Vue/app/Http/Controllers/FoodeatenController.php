@@ -81,7 +81,7 @@ class FoodeatenController extends Controller
 
         // $eat_user_gender_a = DB::table('users')->where('user_id', $eat_user_id)->pluck('user_gender');
         // $eat_user_gender = $eat_user_gender_a[0];
-        $eat_user_data = DB::table('users')->where('user_email', $user_email)->select('user_id', 'user_gender');
+        $eat_user_data = DB::table('users')->where('user_email', $user_email)->select('user_id', 'user_gender')->get();
         $eat_user_id = $eat_user_data[0]->user_id;
         $eat_user_gender = $eat_user_data[0]->user_gender;
         
