@@ -11,7 +11,7 @@
         :headers="headers"
         :items="reviews"
         :loading="loading"
-        :sort-by="['_id']"
+        :sort-by="['created_at']"
         :sort-desc="[true]"
         class="elevation-1 mytable"
       >
@@ -24,10 +24,10 @@
             <v-icon right>mdi-account-outline</v-icon>
           </v-chip>
         </template>
-        <template v-slot:item._id="{item}">
+        <template v-slot:item.created_at="{item}">
           <v-chip class="ma-2" color="orange" outlined pill>
             {{
-            id2date(item._id)
+            item.created_at
             }}
           </v-chip>
         </template>
@@ -157,7 +157,7 @@ export default {
         },
         {
           text: "날짜",
-          value: "_id",
+          value: "created_at",
           sortable: true,
           width: 300,
           class: "hidden-sm-and-down"
@@ -193,7 +193,7 @@ export default {
         .get("/showReview/"+this.$route.params.id)
         .then(response => {
           this.reviews = response.data;
-          this.loading = false;
+          this.loading = false;         
           console.log("리뷰",this.reviews);
           // console.log(response);
         })
@@ -210,7 +210,7 @@ export default {
           review_title: this.form.review_title,
           review_message: this.form.review_message,
           review_star_rating: this.form.review_star_rating,
-          store_id: this.$route.params.id
+          store_id: this.$route.params.id,
         })
         .then(res => {
           console.log("스토어리뷰",res.data);
@@ -242,10 +242,10 @@ export default {
 
       console.log("수정 아이디값",this.edit_form.review_id) // 여기서 수정 요청
     },
-    id2date(_id) {
-      if (!_id) return "잘못된 시간 정보";
+    id2date(created_at) {
+      if (!created_at) return "잘못된 시간 정보";
       return new Date(
-        parseInt(_id.substring(0, 8), 16) * 1000
+        parseInt(created_at.substring(0, 8), 16) * 1000
       ).toLocaleString();
     },
     editItem(id){
