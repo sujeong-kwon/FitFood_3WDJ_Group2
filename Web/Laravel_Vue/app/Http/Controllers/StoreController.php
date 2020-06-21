@@ -38,8 +38,6 @@ class StoreController extends Controller
             'store_gps_longitude' => $request->store_gps_longitude
         ]);
 
-        // $store_id = $store->value('store_id');
-        // $store_id = DB::select('select store_id from stores where store_id = (select max(store_id) from stores)');
         $store_id =\App\Store::max('store_id');
 
         $food = DB::table('foods')->insert([
@@ -47,14 +45,7 @@ class StoreController extends Controller
             'store_id' => $store_id,
         ]);
 
-        // $where_food_id = DB::select('select food_id from foods where food_id(select max(food_id) from foods)');
-
-        // $insert_store_id = DB::table('foods')
-        //     ->where('food_id', $where_food_id)
-        //     ->update(['store_id' => $store_id]);
-
         return $store_id;
-        // return $store_id;
     }
 
     public function show(Request $req)
@@ -140,5 +131,15 @@ class StoreController extends Controller
         $detail_food_info = DB::table('foods')->where('store_id', $store_id)->get();
 
         return [$detail_store_info, $detail_food_info];
+    }
+
+    public function get_store_gps(){
+        $store_name = DB::table('stores')->value('store_name');
+        $store_gps_latitude = DB::table('stores')->where('store_id', '<=', 3)->value('store_gps_latitude'); // 일단 3개만
+        $store_gps_longitude = DB::table('stores')->where('store_id', '<=', 3)->value('store_gps_longitude');   // 너무 많아서 렉걸릴수도 있으니까
+
+        // $store_gps = [$store_gps_latitude, $store_gps_longitude];
+
+        return [$store_name, $store_gps_latitude, $store_gps_longitude];
     }
 }

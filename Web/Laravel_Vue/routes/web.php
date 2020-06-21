@@ -35,6 +35,7 @@ Route::post('/deleteReview', 'ReviewController@delete');
 Route::get('/showReview/{id}', 'ReviewController@index');
 
 Route::get('/recommendShow', 'RecommendController@index');
+// NewStore@register stores 테이블에 메뉴 등록
 Route::post('/saveStore', 'StoreController@store');
 Route::post('/saveBreak', 'FoodeatenController@save_breakfast');
 
@@ -63,6 +64,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/get_recommend_detail/{id}', 'StoreController@detail');
 Route::get('/get_recipe_detail/{id}', 'RecommendController@recipe_detail');
+Route::get('/get_store_gps', 'StoreController@get_store_gps');
 
 
 Route::post('/upload', 'StoreController@storeImg');
