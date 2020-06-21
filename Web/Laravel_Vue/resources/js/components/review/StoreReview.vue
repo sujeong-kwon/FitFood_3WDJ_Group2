@@ -163,7 +163,7 @@ export default {
           class: "hidden-sm-and-down"
         },
         { 
-          text: '액션',
+          text: ' ',
           value: 'review_id', sortable: false }
       ],
       loading: false
