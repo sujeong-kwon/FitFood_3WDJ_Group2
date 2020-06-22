@@ -64,7 +64,7 @@
                         <v-btn color="success" @click="goPopup()">주소 검색
                         </v-btn>
                         <v-btn @click="juso_check()" >확인</v-btn>
-                        <v-btn @click="map_check()" >위도확인</v-btn>
+                        <!-- <v-btn @click="map_check()" >위도확인</v-btn> -->
                     </v-flex>
                 </v-layout>
 
@@ -236,8 +236,7 @@ export default {
                 this.roadAddrPart1 = document.getElementById('roadAddrPart1').value
                 this.addrDetail = document.getElementById('addrDetail').value
                 this.zipNo = document.getElementById('zipNo').value
-            },
-            map_check(){
+
                 var geocoder = new kakao.maps.services.Geocoder();
 
                 geocoder.addressSearch(this.roadAddrPart1, (result, status) => {
@@ -256,6 +255,25 @@ export default {
                 } 
             });    
             },
+            // map_check(){
+            //     var geocoder = new kakao.maps.services.Geocoder();
+
+            //     geocoder.addressSearch(this.roadAddrPart1, (result, status) => {
+            //         console.log("함수실행");
+
+            //         if (status === kakao.maps.services.Status.OK) {
+            //             console.log("이프문실행");
+
+            //             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            //             console.log(coords.Ga);
+            //             console.log(coords.Ha);
+
+            //             this.store_gps_latitude = coords.Ga;
+            //             this.store_gps_longitude = coords.Ha;
+            //             console.log(this.store_gps_latitude);
+            //     } 
+            // });    
+            // },
             register(){
                 axios.post('/saveStore',
                 {
