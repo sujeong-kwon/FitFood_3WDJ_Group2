@@ -263,7 +263,8 @@ export default {
       axios
         .post('/deleteReview', 
         {
-          review_id: this.edit_form.review_id
+          review_id: this.edit_form.review_id,
+          store_id: this.$route.params.id,
         })
         .then(res => {
           console.log(res.data);
