@@ -1,14 +1,11 @@
 import React from 'react';
 import { Button, Dimensions, Platform, StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { Container, Content, Icon, Thumbnail, Header, Left, Right, Body } from 'native-base';
-import * as SQLite from 'expo-sqlite';
 import firebase from 'firebase';
-import { Notifications } from 'expo';
 import {
     StackedBarChart, PieChart
 } from "react-native-chart-kit";
 import { ProgressCircle } from 'react-native-svg-charts'
-import Eaten from '../../assets/databases/Eaten';
 import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
 
 class HomeTab extends React.Component {
@@ -24,7 +21,7 @@ class HomeTab extends React.Component {
             Kamium: 0,
             calorie: 0,
             fat: 0,
-            name: "제육뚝불",
+            name: "",
             price: 0,
             protein: 0,
             salt: 0,
@@ -36,17 +33,21 @@ class HomeTab extends React.Component {
             list: null,
             Car_Per: null,
             Pro_Per: null,
-            Fat_Per: null
+            Fat_Per: null,
         }
     };
 
     async componentDidMount() {
-        const { navigation } = this.props;
+        const { navigation } = this.props;        
+
         navigation.addListener('didFocus', () => {
             this.setState({
                 nut: [[], [], [], [], [], []],
                 nut_2: [[], [], [], []],
-                kcal: []
+                kcal: [],
+                Carbohydrate: 0,
+                protein: 0,
+                fat:0
             })
             var year = 2020;
 
@@ -68,12 +69,13 @@ class HomeTab extends React.Component {
             const selected_day = '' + year + '-' + month + '-' + date;
 
             const formData = new FormData();
-            formData.append('user_email', 'tester@tester.com');
+            formData.append('user_email',firebase.auth().currentUser.email);
             formData.append('date', selected_day);
             fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/eaten_data`, {
                 method: 'POST',
                 body: formData
-            }).then(res => res.json())
+            }).then(
+                res => res.json())
                 .then(
                     res => {
                         if (res.nutrients_list.length == 0) {
@@ -145,34 +147,21 @@ class HomeTab extends React.Component {
                                 }
 
                             }
+                            let car = Math.round((this.state.Carbohydrate / (this.state.Carbohydrate + this.state.protein + this.state.fat)) * 100);
+                            let pro = Math.round((this.state.protein / (this.state.Carbohydrate + this.state.protein + this.state.fat)) * 100);
+                            let fat = Math.round((this.state.fat / (this.state.Carbohydrate + this.state.protein + this.state.fat)) * 100);
+                
+
                             this.setState({
-                                count: res.nutrients_list.length
+                                count: res.nutrients_list.length,
+                                Car_Per: car,
+                                Pro_Per: pro,
+                                Fat_Per: fat
                             });
                         }
                     })
                 .catch(error => console.error(error));
-
-            let car = Math.round((this.state.Carbohydrate / (this.state.Carbohydrate + this.state.protein + this.state.fat)) * 100);
-            let pro = Math.round((this.state.protein / (this.state.Carbohydrate + this.state.protein + this.state.fat)) * 100);
-            let fat = Math.round((this.state.fat / (this.state.Carbohydrate + this.state.protein + this.state.fat)) * 100);
-
-            this.setState({
-                Car_Per: car,
-                Pro_Per: pro,
-                Fat_Per: fat
-            })
         });
-
-        // 이 스크린에 focus 가 맞춰지면 무조건 안의 함수가 실행됨
-        navigator.geolocation.getCurrentPosition(position => {
-            console.log(position);
-        },
-            error => {
-                this.setState({
-                    error: error
-                })
-            });
-
     }
 
     static navigationOptions = {
@@ -193,19 +182,10 @@ class HomeTab extends React.Component {
             return (
                 <Container style={styles.container}>
                     <Header style={{ backgroundColor: "#1fa518" }}>
-                        <Left>
-                        </Left>
-                        <Body style={{ marginLeft: 90 }}>
+                        <Body>
                             <Text style={{ fontSize: 17, color: "white", fontWeight: 'bold' }}>
                                 당일 섭취 영양소</Text>
                         </Body>
-                        <Right>
-                            <Icon name='ios-heart' style={{ fontSize: 18, color: 'white', paddingRight: 10 }} onPress={() => {
-                                this.setState({
-                                    detailPage: false
-                                })
-                            }}></Icon>
-                        </Right>
                     </Header>
                     <ScrollView style={{ backgroundColor: "#ecf0f1" }}>
                         <View style={{ flex: 1, backgroundColor: "white", marginTop: 30, marginLeft: 5, marginRight: 5 }}>
@@ -222,8 +202,10 @@ class HomeTab extends React.Component {
                                     %</Text>
                                 <Text style={{ fontSize: 13, color: "black", marginRight: 2, fontWeight: 'bold' }}>
                                     /</Text>
-                                <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
-                                    50%</Text>
+                                {this.state.Car_Per>50
+                                ? <Text style={{ fontSize: 13, color: "red", marginRight: 5 }}>50%</Text>
+                                : <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>50%</Text>
+                                }
                                 <View style={{ width: 20, height: 20, backgroundColor: "#0A6EFF" }}>
                                 </View>
                                 <Text style={{ fontSize: 13, color: "#0A6EFF", marginLeft: 2 }}>
@@ -232,8 +214,10 @@ class HomeTab extends React.Component {
                                     %</Text>
                                 <Text style={{ fontSize: 13, color: "black", marginRight: 2, fontWeight: 'bold' }}>
                                     /</Text>
-                                <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
-                                    30%</Text>
+                                {this.state.Pro_Per>30
+                                ? <Text style={{ fontSize: 13, color: "red", marginRight: 5 }}>30%</Text>
+                                : <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>30%</Text>
+                                }
                                 <View style={{ width: 20, height: 20, backgroundColor: "#c56cf0" }}>
                                 </View>
                                 <Text style={{ fontSize: 13, color: "#c56cf0", marginLeft: 2 }}>
@@ -242,8 +226,10 @@ class HomeTab extends React.Component {
                                     %</Text>
                                 <Text style={{ fontSize: 13, color: "black", marginRight: 2, fontWeight: 'bold' }}>
                                     /</Text>
-                                <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>
-                                    20%</Text>
+                                {this.state.Fat_Per>20
+                                ? <Text style={{ fontSize: 13, color: "red", marginRight: 5 }}>20%</Text>
+                                : <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>20%</Text>
+                                }
                             </View>
                             <PieChart
                                 data={[

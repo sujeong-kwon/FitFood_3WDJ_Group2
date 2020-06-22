@@ -64,19 +64,10 @@ class App extends React.Component {
     return (
       <Container style={styles.container}>
         <Header style={{ backgroundColor: "#1fa518" }}>
-          <Left>
-          </Left>
-          <Body style={{ marginLeft: 105 }}>
+          <Body>
             <Text style={{ fontSize: 17, color: "white", fontWeight: 'bold' }}>
               마이페이지</Text>
           </Body>
-          <Right>
-            <Icon name='ios-heart' style={{ fontSize: 18, color: 'white', paddingRight: 10 }} onPress={() => {
-              this.setState({
-                detailPage: false
-              })
-            }}></Icon>
-          </Right>
         </Header>
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <ScrollView style={{ flex: 1 }}>
@@ -119,13 +110,13 @@ class App extends React.Component {
             <Content>
               <List>
                 <ListItem >
-                  <Icon name="ios-heart" style={{ color: '#F57C00', paddingRight: 10, paddingBottom: 23 }} />
+
                   <TouchableOpacity>
                     <Text style={{ fontSize: 17 }}
-                      onPress={() => {
-                        this.props.navigation.navigate('Like');
-                      }}>선호도</Text>
-                    <Text style={{ fontSize: 15, color: 'grey', paddingTop: 5 }} note>한식</Text>
+                    >주간 리포트</Text>
+                    <Icon name="ios-arrow-dropright" style={{ color: '#F57C00', fontSize: 20, paddingTop: 9 }} onPress={() => {
+                      this.props.navigation.navigate('Like');
+                    }} />
                   </TouchableOpacity>
                 </ListItem>
                 <ListItem >
@@ -157,35 +148,30 @@ class App extends React.Component {
                 </ListItem>
               </List>
             </Content>
-            <Button
-              containerStyle={{ marginVertical: 20 }}
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                paddingRight: 10,
-                paddingLeft: 10
-              }}
-              buttonStyle={{
-                height: 50,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 30,
-                backgroundColor: '#F57C00'
-              }}
-              title="로그아웃"
-              titleStyle={{
-                fontSize: 20,
-                color: 'white',
-                textAlign: 'center',
-              }}
-              onPress={() => {
-                firebase.auth().signOut();
-                console.log('로그아웃');
-                this.props.navigation.navigate('Login');
-              }}
-              activeOpacity={0.5}
-            />
+            <View style={{ margin: 10 }}>
+              <Button
+                title="로그아웃"
+                titleStyle={{
+                  fontSize: 15,
+                  color: 'white',
+                  textAlign: 'center',
+                }}
+                onPress={() => {
+                  firebase.auth().signOut();
+                  console.log('로그아웃');
+                  this.props.navigation.navigate('Login');
+                }}
+                buttonStyle={{
+                  height: 40,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 30,
+                  backgroundColor: '#F57C00'
+                }}
+                containerStyle={{ marginVertical: 7 }}
+              />
+            </View>
+
           </ScrollView>
         </View>
       </Container>

@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { Card, CardItem, Icon, Body, Right, Button } from 'native-base';
+import { Card, CardItem, Icon, Body, Right } from 'native-base';
+import { Button, Rating } from 'react-native-elements'
 import Dialog from 'react-native-dialog';
 import MapView, { Marker } from 'react-native-maps';
+import firebase from 'firebase';
 
 export default class Plan extends React.Component {
   constructor(props) {
@@ -15,68 +17,111 @@ export default class Plan extends React.Component {
       store_name: null,
       latitude_: 35.89346514,
       longitude_: 128.6220269,
+      store_dialog: false,
+      recipe_dialog: false,
+      address: null,
+      material: null,
+      recipe: null,
     }
   }
-
-  get_position() {
+  send_server() {
     const formData = new FormData();
-    formData.append('store_id', this.state.resNum);
-    fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/get_store_data`, {
-      method: 'POST',
-      body: formData
-    }).then(res => res.json()).then(
-      res => {
-        if (res.length == 0) {
-        } else {
-          var gps = String(res[0].store_gps).split(',')
+    formData.append('food_name', this.state.food);
+    formData.append('user_email', firebase.auth().currentUser.email);
+    console.log(formData);
+    fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/app_eaten`, { method: 'POST', body: formData })
+      .then(res => res.text()).then(res => {
+        console.log(res);
+      });
+    alert('등록 성공');
+    this.setState({
+      recipe_dialog: false
+    })
+  }
+
+  get_position(id) {
+    console.log(id)
+    if (id > 0) {
+      fetch(`http://34.64.243.44:5000/store/` + id, {
+        method: 'GET',
+      }).then(res => res.json()).then(
+        res => {
           this.setState({
-            store_name: res[0].store_name,
-            latitude_: gps[1],
-            longitude_: gps[0]
+            title: res.recommend[0].store_name,
+            latitude_: Number(res.recommend[0].gps_r),
+            longitude_: Number(res.recommend[0].gps_l),
+            address: res.recommend[0].recommend_address,
+            store_id: id
           })
-        }
-      })
-      .catch(err => console.error(err));
+        })
+        .catch(err => console.error(err));
+    } else {
+      let id_ = Math.abs(Number(id));
+      fetch(`http://34.64.243.44:5000/recipe/` + id_, {
+        method: 'GET',
+      }).then(res => res.json()).then(
+        res => {
+          this.setState({
+            food: res.footrecommend[0].foot_name,
+            recipe: res.footrecommend[0].foot_recipe,
+            material: res.footrecommend[0].material
+          })
+        })
+        .catch(err => console.error(err));
+    }
   }
 
   handleDelete() {
     this.setState({
-      dialog: false,
+      recipe_dialog: false,
+      store_dialog: false
     })
   }
 
   render() {
+    const { data } = this.props;
+    const { rating } = this.props;
 
     return (
       <Card style={styles.card}>
         <CardItem style={styles.carditem}>
           <Body style={{ marginLeft: 10, flexDirection: 'row' }}>
             <Image
-              source={{ uri: 'https://placeimg.com/100/100/animal' }}
+              source={{ uri: data[2] }}
               style={{ height: 110, width: 110 }}
             />
-            <Text style={styles.foodtext}>메뉴이름</Text>
+            <Text style={styles.foodtext}>{data[1]}</Text>
           </Body>
-          <Right style={{ marginTop: 90 }}>
+          <Right style={{ paddingTop: 4 }}>
             {/* 가게일 경우 */}
-            <Icon name='ios-navigate' style={{ color: 'grey' }} onPress={() => {
-              this.setState({
-                dialog: true
-              });
+            <Icon name='ios-arrow-dropright' style={{ color: 'grey' }} onPress={() => {
+              if (data[0] > 0) {
+                this.setState({
+                  store_dialog: true
+                });
+                this.get_position(data[0])
+              } else {
+                this.setState({
+                  recipe_dialog: true
+                });
+                this.get_position(data[0])
+              }
             }} />
-            <Dialog.Container visible={this.state.dialog}>
-              <Dialog.Title style={{ textAlign: 'center', fontWeight: 'bold' }}>가게이름</Dialog.Title>
+            <Dialog.Container visible={this.state.store_dialog}>
+              <Dialog.Title style={{ textAlign: 'center', fontWeight: 'bold' }}>{this.state.title}</Dialog.Title>
               <View style={{ justifyContent: 'center' }}>
                 <View style={{ flexDirection: 'row' }}>
                   <View style={{ justifyContent: 'center', marginBottom: 20 }} >
-                    <Image
-                      source={{ uri: 'https://placeimg.com/100/100/animal' }}
-                      style={{ height: 130, width: 130 }}
-                    />
+                    <View style={{ padding: 15 }}>
+                      <Image
+                        source={{ uri: data[2] }}
+                        style={{ height: 130, width: 130 }}
+                      />
+                    </View>
                   </View>
-                  <View style={{ justifyContent: 'center', marginLeft: 20 }} >
-                    <Text>메뉴이름 : 콩나물국밥</Text>
-                    <Text>가격 : 8000원</Text>
+                  <View style={{ justifyContent: 'center', marginLeft: 10 }} >
+                    <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>{data[1]}</Text>
+                    <Rating imageSize={17} readonly startingValue={rating} style={styles.rating} />
                   </View>
                 </View>
                 <View style={{ justifyContent: 'center', marginBottom: 10 }}>
@@ -95,58 +140,90 @@ export default class Plan extends React.Component {
                     coordinate={{
                       latitude: this.state.latitude_, longitude: this.state.longitude_
                     }}
-                    title="가게이름"
-                    description="주소"
+                    title={this.state.title}
+                    description={this.state.address}
                   />
 
                 </MapView>
               </View>
-              <Dialog.Button style={{ textAlign: 'center', height: 40, color: "black" }} label="취소" onPress={this.handleDelete.bind(this)} />
-
+              <Button
+                title="취소"
+                titleStyle={{
+                  fontSize: 13,
+                  color: 'white',
+                  textAlign: 'center',
+                }}
+                onPress={this.handleDelete.bind(this)}
+                buttonStyle={{
+                  height: 30,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 30,
+                  backgroundColor: '#1fa518'
+                }}
+                containerStyle={{ marginVertical: 7 }}
+              />
             </Dialog.Container>
-            {/* 레시피일 경우 */}
-            {/* <Icon name='md-paper' style={{ color: 'grey' }} onPress={() => {
-              this.setState({
-                dialog: true
-              });
-            }} />
-            <Dialog.Container visible={this.state.dialog}>
-              <Dialog.Title style={{ textAlign: 'center', fontWeight: 'bold' }}>레시피이름</Dialog.Title>
-              <View style={{ justifyContent: 'center' }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <View style={{ justifyContent: 'center', marginBottom: 20 }} >
-                    <Text style={{ fontWeight: 'bold', color: '#1fa518' }}>영양소</Text>
+
+            <Dialog.Container visible={this.state.recipe_dialog}>
+              <Dialog.Title style={{ textAlign: 'center', fontWeight: 'bold' }}>{this.state.food}</Dialog.Title>
+              <View>
+
+                <View style={{ marginBottom: 20 }}>
+                  <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 16, color: '#1fa518', marginBottom: 5 }}>재료</Text>
+                  <View>
                     <Text>
-                      중량(1인분) : 1000 / 열량 : 1000 / 탄수화물 : 1000 /
-                      단백질 : 1000 / 칼로리 : 1000 / 지방 : 1000 / 나트륨: 1000
-                  </Text>
+                      {this.state.material}
+                    </Text>
                   </View>
                 </View>
                 <View style={{ justifyContent: 'center', marginBottom: 10 }}>
-                  <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 16 }}>레시피</Text>
-                </View>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <View style={{ justifyContent: 'center', marginBottom: 20 }} >
-                    <Text style={{ fontWeight: 'bold', color: '#1fa518' }}>재료</Text>
+                  <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 16, color: '#1fa518', marginBottom: 5 }}>만드는 방법</Text>
+                  <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                     <Text>
-                      돼지고기(안심, 100g, 쌀(200g), 도라지(30g), 애호박(1/2개), 양파(30g),
-                      홍고추(1개), 미나리(20g), 오이(50g), 청포묵(20g), 쌈무(20g)
-                </Text>
-                  </View>
-                </View>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <View style={{ justifyContent: 'center', marginBottom: 20 }} >
-                    <Text style={{ fontWeight: 'bold', color: '#1fa518', textAlign: 'left' }}>만드는 방법</Text>
-                    <Image
-                      source={{ uri: 'https://placeimg.com/100/100/animal' }}
-                      style={{ height: 200, width: 350 }}
-                    />
+                      {this.state.recipe}
+                    </Text>
                   </View>
                 </View>
               </View>
-              <Dialog.Button style={{ textAlign: 'center', height: 40, color: "black" }} label="취소" onPress={this.handleDelete.bind(this)} />
-
-            </Dialog.Container> */}
+              <View style={{ margin: 5 }}>
+                <Text style={{ fontSize: 10, color: "red", marginBottom: 3, marginLeft: 10 }}>*레시피대로 드셨다면 확인버튼을 눌러주세요</Text>
+                <Button
+                  title="확인"
+                  titleStyle={{
+                    fontSize: 13,
+                    color: 'white',
+                    textAlign: 'center',
+                  }}
+                  onPress={this.send_server.bind(this)}
+                  buttonStyle={{
+                    height: 30,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 30,
+                    backgroundColor: '#1fa518'
+                  }}
+                  containerStyle={{ marginVertical: 3 }}
+                />
+              </View>
+              <Button
+                title="취소"
+                titleStyle={{
+                  fontSize: 13,
+                  color: 'white',
+                  textAlign: 'center',
+                }}
+                onPress={this.handleDelete.bind(this)}
+                buttonStyle={{
+                  height: 30,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 30,
+                  backgroundColor: '#1fa518'
+                }}
+                containerStyle={{ marginVertical: 3 }}
+              />
+            </Dialog.Container>
           </Right>
         </CardItem>
       </Card >
