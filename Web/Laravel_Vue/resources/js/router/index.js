@@ -20,6 +20,7 @@ import Recipe from '../components/foot_recommend/Recipe';
 import ReviewTest from '../../views/ReviewTest';
 
 import NewStore from '../components/new_store/NewStore';
+import income from '../components/income/income';
 
 Vue.use(VueRouter);
 
@@ -128,6 +129,11 @@ const routes = [
     path: '/ReviewTest',
     name: 'ReviewTest',
     component: ReviewTest
+},
+{
+    path: "/income",
+    name: "income",
+    component: income
 },
 ];
 
