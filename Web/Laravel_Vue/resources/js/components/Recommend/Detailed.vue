@@ -1,34 +1,43 @@
 /*가게 추천 상세보기 */
 <template>
-<v-container>
+<v-container justify-center>
         <v-layout justify-center>
             <v-flex justify-center>
-                <div class="display-2 green--text font-weight-bold" style="text-align:center;" justify-center>상세보기</div>
+                <div class="display-2 green--text font-weight-bold" style="margin-top:30px; text-align:center;" justify-center>{{shop.store_name}}</div>
 
-                <v-layout class="d-flex flex-wrap" style="margin-top: 100px;" justify-center>
-                    <div style="margin-right:100px;" xs12 sm12 md6 justify-center>
-                        <div id="roadview" style="width:500px; height: 400px; margin-top:50px; margin-bottom : 50px;" justify-center></div>
+                <v-layout class="d-flex flex-wrap" style="margin-top: 20px;" justify-center>
+                    <v-flex justify-center>
+                        <div xs12 sm12 md12 justify-center>
+                            <div id="roadview" style="margin-left:auto; margin:0px auto; width:650px; height: 450px; margin-top:50px; margin-bottom : 50px;" justify-center></div>
                         <!-- <v-img style="width:500px; height: 400px; margin-top:50px; margin-bottom : 50px;" height="300px" :src="shop.image"></v-img> -->
-                    </div>
-
-                    <div xs12 sm12 md6 justify-center>
-                        <div style="width:500px; height: 400px;" justify-center>
-                                <div class="display-2 font-weight-bold">{{shop.store_name}}</div>
-                                <br>
-                                <h1 class="green--text font-weight-bold" style="margin-bottom : 50px;">메뉴</h1>
-                                <h2 class="font-weight-bold" v-for="(menus,key) in menu" v-bind:key="key">
-                                    <strong class="warning--text" style="margin-right:50px">{{menus.food_name}}</strong>{{menus.food_price}}
-                                </h2>                           
                         </div>
-                    </div>                    
+
+                        <div xs12 sm12 md6 justify-center>
+                            <div justify-center>
+                                <h1 class="display-1 text font-weight-bold" style=" margin-top:60px; margin-bottom : 50px; text-align:center;">메뉴</h1>
+                                <div style="margin-left:auto; margin:0px auto; text-align:center;">
+                                    <v-list style="max-height: 500px" class="overflow-y-auto">
+                                        <v-list v-for="(menus,key) in menu" v-bind:key="key">
+                                            <h2><strong class="warning--text" style="margin-right:50px; text-align:center;">{{menus.food_name}}</strong>{{menus.food_price}}<br>
+                                            </h2>
+
+                                <!-- <h2 class="font-weight-bold" v-for="(menus,key) in menu" v-bind:key="key">
+                                    <strong class="warning--text" style="margin-right:50px">{{menus.food_name}}</strong>{{menus.food_price}}
+                                </h2> -->
+                                        </v-list>
+                                    </v-list>
+                                </div>                             
+                            </div>
+                        </div>
+                    </v-flex>                    
                 </v-layout>
 
                 <div justify-center>
                     
                     <v-flex class="text-md-center" xs12 sm12 md12 justify-center>
-                        <div class="display-1 font-weight-bold" style="margin-top:400px; text-align:center;">가게 위치</div>
+                        <div class="display-1 font-weight-bold" style="margin-top:30px; text-align:center;">가게 위치</div>
                         <v-img style="margin-top: 25px;" :src="shop.gps" justify-center></v-img>
-                        <div id="map" style="width:1000px; height: 500px; margin-top:50px; margin-bottom : 50px;" justify-center></div>
+                        <div id="map" style="width:1000px; height: 500px; margin-top:50px; margin-bottom : 50px; margin-left:auto; margin:0px auto;"  justify-center></div>
                     </v-flex>
                     
                 </div>
@@ -50,6 +59,7 @@ export default {
         return{
             shop:'',
             menu:'',
+            offsetTop: 0,
         };
     },
     created : function(){
@@ -103,5 +113,10 @@ export default {
             console.log(err);
         });
     },
+    methods: {
+      onScroll (e) {
+        this.offsetTop = e.target.scrollTop
+      }
+    }
 }
 </script>

@@ -140,7 +140,7 @@ class FoodeatenController extends Controller
             foreach ($eat_recipe_food_id_a as $recipe_id_value)
             {
                 $eat_recipe_food_nutrient = DB::select('select nutrient_calorie, nutrient_carbohydrate, nutrient_protein, 
-                nutrient_fat, nutrient_salt, nutrient_cholesterol + 30 as nutrient_cholesterol, nutrient_kamium + 300 as nutrient_kaminum, recipe_id from nutrients where recipe_id = ?', [$recipe_id_value]);
+                nutrient_fat, nutrient_salt, nutrient_cholesterol + 30 as nutrient_cholesterol, nutrient_kamium + 300 as nutrient_kamium, recipe_id from nutrients where recipe_id = ?', [$recipe_id_value]);
 
                 array_push($nutrients_list, $eat_recipe_food_nutrient);
             }
