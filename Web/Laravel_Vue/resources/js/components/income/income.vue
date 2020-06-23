@@ -1,12 +1,23 @@
 <template>
-  <div id="map" style="width:100%;height:350px;"></div>
+  <v-container>
+      <v-layout>
+        <v-flex>
+          <h1>INCOME</h1>
+          <div id="map" style="width:1000px; height: 500px; margin-top:50px; margin-bottom : 50px; margin-left:auto; margin:0px auto;" justify-center></div>
+        </v-flex>
+      </v-layout>
+  </v-container>
 </template>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=120a463f1c98a30ef38460a15dabf50a"></script>
+<script type="text/javascript" src="/dapi.kakao.com/v2/maps/sdk.js?appkey=451969080561cdf9079bd37cf1e1e7ef"></script>
+<script type="text/javascript" src="{{cdn('v2/maps/sdk.js?appkey=451969080561cdf9079bd37cf1e1e7ef')}}"></script>
+<script type="text/javascript" src="{{URL::to('/dapi.kakao.com/v2/maps/sdk.js?appkey=451969080561cdf9079bd37cf1e1e7ef')}}"></script>
+
 <script>
 import axios from 'axios';
 
 export default {
+  name:'incom',
   data(){
     return {
       name: '', // 가게 이름
@@ -16,8 +27,8 @@ export default {
     }
   },
 
-  created : function(){
-
+  // created : function(){
+    mounted(){
     axios.get('/get_store_gps') // StoreController@get_store_gps
     .then(res => {
       console.log(res);
@@ -37,7 +48,6 @@ export default {
       }; 
 
     var map = new kakao.maps.Map(mapContainer, mapOption);
-
 
     if (navigator.geolocation) {
         
@@ -82,28 +92,28 @@ export default {
     // ];
     var positions = {
       store_name: this.name,
-      store_gps = new kakao.maps.LatLng(this.store_gps_Lat, this.store_gps_Lng)
+      store_gps : new kakao.maps.LatLng(this.store_gps_Lat, this.store_gps_Lng)
     }
 
     // 마커 이미지의 이미지 주소입니다
-    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+    // var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
         
-    for (var i = 0; i < positions.length; i ++) {
+    // for (var i = 0; i < positions.length; i ++) {
         
-        // 마커 이미지의 이미지 크기 입니다
-        var imageSize = new kakao.maps.Size(24, 35); 
+    //     // 마커 이미지의 이미지 크기 입니다
+    //     var imageSize = new kakao.maps.Size(24, 35); 
         
-        // 마커 이미지를 생성합니다    
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+    //     // 마커 이미지를 생성합니다    
+    //     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
         
-        // 마커를 생성합니다
-        var marker = new kakao.maps.Marker({
-            map: map, // 마커를 표시할 지도
-            position: positions[i].latlng, // 마커를 표시할 위치
-            title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-            image : markerImage // 마커 이미지 
-        });
-    }
+    //     // 마커를 생성합니다
+    //     var marker = new kakao.maps.Marker({
+    //         map: map, // 마커를 표시할 지도
+    //         position: positions[i].latlng, // 마커를 표시할 위치
+    //         title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+    //         image : markerImage // 마커 이미지 
+    //     });
+    // }
 
     // 지도에 마커와 인포윈도우를 표시하는 함수입니다
     function displayMarker(locPosition, message) {
