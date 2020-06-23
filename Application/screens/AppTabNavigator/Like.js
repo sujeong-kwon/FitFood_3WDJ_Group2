@@ -1,108 +1,388 @@
-import React, { useState, useCallback } from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    SafeAreaView,
-    Image,
-    ScrollView,
-    Dimensions,
-    StatusBar,
-} from 'react-native';
+import React, { Component } from 'react';
+import { Button, StyleSheet, Text, View, ScrollView, Dimensions, TextInput, Platform, TouchableOpacity, Image } from 'react-native';
+import { Container, Header, Body, Right, Left, Icon } from 'native-base';
+import { Path } from 'react-native-svg'
+import { LineChart, XAxis, AreaChart, Grid, YAxis } from 'react-native-svg-charts'
+import * as shape from 'd3-shape'
 import firebase from 'firebase';
 
-import { Button } from 'react-native-elements';
+class Like extends React.Component {
 
-import { LinearGradient } from '../components/LinearGradient';
-
-import { Container, Header, Body, Right, Left, Icon } from 'native-base';
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
-
-const IMAGE_SIZE = SCREEN_WIDTH - 80;
-
-class CustomButton extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            selected: false,
-            name: null,
-            age: null,
-            email: null
-
-        };
+            Car_Data: [],
+            Pro_Data: [],
+            Fat_Data: []
+        }
     }
 
-    componentDidMount() {
-        const { selected } = this.props;
+    async componentDidMount() {
+        
+        let Car_Data = [];
+        let Pro_Data = [];
+        let Fat_Data = [];
 
-        this.setState({
-            selected,
+        const formData1 = new FormData();
+        formData1.append('user_email',firebase.auth().currentUser.email);
+        formData1.append('date','2020-06-15');
+
+        fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/eaten_data`, {
+            method: 'POST',
+            body: formData1
+        }).then(res=>res.json()).then(res=>{
+            let car_sum = 0;
+            let pro_sum = 0;
+            let fat_sum = 0;
+            for(let i=0;i<res.nutrients_list.length;i++) {
+                car_sum+=Math.round(res.nutrients_list[i][0].nutrient_carbohydrate)
+                pro_sum+=Math.round(res.nutrients_list[i][0].nutrient_protein)
+                fat_sum+=Math.round(res.nutrients_list[i][0].nutrient_fat)
+            }                
+
+            let Car_Per = Math.round((car_sum/(car_sum+pro_sum+fat_sum))*100);
+            let Pro_Per = Math.round((pro_sum/(car_sum+pro_sum+fat_sum))*100);
+            let Fat_Per = Math.round((fat_sum/(car_sum+pro_sum+fat_sum))*100);
+
+            Car_Data.push({value:Car_Per,date:6.15});
+            Pro_Data.push({value:Pro_Per,date:6.15});
+            Fat_Data.push({value:Fat_Per,date:6.15});
+                //2
+                const formData2 = new FormData();
+                formData2.append('user_email',firebase.auth().currentUser.email);
+                formData2.append('date','2020-06-16');
+
+                fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/eaten_data`, {
+                    method: 'POST',
+                    body: formData2
+                }).then(res=>res.json()).then(res=>
+                    {
+
+                    let car_sum = 0;
+                    let pro_sum = 0;
+                    let fat_sum = 0;
+                    for(let i=0;i<res.nutrients_list.length;i++) {
+                        car_sum+=Math.round(res.nutrients_list[i][0].nutrient_carbohydrate)
+                        pro_sum+=Math.round(res.nutrients_list[i][0].nutrient_protein)
+                        fat_sum+=Math.round(res.nutrients_list[i][0].nutrient_fat)
+                    }                
+
+                    let Car_Per = Math.round((car_sum/(car_sum+pro_sum+fat_sum))*100);
+                    let Pro_Per = Math.round((pro_sum/(car_sum+pro_sum+fat_sum))*100);
+                    let Fat_Per = Math.round((fat_sum/(car_sum+pro_sum+fat_sum))*100);
+
+                    Car_Data.push({value:Car_Per,date:6.16});
+                    Pro_Data.push({value:Pro_Per,date:6.16});
+                    Fat_Data.push({value:Fat_Per,date:6.16});
+
+                            //3
+                const formData3 = new FormData();
+                formData3.append('user_email',firebase.auth().currentUser.email);
+                formData3.append('date','2020-06-17');
+
+                fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/eaten_data`, {
+                    method: 'POST',
+                    body: formData3
+                }).then(res=>res.json()).then(res=>{
+
+                    let car_sum = 0;
+                    let pro_sum = 0;
+                    let fat_sum = 0;
+                    for(let i=0;i<res.nutrients_list.length;i++) {
+                        car_sum+=Math.round(res.nutrients_list[i][0].nutrient_carbohydrate)
+                        pro_sum+=Math.round(res.nutrients_list[i][0].nutrient_protein)
+                        fat_sum+=Math.round(res.nutrients_list[i][0].nutrient_fat)
+                    }                
+
+                    let Car_Per = Math.round((car_sum/(car_sum+pro_sum+fat_sum))*100);
+                    let Pro_Per = Math.round((pro_sum/(car_sum+pro_sum+fat_sum))*100);
+                    let Fat_Per = Math.round((fat_sum/(car_sum+pro_sum+fat_sum))*100);
+
+                    Car_Data.push({value:Car_Per,date:6.17});
+                    Pro_Data.push({value:Pro_Per,date:6.17});
+                    Fat_Data.push({value:Fat_Per,date:6.17});
+
+                    // 4
+                    const formData4 = new FormData();
+                    formData4.append('user_email',firebase.auth().currentUser.email);
+                    formData4.append('date','2020-06-18');
+
+                    fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/eaten_data`, {
+                        method: 'POST',
+                        body: formData4
+                    }).then(res=>res.json()).then(res=>{
+
+                        let car_sum = 0;
+                        let pro_sum = 0;
+                        let fat_sum = 0;
+                        for(let i=0;i<res.nutrients_list.length;i++) {
+                            car_sum+=Math.round(res.nutrients_list[i][0].nutrient_carbohydrate)
+                            pro_sum+=Math.round(res.nutrients_list[i][0].nutrient_protein)
+                            fat_sum+=Math.round(res.nutrients_list[i][0].nutrient_fat)
+                        }                
+
+                        let Car_Per = Math.round((car_sum/(car_sum+pro_sum+fat_sum))*100);
+                        let Pro_Per = Math.round((pro_sum/(car_sum+pro_sum+fat_sum))*100);
+                        let Fat_Per = Math.round((fat_sum/(car_sum+pro_sum+fat_sum))*100);
+
+                        Car_Data.push({value:Car_Per,date:6.18});
+                        Pro_Data.push({value:Pro_Per,date:6.18});
+                        Fat_Data.push({value:Fat_Per,date:6.18});
+
+                        // 5
+                        const formData5 = new FormData();
+                        formData5.append('user_email',firebase.auth().currentUser.email);
+                        formData5.append('date','2020-06-19');
+
+                        fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/eaten_data`, {
+                            method: 'POST',
+                            body: formData5
+                        }).then(res=>res.json()).then(res=>{
+                            let car_sum = 0;
+                            let pro_sum = 0;
+                            let fat_sum = 0;
+                            for(let i=0;i<res.nutrients_list.length;i++) {
+                                car_sum+=Math.round(res.nutrients_list[i][0].nutrient_carbohydrate)
+                                pro_sum+=Math.round(res.nutrients_list[i][0].nutrient_protein)
+                                fat_sum+=Math.round(res.nutrients_list[i][0].nutrient_fat)
+                            }                
+
+                            let Car_Per = Math.round((car_sum/(car_sum+pro_sum+fat_sum))*100);
+                            let Pro_Per = Math.round((pro_sum/(car_sum+pro_sum+fat_sum))*100);
+                            let Fat_Per = Math.round((fat_sum/(car_sum+pro_sum+fat_sum))*100);
+
+                            Car_Data.push({value:Car_Per,date:6.19});
+                            Pro_Data.push({value:Pro_Per,date:6.19});
+                            Fat_Data.push({value:Fat_Per,date:6.19});
+
+                            //6
+                            const formData6 = new FormData();
+                            formData6.append('user_email',firebase.auth().currentUser.email);
+                            formData6.append('date','2020-06-20');
+
+                            fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/eaten_data`, {
+                                method: 'POST',
+                                body: formData6
+                            }).then(res=>res.json()).then(res=>{
+                                let car_sum = 0;
+                                let pro_sum = 0;
+                                let fat_sum = 0;
+                                for(let i=0;i<res.nutrients_list.length;i++) {
+                                    car_sum+=Math.round(res.nutrients_list[i][0].nutrient_carbohydrate)
+                                    pro_sum+=Math.round(res.nutrients_list[i][0].nutrient_protein)
+                                    fat_sum+=Math.round(res.nutrients_list[i][0].nutrient_fat)
+                                }                
+
+                                let Car_Per = Math.round((car_sum/(car_sum+pro_sum+fat_sum))*100);
+                                let Pro_Per = Math.round((pro_sum/(car_sum+pro_sum+fat_sum))*100);
+                                let Fat_Per = Math.round((fat_sum/(car_sum+pro_sum+fat_sum))*100);
+
+                                Car_Data.push({value:Car_Per,date:'6.20'});
+                                Pro_Data.push({value:Pro_Per,date:'6.20'});
+                                Fat_Data.push({value:Fat_Per,date:'6.20'});        
+                                //7
+                                const formData7 = new FormData();
+                                formData7.append('user_email',firebase.auth().currentUser.email);
+                                formData7.append('date','2020-06-21');
+                        
+                                fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/eaten_data`, {
+                                    method: 'POST',
+                                    body: formData7
+                                }).then(res=>res.json()).then(res=>{
+                                    let car_sum = 0;
+                                    let pro_sum = 0;
+                                    let fat_sum = 0;
+                                    for(let i=0;i<res.nutrients_list.length;i++) {
+                                        car_sum+=Math.round(res.nutrients_list[i][0].nutrient_carbohydrate)
+                                        pro_sum+=Math.round(res.nutrients_list[i][0].nutrient_protein)
+                                        fat_sum+=Math.round(res.nutrients_list[i][0].nutrient_fat)
+                                    }                
+                        
+                                    let Car_Per = Math.round((car_sum/(car_sum+pro_sum+fat_sum))*100);
+                                    let Pro_Per = Math.round((pro_sum/(car_sum+pro_sum+fat_sum))*100);
+                                    let Fat_Per = Math.round((fat_sum/(car_sum+pro_sum+fat_sum))*100);
+
+                                    Car_Data.push({value:Car_Per,date:6.21});
+                                    Pro_Data.push({value:Pro_Per,date:6.21});
+                                    Fat_Data.push({value:Fat_Per,date:6.21});
+
+                                    this.setState({
+                                        Car_Data,
+                                        Pro_Data,
+                                        Fat_Data
+                                    });
+
+                                    console.log(Car_Data,Pro_Data,Fat_Data);
+                                });
+                            });
+                        });
+                    });
+                });
+            });
         });
-
     }
 
-    render() {
-        const { title } = this.props;
-        const { selected } = this.state;
 
-        return (
-            <Button
-                title={title}
-                titleStyle={{ fontSize: 15, color: 'black' }}
-                buttonStyle={
-                    selected
-                        ? {
-                            backgroundColor: '#1fa518',
-                            borderRadius: 100,
-                            width: 200,
-                        }
-                        : {
-                            borderWidth: 2,
-                            borderColor: 'grey',
-                            borderRadius: 30,
-                            width: 200,
-                            backgroundColor: 'transparent',
-                        }
-                }
-                containerStyle={{ marginBottom: 15, marginRight: 10 }}
-                onPress={() => this.setState({ selected: !selected })}
+    render() {
+        const axesSvg = { fontSize: 10, fill: 'grey' };
+        const verticalContentInset = { top: 10, bottom: 10 }
+        const xAxisHeight = 10
+
+        const Line1 = ({ line }) => (
+            <Path
+                key={'line'}
+                d={line}
+                stroke={'#FF6E6E'}
+                fill={'none'}
             />
-        );
-    }
-}
-
-class Like extends React.Component {
-
-    render() {
+        )
+        const Line2 = ({ line }) => (
+            <Path
+                key={'line'}
+                d={line}
+                stroke={'#0A6EFF'}
+                fill={'none'}
+            />
+        )
+        const Line3 = ({ line }) => (
+            <Path
+                key={'line'}
+                d={line}
+                stroke={'rgb(197, 108, 240)'}
+                fill={'none'}
+            />
+        )
         return (
             <Container style={style.container}>
                 <Header style={{ backgroundColor: "#1fa518" }}>
                     <Left>
+                        <Icon name='md-arrow-back' style={{ color: 'white', paddingLeft: 10 }} onPress={() => {
+                            this.props.navigation.navigate('Setting');
+                        }}></Icon>
                     </Left>
-                    <Body style={{ marginLeft: 125 }}>
+                    <Body style={{}}>
                         <Text style={{ fontSize: 17, color: "white", fontWeight: 'bold' }}>
-                            선호도</Text>
+                            주간 리포트</Text>
                     </Body>
                     <Right>
-                        <Text style={{ fontSize: 17, color: "white", fontWeight: 'bold', paddingRight: 10 }}> 완료
-                        </Text>
                     </Right>
                 </Header>
-                <View style={style.likecontainer}>
+                <ScrollView style={{ backgroundColor: "#ecf0f1" }}>
                     <View>
-                        <Text style={{ fontSize: 20, paddingTop: 150, paddingBottom: 50 }}>
-                            어떤 음식을 좋아하시나요?
-                        </Text>
+                        <View style={{ flex: 1, backgroundColor: "white", marginTop: 30, marginLeft: 10, marginRight: 10 }}>
+                            <Text style={{ fontSize: 20, color: "black", marginTop: 15, marginBottom: 10, marginLeft: 10, fontWeight: "bold", textAlign: 'center' }}>2020/06/15 ~ 2020/06/21</Text>
+                            <Text style={{ fontSize: 12, color: "grey", marginBottom: 5, marginLeft: 10 }}>당일 기준 1주일간의 탄단지 권장 범위 초과, 미만 리포트를 확인해보세요</Text>
+                            <Text style={{ fontSize: 10, color: "#1fa518", marginBottom: 15, marginLeft: 10 }}>*이 데이터는 추천식단에 반영됩니다</Text>
+                        </View>
+                        <View style={{ flex: 1, backgroundColor: "white", marginTop: 30, marginLeft: 5, marginRight: 5 }}>
+                            <Text style={{ fontWeight: 'bold', marginLeft: 13, fontSize: 17, paddingTop: 20, paddingBottom: 5, color: 'black' }}>탄수화물(%)</Text>
+                            <View style={{ height: 200, padding: 10, flexDirection: 'row' }}>
+                                <YAxis
+                                    data={this.state.Car_Data}
+                                    style={{ marginBottom: xAxisHeight }}
+                                    contentInset={verticalContentInset}
+                                    svg={axesSvg}
+                                    yAccessor={({ item }) => item.value}
+                                />
+                                <View style={{ flex: 1, marginLeft: 10 }}>
+                                    <AreaChart
+                                        start={55}
+                                        style={{ flex: 1 }}
+                                        data={this.state.Car_Data}
+                                        contentInset={verticalContentInset}
+                                        curve={shape.curveNatural}
+                                        svg={{ fill: 'rgb(255, 110, 110, 0.4)' }}
+                                        yAccessor={({ item }) => item.value}
+                                        xAccessor={({ item }) => item.date}
+                                    >
+                                        <Grid />
+                                        <Line1 />
+                                    </AreaChart>
+                                    <XAxis
+                                        style={{ marginHorizontal: -10, height: xAxisHeight }}
+                                        data={this.state.Car_Data}
+                                        formatLabel={(value, index) => value}
+                                        contentInset={{ left: 10, right: 10 }}
+                                        svg={axesSvg}
+                                        xAccessor={({ item }) => item.date}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+
+                        <View style={{ flex: 1, backgroundColor: "white", marginTop: 30, marginLeft: 5, marginRight: 5 }}>
+                            <Text style={{ fontWeight: 'bold', marginLeft: 13, fontSize: 17, paddingTop: 20, paddingBottom: 5, color: 'black' }}>단백질(%)</Text>
+                            <View style={{ height: 200, padding: 10, flexDirection: 'row' }}>
+                                <YAxis
+                                    data={this.state.Pro_Data}
+                                    style={{ marginBottom: xAxisHeight }}
+                                    contentInset={verticalContentInset}
+                                    svg={axesSvg}
+                                    yAccessor={({ item }) => item.value}
+                                />
+                                <View style={{ flex: 1, marginLeft: 10 }}>
+                                    <AreaChart
+                                        start={20}
+                                        style={{ flex: 1 }}
+                                        data={this.state.Pro_Data}
+                                        contentInset={verticalContentInset}
+                                        curve={shape.curveNatural}
+                                        svg={{ fill: 'rgb(10, 110, 255, 0.4)' }}
+                                        yAccessor={({ item }) => item.value}
+                                        xAccessor={({ item }) => item.date}
+                                    >
+                                        <Grid />
+                                        <Line2 />
+                                    </AreaChart>
+                                    <XAxis
+                                        style={{ marginHorizontal: -10, height: xAxisHeight }}
+                                        data={this.state.Pro_Data}
+                                        formatLabel={(value, index) => value}
+                                        contentInset={{ left: 10, right: 10 }}
+                                        svg={axesSvg}
+                                        xAccessor={({ item }) => item.date}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{ flex: 1, backgroundColor: "white", marginTop: 30, marginLeft: 5, marginRight: 5 }}>
+                            <Text style={{ fontWeight: 'bold', marginLeft: 13, fontSize: 17, paddingTop: 20, paddingBottom: 5, color: 'black' }}>지방(%)</Text>
+                            <View style={{ height: 200, padding: 10, flexDirection: 'row' }}>
+                                <YAxis
+                                    data={this.state.Fat_Data}
+                                    style={{ marginBottom: xAxisHeight }}
+                                    contentInset={verticalContentInset}
+                                    svg={axesSvg}
+                                    yAccessor={({ item }) => item.value}
+                                />
+                                <View style={{ flex: 1, marginLeft: 10 }}>
+                                    <AreaChart
+                                        start={15}
+                                        style={{ flex: 1 }}
+                                        data={this.state.Fat_Data}
+                                        contentInset={verticalContentInset}
+                                        curve={shape.curveNatural}
+                                        svg={{ fill: 'rgb(197, 108, 240, 0.4)' }}
+                                        yAccessor={({ item }) => item.value}
+                                        xAccessor={({ item }) => item.date}
+                                    >
+                                        <Grid />
+                                        <Line3 />
+                                    </AreaChart>
+                                    <XAxis
+                                        style={{ marginHorizontal: -10, height: xAxisHeight }}
+                                        data={this.state.Fat_Data}
+                                        formatLabel={(value, index) => value}
+                                        contentInset={{ left: 10, right: 10 }}
+                                        svg={axesSvg}
+                                        xAccessor={({ item }) => item.date}
+                                    />
+                                </View>
+                            </View>
+                        </View>
                     </View>
-                    <View style={{ flex: 1 }}>
-                        <CustomButton title="한식" />
-                        <CustomButton title="중식" />
-                        <CustomButton title="일식" />
-                        <CustomButton title="양식" />
-                    </View>
-                </View>
+                </ScrollView>
             </Container >
         );
     }
@@ -111,12 +391,7 @@ class Like extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex: 1
-    },
-    likecontainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
+    }
 })
 
 export default Like;

@@ -21,7 +21,7 @@ class App extends React.Component {
       screen: 1,
       hasPermission: null,
       img: null,
-      cameraType: Camera.Constants.Type.front,
+      cameraType: Camera.Constants.Type.back,
       data: null
     };
     this.cameraRef = React.createRef();
@@ -44,8 +44,6 @@ class App extends React.Component {
       alert(error)
     }
     this.props.navigation.navigate('sendPage', { "uri": this.state.img, "data": this.state.data });
-    console.log(this.state.img);
-    console.log(this.state.data);
   };
 
   savePhoto = async uri => {
@@ -135,7 +133,7 @@ class App extends React.Component {
             ref={this.cameraRef}
             style={{
               width: width - 40,
-              height: 550,
+              height: 530,
               borderRadius: 10,
               overflow: 'hidden'
             }}

@@ -221,7 +221,7 @@ export default class App extends Component {
     return (
       <View>
         <ImageBackground
-          style={{ width: 415, height: 500 }}
+          style={{ width: 415, height: 490 }}
           source={{ uri: this.props.navigation.getParam('data') }}>
           {
             this.state.positions.map((position, index) => {
