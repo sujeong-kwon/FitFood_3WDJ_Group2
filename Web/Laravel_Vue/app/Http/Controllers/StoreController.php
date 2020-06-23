@@ -134,11 +134,9 @@ class StoreController extends Controller
     }
 
     public function get_store_gps(){
-        $store_name = DB::table('stores')->value('store_name');
-        $store_gps_latitude = DB::table('stores')->where('store_id', '<=', 3)->value('store_gps_latitude'); // 일단 3개만
-        $store_gps_longitude = DB::table('stores')->where('store_id', '<=', 3)->value('store_gps_longitude');   // 너무 많아서 렉걸릴수도 있으니까
-
-        // $store_gps = [$store_gps_latitude, $store_gps_longitude];
+        $store_name = DB::table('stores')->select('store_name')->where('store_id', '<=', 3)->get();
+        $store_gps_latitude = DB::table('stores')->select('store_gps_latitude')->where('store_id', '<=', 3)->get(); // 일단 3개만
+        $store_gps_longitude = DB::table('stores')->select('store_gps_longitude')->where('store_id', '<=', 3)->get();   // 너무 많아서 렉걸릴수도 있으니까
 
         return [$store_name, $store_gps_latitude, $store_gps_longitude];
     }
