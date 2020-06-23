@@ -355,41 +355,6 @@ export default {
 
                 console.log(this.menuImgs);
             },
-            // send() {
-            //     console.log(this.menuImgs)
-
-            //     var sendData = new FormData();
-            //     var menus = ''
-            //     for(var key in this.menuImgs) { // menuIngs내용물 만큼 반복
-            //         var index = 0
-            //         menus += key + ','
-            //         this.menuImgs[key].forEach(img => {
-            //             console.log(String(key)+String(index))
-            //             sendData.append(String(key)+String(index), img)
-            //             index += 1;
-            //         });
-            //         sendData.append(String(key)+'size', index)
-            //     }
-            //     sendData.append('menus',menus);
-            //     sendData.append('store_id', this.created_store_id);
-            //     console.log(sendData)
-
-            //     const config = { headers: { 'Content-Type' : 'multipart/form-data' } };
-
-            //     axios.post('http://127.0.0.1:5000/send', sendData, config)
-            //         .then(response=> {
-            //             console.log(response);
-            //             document.getElementById('upload-file').value=[];    //초기화
-            //             document.getElementById('img-name').value='';
-            //             this.attachments = [];
-            //             this.food_name = '';
-            //             console.log(this.menuInfo);
-            //             window.location.href='/';
-            //         })
-            //         .catch(response=> {
-
-            //         });
-            // }
     }
 }
 </script>
