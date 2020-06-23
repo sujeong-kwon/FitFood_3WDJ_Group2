@@ -81,7 +81,7 @@ class FoodeatenController extends Controller
 
         // $eat_user_gender_a = DB::table('users')->where('user_id', $eat_user_id)->pluck('user_gender');
         // $eat_user_gender = $eat_user_gender_a[0];
-        $eat_user_data = DB::table('users')->where('user_email', $user_email)->select('user_id', 'user_gender');
+        $eat_user_data = DB::table('users')->where('user_email', $user_email)->select('user_id', 'user_gender')->get();
         $eat_user_id = $eat_user_data[0]->user_id;
         $eat_user_gender = $eat_user_data[0]->user_gender;
         
@@ -140,7 +140,7 @@ class FoodeatenController extends Controller
             foreach ($eat_recipe_food_id_a as $recipe_id_value)
             {
                 $eat_recipe_food_nutrient = DB::select('select nutrient_calorie, nutrient_carbohydrate, nutrient_protein, 
-                nutrient_fat, nutrient_salt, nutrient_cholesterol + 30 as nutrient_cholesterol, nutrient_kamium + 300 as nutrient_kaminum, recipe_id from nutrients where recipe_id = ?', [$recipe_id_value]);
+                nutrient_fat, nutrient_salt, nutrient_cholesterol + 30 as nutrient_cholesterol, nutrient_kamium + 300 as nutrient_kamium, recipe_id from nutrients where recipe_id = ?', [$recipe_id_value]);
 
                 array_push($nutrients_list, $eat_recipe_food_nutrient);
             }

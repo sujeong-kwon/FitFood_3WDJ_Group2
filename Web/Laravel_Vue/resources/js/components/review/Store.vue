@@ -3,8 +3,8 @@
     <v-layout justify-cetner row>
       <v-flex xs12>
         <!-- <h1>id {{$route.params.id}} 입니다</h1> -->
-        <h1 class="font-weight-black text-center">{{item.store_name}}</h1>
-        <v-img class="img" :src="item.image"></v-img>
+        <h1 class="font-weight-black text-center" style="margin-top: 20px; margin-bottom: 20px;">{{item.store_name}}</h1>
+        
       </v-flex>
       <router-view></router-view>
     </v-layout>

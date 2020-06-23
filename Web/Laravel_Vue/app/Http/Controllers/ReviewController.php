@@ -44,6 +44,28 @@ class ReviewController extends Controller
             'store_id' => $request->store_id,
         ]);
 
+        $sum_star = 0.00;
+
+        $review_star_rating = DB::select('SELECT GROUP_CONCAT(review_star_rating SEPARATOR  \', \') as stars
+        FROM reviews
+        WHERE store_id = ?', [$request->store_id]);
+        
+        $star_array = explode(", ", $review_star_rating[0]->stars);
+        $review_star_count = count($star_array);
+
+        for($i = 0; $i < $review_star_count; $i++) {
+            $sum_star += $star_array[$i];
+        }
+
+        $float_star_rating = (Float)($sum_star / $review_star_count);
+        $average_star_rating = number_format($float_star_rating, 2);
+        
+        $store_star_rating = DB::table('stores')
+            ->where('store_id', $request->store_id)
+            ->update(
+            ['store_star_rating'=>$average_star_rating]
+        );
+
         return "success";
     }
 
@@ -60,6 +82,29 @@ class ReviewController extends Controller
             'review_id' => $review_id
             ]);
 
+
+        $sum_star = 0.00;
+
+        $review_star_rating = DB::select('SELECT GROUP_CONCAT(review_star_rating SEPARATOR  \', \') as stars
+        FROM reviews
+        WHERE store_id = ?', [$request->store_id]);
+        
+        $star_array = explode(", ", $review_star_rating[0]->stars);
+        $review_star_count = count($star_array);
+
+        for($i = 0; $i < $review_star_count; $i++) {
+            $sum_star += $star_array[$i];
+        }
+
+        $float_star_rating = (Float)($sum_star / $review_star_count);
+        $average_star_rating = number_format($float_star_rating, 2);
+        
+        $store_star_rating = DB::table('stores')
+            ->where('store_id', $request->store_id)
+            ->update(
+            ['store_star_rating'=>$average_star_rating]
+        );
+
         return "success";
     }
 
@@ -71,6 +116,34 @@ class ReviewController extends Controller
                             ->where('review_id', $delete_review_id)
                             ->delete();
 
+
+        $sum_star = 0.00;
+
+        $review_star_rating = DB::select('SELECT GROUP_CONCAT(review_star_rating SEPARATOR  \', \') as stars
+        FROM reviews
+        WHERE store_id = ?', [$request->store_id]);
+        
+        if ($review_star_rating[0]->stars !== null ) {
+            $star_array = explode(", ", $review_star_rating[0]->stars);
+            $review_star_count = count($star_array);
+
+            for($i = 0; $i < $review_star_count; $i++) {
+                $sum_star += $star_array[$i];
+            }
+
+            $float_star_rating = (Float)($sum_star / $review_star_count);
+            $average_star_rating = number_format($float_star_rating, 2);
+        } else {
+            $average_star_rating = $sum_star;
+        }
+        
+        
+        $store_star_rating = DB::table('stores')
+            ->where('store_id', $request->store_id)
+            ->update(
+            ['store_star_rating'=>$average_star_rating]
+        );
+        
         return "success";
     }
 }

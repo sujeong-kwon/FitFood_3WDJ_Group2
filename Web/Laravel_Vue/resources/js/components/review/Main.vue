@@ -25,7 +25,7 @@
       <li v-for="item in stores" v-bind:key="item.id">
         <v-card class="event-card">
           <v-layout row>
-            <img :src="item.image" />
+           
             <v-layout column justify-space-between style="padding: 0.8em 1.3em; max-width: 390px;">
               <div>
                 <h1 class="name">{{item.store_name}}</h1>
