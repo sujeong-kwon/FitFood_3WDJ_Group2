@@ -97,13 +97,16 @@
                     </v-flex>
                 </v-layout>
 
-                <v-layout class="mt-4 mb-4" justify-center >
+                <v-layout class="mt-4 mb-4" justify-center>
                     <v-flex xs12 sm4 md1>
                         <div class="green--text font-weight-bold">메뉴</div>
                     </v-flex>
-                        <v-flex xs12 sm4 md5>
-                        <v-btn color="success"  @click.stop="dialog = true">+ 추가</v-btn>
-                         <v-dialog
+                    <v-flex xs12 sm4 md5>
+                    <v-btn color="success" @click.stop="dialog = true">+ 추가</v-btn>
+
+
+
+                        <v-dialog
                         v-model="dialog"
                         max-width="290"
                         >
@@ -158,10 +161,28 @@
 
                             </v-list-item>
                         </v-list> -->
-                        <v-img v-if="i_url" :src="i_url"></v-img>
-                        <v-text v-text="food_name"></v-text>
+
+
+                        <!-- <v-img v-if="i_url" :src="i_url"></v-img>
+                        <v-text v-text="food_name"></v-text> -->
                     </v-flex>
                 </v-layout>
+
+                 <v-list style="margin-top:10px; margin-left:23%">
+                        <v-list-item>
+
+
+                            <v-list-item-avatar>
+                            <v-img  v-if="i_url" :src="i_url"></v-img>
+                            </v-list-item-avatar>
+
+                            <v-list-item-content>
+                            <v-list-item-title v-text="food_name"></v-list-item-title>
+                            </v-list-item-content>
+
+                        </v-list-item>
+                    </v-list>
+
 
                     <v-card-actions>
                         <v-layout row wrap justify-center style="margin-top:30px;">
@@ -216,6 +237,11 @@ export default {
             i_url: null,
             imageArr: [],
             img_menu: [],
+             items: [
+          { title: 'Travis Howard', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
+          { title: 'Ali Connors', avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg' },
+          { title: 'Cindy Baker', avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg' },
+        ],
         }     
     },
     methods:{
