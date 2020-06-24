@@ -11,7 +11,9 @@
                             <div id="roadview" style="margin-left:auto; margin:0px auto; width:650px; height: 450px; margin-top:50px; margin-bottom : 50px;" justify-center></div>
                         <!-- <v-img style="width:500px; height: 400px; margin-top:50px; margin-bottom : 50px;" height="300px" :src="shop.image"></v-img> -->
                         </div>
-
+                        <div class="text-center" style="pointer-events: none;">
+                            <v-rating v-model="rating" background-color="orange lighten-3" color="orange" size="64"></v-rating>
+                        </div>
                         <div xs12 sm12 md6 justify-center>
                             <div justify-center>
                                 <h1 class="display-1 text font-weight-bold" style=" margin-top:60px; margin-bottom : 50px; text-align:center;">메뉴</h1>
@@ -27,7 +29,7 @@
                                         </v-list>
                                     </v-list>
                                 </div>                             
-                            </div>
+                            </div>`
                         </div>
                     </v-flex>                    
                 </v-layout>
@@ -60,6 +62,7 @@ export default {
             shop:'',
             menu:'',
             offsetTop: 0,
+            rating:0,
         };
     },
     created : function(){
@@ -71,6 +74,7 @@ export default {
             this.menu = res.data[1]; // 현재 가게에 등록된 모든 음식 데이터
             console.log("샵",this.shop);
             console.log("메뉴",this.menu);
+            this.rating = this.shop.store_star_rating;
 
             // this.shop.image = "/static/recommend_img/a.jpg";
             // this.shop.gps = "/static/recommend_img/위치.png";

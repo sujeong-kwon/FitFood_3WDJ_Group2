@@ -197,7 +197,6 @@
 
 <script>
 import axios from 'axios';
-
 export default {
     name: 'Newstore',
     data(){
@@ -236,19 +235,14 @@ export default {
                 this.roadAddrPart1 = document.getElementById('roadAddrPart1').value
                 this.addrDetail = document.getElementById('addrDetail').value
                 this.zipNo = document.getElementById('zipNo').value
-
                 var geocoder = new kakao.maps.services.Geocoder();
-
                 geocoder.addressSearch(this.roadAddrPart1, (result, status) => {
                     console.log("함수실행");
-
                     if (status === kakao.maps.services.Status.OK) {
                         console.log("이프문실행");
-
                         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                         console.log(coords.Ga);
                         console.log(coords.Ha);
-
                         this.store_gps_latitude = coords.Ga;
                         this.store_gps_longitude = coords.Ha;
                         console.log(this.store_gps_latitude);
@@ -257,17 +251,13 @@ export default {
             },
             // map_check(){
             //     var geocoder = new kakao.maps.services.Geocoder();
-
             //     geocoder.addressSearch(this.roadAddrPart1, (result, status) => {
             //         console.log("함수실행");
-
             //         if (status === kakao.maps.services.Status.OK) {
             //             console.log("이프문실행");
-
             //             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
             //             console.log(coords.Ga);
             //             console.log(coords.Ha);
-
             //             this.store_gps_latitude = coords.Ga;
             //             this.store_gps_longitude = coords.Ha;
             //             console.log(this.store_gps_latitude);
@@ -292,9 +282,7 @@ export default {
                 .catch(err => {
                     console.log(err);
                 })
-
                 console.log(this.menuImgs)
-
                 var sendData = new FormData();
                 var menus = ''
                 for(var key in this.menuImgs) { // menuIngs내용물 만큼 반복
@@ -310,9 +298,7 @@ export default {
                 sendData.append('menus',menus);
                 sendData.append('store_id', this.created_store_id);
                 console.log(sendData)   // confirmed
-
                 const config = { headers: { 'Content-Type' : 'multipart/form-data' } };
-
                 axios.post('http://127.0.0.1:5000/send', sendData, config)
                     .then(response=> {
                         console.log(response);
@@ -325,16 +311,13 @@ export default {
                         window.location.href='/';
                     })
                     .catch(response=> {
-
                     });
             },
             fieldChange(e){
                 let selectedFiles = e.target.files;
-
                 if(!selectedFiles.length){
                     return false;
                 }
-
                 for(let i = 0; i<selectedFiles.length; i++){ // 선택된 파일 갯수만큼 반복
                     this.select_file.push(selectedFiles[i]);
                 }
@@ -343,7 +326,6 @@ export default {
                 this.dialog = false;
                 var name = this.food_name;
                 this.menuImgs[name] = new Array();
-
                 for(let i = 0; i<this.select_file.length; i++){ // 선택된 파일 갯수만큼 반복
                     this.attachments.push(name, this.select_file[i]);
                     this.menuImgs[name].push(this.select_file[i]);
@@ -353,7 +335,6 @@ export default {
                 this.attachments = [];
                 // this.food_name = ''; 오류 발생시 주석 해제
                 this.select_file = [];
-
                 console.log(this.menuImgs);
                 console.log(this.attachments);
             },
