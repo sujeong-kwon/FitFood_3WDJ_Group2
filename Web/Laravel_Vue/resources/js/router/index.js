@@ -138,7 +138,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-    // mode: "history",
+    // mode: "history", // history(x) 새로고침 시 404오류남. 기본 hash방법 그대로 사용할 것
     base: process.env.BASE_URL,
     routes
 });

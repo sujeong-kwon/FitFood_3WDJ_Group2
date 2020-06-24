@@ -143,13 +143,13 @@
 
                 <v-layout justify-center>
                     <v-flex xs12 sm8 md6>
-                        <v-list >
+                        <!-- <v-list >
                             <v-list-item
-                                v-for="item in menuInfo"
+                                v-for="item in attachments"
                                 :key="item.name">
 
                                 <v-list-item-avatar>
-                                <v-img v-bind:src="item.attachments"></v-img>
+                                <v-img v-if="imageUrl" :src="imageUrl"></v-img>
                                 </v-list-item-avatar>
 
                                 <v-list-item-content>
@@ -157,7 +157,9 @@
                                 </v-list-item-content>
 
                             </v-list-item>
-                        </v-list>
+                        </v-list> -->
+                        <v-img v-if="i_url" :src="i_url"></v-img>
+                        <v-text v-text="food_name"></v-text>
                     </v-flex>
                 </v-layout>
 
@@ -173,20 +175,6 @@
                             </v-flex>
                         </v-layout>
                     </v-card-actions>
-                    <!-- <v-card-actions>
-                        <v-layout row wrap justify-center style="margin-top:30px;">
-                            <v-flex xs12 sm8 md6>
-                                <v-btn
-                                    color="success" large block
-                                    class="headline font-weight-bold mt-3"
-                                    text
-                                    @click="send"
-                                >
-                                    전송
-                                </v-btn>
-                            </v-flex>
-                        </v-layout>
-                    </v-card-actions> -->
                 </span>
             </v-form>
         </v-flex>
@@ -224,6 +212,10 @@ export default {
             select_file: [],
             menuImgs : {},
             created_store_id : 0,
+            imageUrl: null, // 임시
+            i_url: null,
+            imageArr: [],
+            img_menu: [],
         }     
     },
     methods:{
@@ -314,22 +306,32 @@ export default {
                     });
             },
             fieldChange(e){
-                let selectedFiles = e.target.files;
+                let selectedFiles = e.target.files; // 선택된 파일
+
                 if(!selectedFiles.length){
                     return false;
                 }
                 for(let i = 0; i<selectedFiles.length; i++){ // 선택된 파일 갯수만큼 반복
                     this.select_file.push(selectedFiles[i]);
+                    this.imageUrl = URL.createObjectURL(selectedFiles[i]); // 선택된 파일 url변환
+                    this.imageArr.push(this.imageUrl);   // url로 변환된 이미지 주소가 담긴 배열 생성
                 }
+                console.log(this.imageArr);
             },
             uploadFile(){
                 this.dialog = false;
                 var name = this.food_name;
                 this.menuImgs[name] = new Array();
+                this.img_menu[name] = new Array();
+                this.i_url = this.imageUrl;
+
                 for(let i = 0; i<this.select_file.length; i++){ // 선택된 파일 갯수만큼 반복
                     this.attachments.push(name, this.select_file[i]);
                     this.menuImgs[name].push(this.select_file[i]);
+                    this.img_menu.push(name, this.imageUrl);
                 }
+                console.log(this.img_menu);
+                console.log(this.menuImgs);
                 document.getElementById('upload-file').value=[];    //초기화
                 document.getElementById('img-name').value='';
                 this.attachments = [];
