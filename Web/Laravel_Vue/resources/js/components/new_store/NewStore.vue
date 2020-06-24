@@ -321,6 +321,7 @@ export default {
                         this.attachments = [];
                         this.food_name = '';
                         console.log(this.menuInfo);
+                        console.log(this.attachments);
                         window.location.href='/';
                     })
                     .catch(response=> {
@@ -354,6 +355,7 @@ export default {
                 this.select_file = [];
 
                 console.log(this.menuImgs);
+                console.log(this.attachments);
             },
     }
 }
