@@ -10,7 +10,7 @@ class Store extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'store_name', 'store_address', 'store_category', 'store_model_route'
+        'store_name', 'store_address', 'store_category', 'store_model_route', 'store_issuance_number', 'store_gps_latitude', 'store_gps_longitude'
     ];
 
     // public function store_id(){

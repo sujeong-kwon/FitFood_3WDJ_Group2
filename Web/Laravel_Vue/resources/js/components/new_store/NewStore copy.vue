@@ -145,11 +145,11 @@
                     <v-flex xs12 sm8 md6>
                         <v-list >
                             <v-list-item
-                                v-for="item in imageArr"
+                                v-for="item in attachments"
                                 :key="item.name">
 
                                 <v-list-item-avatar>
-                                <v-img v-bind:src="item.imageUrl"></v-img>
+                                <v-img v-bind:src="item.select_file"></v-img>
                                 <!-- <v-img v-if="imageUrl" :src="imageUrl"></v-img> -->
                                 </v-list-item-avatar>
 
@@ -225,8 +225,6 @@ export default {
             select_file: [],
             menuImgs : {},
             created_store_id : 0,
-            imageUrl: [],
-            imageArr: [],
         }     
     },
     methods:{
@@ -323,8 +321,6 @@ export default {
                 }
                 for(let i = 0; i<selectedFiles.length; i++){ // 선택된 파일 갯수만큼 반복
                     this.select_file.push(selectedFiles[i]);
-                    const url_file = URL.createObjectURL(selectedFiles[i]); // 선택한 이미지 url형식으로 변경
-                    this.imageUrl.push(url_file);
                 }
             },
             uploadFile(){
@@ -334,9 +330,7 @@ export default {
                 for(let i = 0; i<this.select_file.length; i++){ // 선택된 파일 갯수만큼 반복
                     this.attachments.push(name, this.select_file[i]);
                     this.menuImgs[name].push(this.select_file[i]);
-                    this.imageArr.push(name, this.imageUrl[i]);
                 }
-                console.log(this.imageArr);
                 document.getElementById('upload-file').value=[];    //초기화
                 document.getElementById('img-name').value='';
                 this.attachments = [];

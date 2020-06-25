@@ -261,8 +261,13 @@ export default {
                         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                         console.log(coords.Ga);
                         console.log(coords.Ha);
-                        this.store_gps_latitude = coords.Ga;
-                        this.store_gps_longitude = coords.Ha;
+
+                        var Ga = coords.Ga;
+                        var Ha = coords.Ha;
+
+                        this.store_gps_latitude = String(Ga);
+                        this.store_gps_longitude = String(Ha);
+
                         console.log(this.store_gps_latitude);
                 } 
             });    
@@ -326,7 +331,7 @@ export default {
                         this.food_name = '';
                         console.log(this.menuInfo);
                         console.log(this.attachments);
-                        window.location.href='/';
+                        window.location.href='/#/income';
                     })
                     .catch(response=> {
                     });

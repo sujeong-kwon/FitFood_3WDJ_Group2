@@ -46,6 +46,7 @@ class StoreController extends Controller
         ]);
 
         return $store_id;
+        // return $request;
     }
 
     public function show(Request $req)
