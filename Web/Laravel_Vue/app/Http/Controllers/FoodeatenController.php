@@ -72,84 +72,61 @@ class FoodeatenController extends Controller
     public function show(Request $req)
     {
         // $user_email = 'tester@tester.com'; 
-        // $eaten_start_date = '2020-06-14';
+        // $eaten_start_date = '2020-06-28';
         $user_email = $req->user_email; 
         $eaten_start_date = $req->date; 
         
-        // $eat_user_id_a = DB::table('users')->where('user_email', $user_email)->pluck('user_id');
-        // $eat_user_id = $eat_user_id_a[0];
-
-        // $eat_user_gender_a = DB::table('users')->where('user_id', $eat_user_id)->pluck('user_gender');
-        // $eat_user_gender = $eat_user_gender_a[0];
         $eat_user_data = DB::table('users')->where('user_email', $user_email)->select('user_id', 'user_gender')->get();
         $eat_user_id = $eat_user_data[0]->user_id;
         $eat_user_gender = $eat_user_data[0]->user_gender;
         
-        $eat_food_id_json = DB::select('select food_id, eaten_start from foodeatens where user_id = ? and date_format(eaten_start, ?) = date(?)', [$eat_user_id, '%Y-%m-%d', $eaten_start_date]);
-        $eat_recipe_food_id_json = DB::select('select recipe_id, eaten_start from foodeatens where user_id = ? and date_format(eaten_start, ?) = date(?)', [$eat_user_id, '%Y-%m-%d', $eaten_start_date]);
-        $json_list = count($eat_food_id_json);
-        $eat_recipe_list = count($eat_recipe_food_id_json);
-        
-        $eat_food_id_a = Array();
-        $eat_recipe_food_id_a = Array();
-        $eaten_start = Array();
-        for ($i = 0; $i < $json_list; $i++)
-        {
-            if($eat_food_id_json[$i]->food_id == NULL) {continue;}
-            array_push($eat_food_id_a, $eat_food_id_json[$i]->food_id);
-            array_push($eaten_start, $eat_food_id_json[$i]->eaten_start);
-        }
-        
-        // recipe로 먹은 음식 시간 뒤에 추가
-        for ($i = 0; $i < $eat_recipe_list; $i++)
-        {
-            if($eat_recipe_food_id_json[$i]->recipe_id == NULL) {continue;}
-            array_push($eat_recipe_food_id_a, $eat_recipe_food_id_json[$i]->recipe_id);
-            array_push($eaten_start, $eat_recipe_food_id_json[$i]->eaten_start);
-        }
-        
+        $eaten_data = DB::select('select food_id, recipe_id, eaten_start from foodeatens where user_id = ? and date_format(eaten_start, ?) = date(?)', [$eat_user_id, '%Y-%m-%d', $eaten_start_date]);
+        $eaten_data_list = count($eaten_data);
+
         $eat_food_list = Array();
-        if ($eat_food_id_a != []) {
-            foreach ($eat_food_id_a as $food_id_value)
-            {
-                $eat_food_data = DB::select('select * from foods where food_id = ?', [$food_id_value]);
-
-                array_push($eat_food_list, $eat_food_data);
-            }
-        }
-
-        if ($eat_recipe_food_id_a != []) {
-            foreach ($eat_recipe_food_id_a as $recipe_id_value)
-            {
-                $eat_recipe_food_data = DB::select('select recipe_id, recipe_food as food_name, recipe_method, recipe_kind from recipes where recipe_id = ?', [$recipe_id_value]);
-
-                array_push($eat_food_list, $eat_recipe_food_data);
-            }
-        }
-        
-
+        $eaten_start_list = Array();
         $nutrients_list = Array();
-        foreach ($eat_food_id_a as $food_id_value)
-        {
-            $eat_food_nutrient = DB::select('select nutrient_calorie, nutrient_carbohydrate, nutrient_protein, 
-            nutrient_fat, nutrient_salt, nutrient_cholesterol, nutrient_kamium, food_id from nutrients where food_id = ?', [$food_id_value]);
-
-            array_push($nutrients_list, $eat_food_nutrient);
+ 
+        for ($i = 0; $i < $eaten_data_list; $i++) {
+            if($eaten_data[$i]->recipe_id == NULL) {
+                if(isset($eaten_data[$i]->food_id)) {
+                    // 먹은 식당 음식 데이터 추가
+                    $eat_food_data = DB::select('select * from foods where food_id = ?', [$eaten_data[$i]->food_id]);
+                    array_push($eat_food_list, $eat_food_data);
+                }
+            }else if ($eaten_data[$i]->food_id == NULL) {
+                if(isset($eaten_data[$i]->recipe_id)) {
+                    // 먹은 레시피 음식 데이터 추가
+                    $eat_recipe_food_data = DB::select('select recipe_id, recipe_food as food_name, recipe_method, recipe_kind from recipes where recipe_id = ?', [$eaten_data[$i]->recipe_id]);
+                    array_push($eat_food_list, $eat_recipe_food_data);
+                }
+            }
         }
-        if ($eat_recipe_food_id_a != []) {
-            foreach ($eat_recipe_food_id_a as $recipe_id_value)
-            {
+        // 먹은 시간 데이터 추가
+        for ($i = 0; $i < $eaten_data_list; $i++) {
+            array_push($eaten_start_list, $eaten_data[$i]->eaten_start);
+        }
+
+        foreach ($eat_food_list as $food_value)
+        {
+            if(isset($food_value[0]->food_id)) {
+                $eat_food_nutrient = DB::select('select nutrient_calorie, nutrient_carbohydrate, nutrient_protein, 
+                nutrient_fat, nutrient_salt, nutrient_cholesterol, nutrient_kamium, food_id from nutrients where food_id = ?', [$food_value[0]->food_id]);
+
+                array_push($nutrients_list, $eat_food_nutrient);
+            }
+            else if (isset($food_value[0]->recipe_id)) {
                 $eat_recipe_food_nutrient = DB::select('select nutrient_calorie, nutrient_carbohydrate, nutrient_protein, 
-                nutrient_fat, nutrient_salt, nutrient_cholesterol + 30 as nutrient_cholesterol, nutrient_kamium + 300 as nutrient_kamium, recipe_id from nutrients where recipe_id = ?', [$recipe_id_value]);
+                nutrient_fat, nutrient_salt, nutrient_cholesterol + 30 as nutrient_cholesterol, nutrient_kamium + 300 as nutrient_kamium, recipe_id from nutrients where recipe_id = ?', [$food_value[0]->recipe_id]);
 
                 array_push($nutrients_list, $eat_recipe_food_nutrient);
             }
         }
 
-        $eaten_data = array('user_gender'=>$eat_user_gender, 'food_list'=>$eat_food_list, 'eaten_start_list'=>$eaten_start, 'nutrients_list'=>$nutrients_list);
+        $eaten_data = array('user_gender'=>$eat_user_gender, 'food_list'=>$eat_food_list, 'eaten_start_list'=>$eaten_start_list, 'nutrients_list'=>$nutrients_list);
         $eaten_data_json = json_encode($eaten_data);
         
-        return $eaten_data_json;
+        return $eaten_data_json; 
     }
 
     public function save_breakfast(Request $request)
