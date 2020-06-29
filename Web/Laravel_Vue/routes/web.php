@@ -58,7 +58,10 @@ Route::get('/graph_days', 'GraphController@days');
 Route::get('/graph_months', 'GraphController@months');
 // email 받았을 시 유저 데이터 반환
 Route::post('/user', 'UserController@user_select');
-
+// 식사 시작
+Route::get('/start', 'FoodeatenController@start');
+// 식사 종료 
+Route::get('/end', 'FoodeatenController@end');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

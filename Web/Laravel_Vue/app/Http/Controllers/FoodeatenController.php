@@ -80,12 +80,13 @@ class FoodeatenController extends Controller
         $eat_user_id = $eat_user_data[0]->user_id;
         $eat_user_gender = $eat_user_data[0]->user_gender;
         
-        $eaten_data = DB::select('select food_id, recipe_id, eaten_start from foodeatens where user_id = ? and date_format(eaten_start, ?) = date(?)', [$eat_user_id, '%Y-%m-%d', $eaten_start_date]);
+        $eaten_data = DB::select('select food_id, recipe_id, eaten_start, eaten_end from foodeatens where user_id = ? and date_format(eaten_start, ?) = date(?)', [$eat_user_id, '%Y-%m-%d', $eaten_start_date]);
         $eaten_data_list = count($eaten_data);
 
         $eat_food_list = Array();
         $eaten_start_list = Array();
         $nutrients_list = Array();
+        $eaten_time = Array();
  
         for ($i = 0; $i < $eaten_data_list; $i++) {
             if($eaten_data[$i]->recipe_id == NULL) {
@@ -102,9 +103,24 @@ class FoodeatenController extends Controller
                 }
             }
         }
-        // 먹은 시간 데이터 추가
+        // 식사 시작한 시간 데이터 추가
         for ($i = 0; $i < $eaten_data_list; $i++) {
             array_push($eaten_start_list, $eaten_data[$i]->eaten_start);
+        }
+
+        // 식사 시간
+        for ($i = 0; $i < $eaten_data_list; $i++) {
+            if(isset($eaten_data[$i]->eaten_end)) {
+                $start = strtotime($eaten_data[$i]->eaten_start); // 1593453991
+                $end = strtotime($eaten_data[$i]->eaten_end); // 1593454219
+
+                // $time = date("i:s", $end-$start);
+                $time = ($end-$start); // ex) 3.8의 경우 3분 8*6=48초
+                array_push($eaten_time, $time);
+            } else {
+                array_push($eaten_time, "종료시간 없음");
+            }
+            
         }
 
         foreach ($eat_food_list as $food_value)
@@ -123,7 +139,7 @@ class FoodeatenController extends Controller
             }
         }
 
-        $eaten_data = array('user_gender'=>$eat_user_gender, 'food_list'=>$eat_food_list, 'eaten_start_list'=>$eaten_start_list, 'nutrients_list'=>$nutrients_list);
+        $eaten_data = array('user_gender'=>$eat_user_gender, 'food_list'=>$eat_food_list, 'eaten_start_list'=>$eaten_start_list, 'time'=>$eaten_time, 'nutrients_list'=>$nutrients_list);
         $eaten_data_json = json_encode($eaten_data);
         
         return $eaten_data_json; 
@@ -148,5 +164,29 @@ class FoodeatenController extends Controller
         ]);
 
         return "success";
+    }
+
+    public function start(Request $req)
+    {
+        $mytime = date("Y-m-d H:i:s", strtotime("+9 hours"));
+
+        DB::table('foodeatens')
+        ->orderByRaw('eaten_id DESC')
+        ->limit(1)
+        ->update(['eaten_start'=>$mytime]);
+
+        return "Success";
+    }
+
+    public function end(Request $req)
+    {
+        $mytime = date("Y-m-d H:i:s", strtotime("+9 hours"));
+
+        DB::table('foodeatens')
+        ->orderByRaw('eaten_id DESC')
+        ->limit(1)
+        ->update(['eaten_end'=>$mytime]);
+
+        return "Success";
     }
 }
