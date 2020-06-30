@@ -2,7 +2,7 @@
   <v-container>
       <v-layout>
         <v-flex>
-          <h1>등록 가게 한눈에 보기</h1>
+          <h1 style="font-family : 'MapoPeacefull'; text-align:center;margin-bottom: 100px;">등록 가게 한눈에 보기</h1>
           <div id="map" style="width:1000px; height: 500px; margin-top:50px; margin-bottom : 50px; margin-left:auto; margin:0px auto;" justify-center></div>
         </v-flex>
       </v-layout>
@@ -161,3 +161,7 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
+</style>
