@@ -83,7 +83,7 @@
         <v-dialog v-model="edit_dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="headline orange--text" style="font-family : 'MapoPeacefull';">리뷰 수정</span>
+          <span class="orange--text" style="font-family : 'MapoPeacefull';">리뷰 수정</span>
         </v-card-title>
         <v-card-text>
           <v-container>
