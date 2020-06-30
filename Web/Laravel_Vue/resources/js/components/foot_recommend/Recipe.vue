@@ -3,7 +3,7 @@
 <v-container>
         <v-layout justify-center>
             <v-flex justify-center>
-                <div class="display-2 green--text font-weight-bold" style="text-align:center; font-family : 'MapoPeacefull';">RECIPE</div>
+                <h1 class="green--text font-weight-bold" style="text-align:center; font-family : 'MapoPeacefull';">RECIPE</h1>
 
                 <v-layout class="d-flex flex-wrap" style="margin-top: 100px;" justify-center>
                     <div style="margin-right:100px;" xs12 sm12 md6 justify-center>
@@ -12,7 +12,7 @@
 
                     <div xs12 sm12 md6 justify-center>
                         <div style="width:500px; height: 400px;" justify-center>
-                            <div class="display-2 font-weight-bold" style="margin-bottom : 50px; font-family : 'MapoPeacefull';">{{recipes.recipe_food}}</div>
+                            <h1 class="font-weight-bold" style="margin-bottom : 50px; font-family : 'MapoPeacefull';">{{recipes.recipe_food}}</h1>
                             <br>
                             <h2 class="green--text font-weight-bold" style="font-family : 'MapoPeacefull';">영양소</h2>
                             <div style="margin-right:50px; font-family : 'MapoPeacefull';">
@@ -36,7 +36,7 @@
 
                 <v-layout justify-center>  
                     <v-flex class="text-md-center" style="margin-top:50px;" xs12 sm12 md6 justify-center>
-                        <div class="display-1 font-weight-bold" style="margin-top:100px; margin-bottom:50px; text-align:center; font-family : 'MapoPeacefull';"> 만드는 방법 </div>
+                        <h1 class="font-weight-bold" style="margin-top:100px; margin-bottom:50px; text-align:center; font-family : 'MapoPeacefull';"> 만드는 방법 </h1>
                         <v-img style="margin-top: 25px; width:800px; margin-bottom:30px; text-align:center;" :src="recipes.how_to_make_image_1" justify-center></v-img>
                         <div class="font-weight-bold" style=" font-family : 'MapoPeacefull';">{{recipes.how_to_make_1}}</div>
                         <v-img style="margin-top: 25px; width:800px; margin-bottom:30px;" :src="recipes.how_to_make_image_2"></v-img>

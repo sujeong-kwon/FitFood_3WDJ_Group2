@@ -2,7 +2,7 @@
     <v-container>
         <v-layout>
             <v-flex>
-                <div class="display-1 green--text font-weight-bold" style="text-align:center; font-family : 'MapoPeacefull';">RECOMMEND</div>
+                <h1 class="green--text font-weight-bold" style="text-align:center; font-family : 'MapoPeacefull';">RECOMMEND</h1>
 
                 <div style="margin-top: 100px; text-align:center; font-family : 'MapoPeacefull';" v-if="check">
                     <h1 class="font-weight-bold"><strong class="success--text"> 아침 </strong> 식사하셨습니까?</h1>

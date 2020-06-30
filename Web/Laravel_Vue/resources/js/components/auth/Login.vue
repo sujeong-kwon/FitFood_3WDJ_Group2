@@ -15,7 +15,7 @@
                   <v-flex>
                   <h1
                     class="green--text font-weight-bold"
-                      style="text-align: center; margin-bottom: 40px;"
+                      style="text-align: center; margin-bottom: 40px; font-family : 'MapoPeacefull';"
                     >LOGIN</h1>
                   <v-text-field
                     name="email"
@@ -23,6 +23,7 @@
                     class="email login-input"
                     type="email"
                     id="email"
+                    style=" font-family : 'MapoPeacefull';"
                     v-model="form.user_email"
                   ></v-text-field>
                   <v-text-field
@@ -31,6 +32,7 @@
                     class="password login-input"
                     id="password"
                     type="password"
+                    style=" font-family : 'MapoPeacefull';"
                     v-model="form.user_password"
                   ></v-text-field>
                   <v-card-actions>
@@ -39,13 +41,13 @@
                       block
                       text
                       class="success"
-                      style="margin-top: 20px; margin-bottom: 20px;"
+                      style="margin-top: 20px; margin-bottom: 20px; font-family : 'MapoPeacefull';"
                     >LOGIN</v-btn>
                   </v-card-actions>
                   <v-card-actions>
                     <v-btn
                         class="green--text"
-                        style="background-color: lightgray;"
+                        style="background-color: lightgray; font-family : 'MapoPeacefull';"
                         block
                         outlined
                         @click="signupPage"
@@ -124,4 +126,8 @@ export default {
   width: 500px;
   margin-bottom: 20px;
 }
+</style>
+
+<style scoped>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
 </style>

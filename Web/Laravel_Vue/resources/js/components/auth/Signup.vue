@@ -1,13 +1,13 @@
 <template>
     <v-layout justify-center>
         <v-flex xs12 sm12 md12 class="pa-5">
-                <div class="display-1 green--text font-weight-bold" style="margin-bottom:30px; text-align:center;">
+                <h1 class="green--text font-weight-bold" style="margin-bottom:30px; text-align:center; font-family : 'MapoPeacefull';">
                     SIGNUP
-                </div>
+                </h1>
         
                 <v-form>
                     <span>
-                    <v-layout justify-center>
+                    <v-layout style=" font-family : 'MapoPeacefull';" justify-center>
                         <v-flex xs12 sm8 md6>
                             <v-text-field
                                 type="email" label="아이디(이메일)" v-model="email" :rules="emailRules" required>
@@ -24,7 +24,7 @@
                         </v-flex>  
                     </v-layout>
 
-                    <v-layout justify-center>
+                    <v-layout style=" font-family : 'MapoPeacefull';" justify-center>
                         <v-btn-toggle v-model="gender">
                             <v-btn
                                 depressed text :value="1"
@@ -37,12 +37,12 @@
                                 depressed text :value="2"
                                 class="pl-4 pb-5 pr-4 pt-2 font-weight-bold title"
                                 style="width:250px;">
-                                <span stlyle="line-height:40px;">여자</span>
+                                <span stlyle="line-height:40px; font-family : 'MapoPeacefull';">여자</span>
                             </v-btn>
                         </v-btn-toggle>
                     </v-layout>
 
-                    <v-layout class="mt-4 mb-4" justify-center style="margin-left:10px;">
+                    <v-layout class="mt-4 mb-4" justify-center style="margin-left:10px; font-family : 'MapoPeacefull';">
                         <v-flex xs6 sm6 md6>
                             <div class="green--text font-weight-bold">활동 지수</div>
                             <v-radio-group v-model="radio" row> 
@@ -54,7 +54,7 @@
                         </v-flex>
                     </v-layout>
 
-                    <v-layout class="mt-4 mb-4" justify-center >
+                    <v-layout class="mt-4 mb-4" style=" font-family : 'MapoPeacefull';" justify-center >
                         <v-flex xs6 sm4 md3 style="margin-right:20px;">
                             <v-text-field
                                 type="input" label="신장" v-model="Height" :rules="HeightRules" required>
@@ -68,7 +68,7 @@
                     </v-layout>
 
 
-                    <v-layout justify-center>
+                    <v-layout justify-center style=" font-family : 'MapoPeacefull';">
                         <v-flex xs12 sm8 md6>         
                                 <v-menu
                                     ref="menu"
@@ -103,7 +103,7 @@
                     </v-layout>
 
                         <v-card-actions>
-                            <v-layout row wrap justify-center style="margin-top:30px;">
+                            <v-layout row wrap justify-center style="margin-top:30px; font-family : 'MapoPeacefull';">
                                 <v-flex xs12 sm8 md6>
                                     <v-btn
                                         type="submit" @click="register"
@@ -206,3 +206,7 @@ export default {
     //         },
 }
 </script>
+
+<style scoped>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
+</style>

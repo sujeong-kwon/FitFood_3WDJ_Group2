@@ -20,7 +20,7 @@
             ></line-chart>
             </v-flex>
             <v-flex xs12 sm12 md12 xl11 class="center_card">
-            <v-layout row wrap justify-center>
+            <v-layout row wrap justify-center style=" font-family : 'MapoPeacefull';">
                 <div class="col-md-12 verify">
                     <form>
                         <fieldset>
@@ -203,6 +203,8 @@ export default {
 </script>
 
 <style scoped>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
+
 fieldset {
   display: block;
   margin-left: 2px;

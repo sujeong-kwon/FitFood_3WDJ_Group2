@@ -1,9 +1,9 @@
 <template>
     <v-layout justify-center>
         <v-flex xs12 sm12 md12 class="pa-5">
-            <div class="display-1 green--text font-weight-bold" style="font-family : 'MapoPeacefull'; margin-bottom:30px; text-align:center;">
+            <h1 class="green--text font-weight-bold" style="font-family : 'MapoPeacefull'; margin-bottom:30px; text-align:center;">
                 NEW STORE
-            </div>
+            </h1>
             <v-form @submit.prevent="register">
                 <span>
                 <v-layout justify-center style="font-family : 'MapoPeacefull';">
@@ -191,9 +191,10 @@
                         <v-layout row wrap justify-center style="margin-top:30px; font-family : 'MapoPeacefull';">
                             <v-flex xs12 sm8 md6>
                                 <v-btn
+                                    class="headline font-weight-bold mt-3"
                                     type="submit"
                                     color="success" large block
-                                    style="font-family : 'MapoPeacefull';">
+                                    >
                                     확인
                                 </v-btn>
                             </v-flex>
