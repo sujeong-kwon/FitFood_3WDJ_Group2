@@ -1,14 +1,14 @@
 <template>
     <v-layout justify-center>
         <v-flex xs12 sm12 md12 class="pa-5">
-            <div class="display-1 green--text font-weight-bold" style="margin-bottom:30px; text-align:center;">
+            <div class="display-1 green--text font-weight-bold" style="font-family : 'MapoPeacefull'; margin-bottom:30px; text-align:center;">
                 NEW STORE
             </div>
             <v-form @submit.prevent="register">
                 <span>
-                <v-layout justify-center>
+                <v-layout justify-center style="font-family : 'MapoPeacefull';">
                     <v-flex xs12 sm8 md6>
-                        <v-text-field
+                        <v-text-field 
                             type="input" label="업체명" v-model="store_name" required>
                         </v-text-field>
                         <v-text-field
@@ -18,9 +18,9 @@
                     </v-flex>  
                 </v-layout>
 
-                <v-layout align-center justify-center style="margin-top:25px; margin-bottom:25px;">
+                <v-layout align-center justify-center style="margin-top:25px; margin-bottom:50px; font-family : 'MapoPeacefull';">
                     
-                        <v-btn-toggle v-model="store_category">
+                        <v-btn-toggle v-model="store_category" style="font-family : 'MapoPeacefull';">
                             <v-flex xs12 sm12 md6 text-xs-center>
                                 <v-btn large class="display-1 green--text font-weight"
                                     depressed text :value="1" 
@@ -56,7 +56,7 @@
                     
                 </v-layout>
                 
-                <v-layout class="mt-4 mb-4" justify-center >
+                <v-layout class="mt-4 mb-4" justify-center style="margin-top:25px; font-family : 'MapoPeacefull';">
                     <v-flex xs12 sm4 md1>
                          <div class="green--text font-weight-bold">주소</div>
                     </v-flex>
@@ -68,7 +68,7 @@
                     </v-flex>
                 </v-layout>
 
-                <v-layout justify-center style="margin-top:20px;">
+                <v-layout justify-center style="margin-top:20px; font-family : 'MapoPeacefull';">
                     <v-flex xs12 sm8 md6>
                         <v-text-field
                             id ="roadAddrPart1" v-model="roadAddrPart1" required>
@@ -86,7 +86,7 @@
                     </v-flex>
                 </v-layout>
 
-                <v-layout class="mt-4 mb-4" justify-center >
+                <v-layout class="mt-4 mb-4" justify-center style="font-family : 'MapoPeacefull';">
                     <v-flex xs12 sm8 md6>
                         <v-text-field
                             type="input" label="가게 운영 시간" v-model="storetime" required>
@@ -97,7 +97,7 @@
                     </v-flex>
                 </v-layout>
 
-                <v-layout class="mt-4 mb-4" justify-center>
+                <v-layout class="mt-4 mb-4" style="font-family : 'MapoPeacefull';" justify-center>
                     <v-flex xs12 sm4 md1>
                         <div class="green--text font-weight-bold">메뉴</div>
                     </v-flex>
@@ -109,14 +109,15 @@
                         <v-dialog
                         v-model="dialog"
                         max-width="290"
+                        style="font-family : 'MapoPeacefull';"
                         >
                         <v-card>
-                            <v-card-title class="green--text headline">메뉴 추가</v-card-title>
+                            <v-card-title class="green--text" style="font-family : 'MapoPeacefull';">메뉴 추가</v-card-title>
 
                             <v-card-text>
-                                <label for="file" class="input-plus">사진 추가</label>
+                                <label for="file" class="input-plus" style="font-family : 'MapoPeacefull';">사진 추가</label>
                                <input id = "upload-file" type = "file" multiple class = "form-control" @change="fieldChange">
-                                <v-text-field
+                                <v-text-field style="font-family : 'MapoPeacefull';"
                                     id = "img-name" type="input" label="메뉴 이름" v-model="food_name" required>
                                 </v-text-field>
                             </v-card-text>
@@ -126,6 +127,7 @@
 
                             <v-btn
                                 color="green darken-1"
+                                style="font-family : 'MapoPeacefull';"
                                 text
                                 @click="dialog = false"
                             >
@@ -133,6 +135,7 @@
                             </v-btn>
                             <v-btn
                                 color="green darken-1"
+                                style="font-family : 'MapoPeacefull';"
                                 text
                                 @click="uploadFile"
                             >
@@ -144,7 +147,7 @@
                     </v-flex>
                 </v-layout>
 
-                <v-layout justify-center>
+                <v-layout justify-center style="font-family : 'MapoPeacefull';">
                     <v-flex xs12 sm8 md6>
                         <!-- <v-list >
                             <v-list-item
@@ -168,7 +171,7 @@
                     </v-flex>
                 </v-layout>
 
-                 <v-list style="margin-top:10px; margin-left:23%">
+                 <v-list style="margin-top:10px; margin-left:23%; font-family : 'MapoPeacefull';">
                         <v-list-item>
 
 
@@ -177,7 +180,7 @@
                             </v-list-item-avatar>
 
                             <v-list-item-content>
-                            <v-list-item-title v-text="food_name"></v-list-item-title>
+                            <v-list-item-title style="font-family : 'MapoPeacefull';" v-text="food_name" ></v-list-item-title>
                             </v-list-item-content>
 
                         </v-list-item>
@@ -185,12 +188,12 @@
 
 
                     <v-card-actions>
-                        <v-layout row wrap justify-center style="margin-top:30px;">
+                        <v-layout row wrap justify-center style="margin-top:30px; font-family : 'MapoPeacefull';">
                             <v-flex xs12 sm8 md6>
                                 <v-btn
                                     type="submit"
                                     color="success" large block
-                                    class="headline font-weight-bold mt-3">
+                                    style="font-family : 'MapoPeacefull';">
                                     확인
                                 </v-btn>
                             </v-flex>
@@ -374,3 +377,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
+</style>

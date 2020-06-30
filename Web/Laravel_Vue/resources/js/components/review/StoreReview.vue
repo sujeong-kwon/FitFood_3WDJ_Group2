@@ -2,10 +2,10 @@
   <v-flex xs12>
     <v-card>
       <v-toolbar flat color="orange">
-        <v-toolbar-title class="white--text">리뷰</v-toolbar-title>
+        <v-toolbar-title class="white--text" style="font-family : 'MapoPeacefull';">리뷰</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-btn color="white" class="mb-2 orange--text" @click="mdUp">리뷰작성</v-btn>
+        <v-btn color="white" class="mb-2 orange--text"  style="font-family : 'MapoPeacefull';" @click="mdUp">리뷰작성</v-btn>
       </v-toolbar>
       <v-data-table
         :headers="headers"
@@ -13,13 +13,14 @@
         :loading="loading"
         :sort-by="['created_at']"
         :sort-desc="[true]"
-        class="elevation-1 mytable"
+        class="elevation-1"
+        style="font-family : 'MapoPeacefull';"
       >
         <template v-slot:item.review_title="{item}">
-          <div @click="rowClick(item)">{{item.review_title}}</div>
+          <div style="font-family : 'MapoPeacefull';" @click="rowClick(item)">{{item.review_title}}</div>
         </template>
         <template v-slot:item.user_id="{item}">
-          <v-chip class="ma-2" color="orange" outlined pill>
+          <v-chip class="ma-2" color="orange"  outlined pill>
             {{item.user_id}}
             <v-icon right>mdi-account-outline</v-icon>
           </v-chip>
@@ -34,10 +35,10 @@
         <template v-slot:item.review_id="{item}"> 
           <v-chip>
              <v-btn class="mx-0" @click="editItem(item.review_id)">
-                <v-icon color="teal">{{ icons.mdiPencil }}</v-icon>
+                <v-icon color="teal" style="font-family : 'MapoPeacefull';">{{ icons.mdiPencil }}</v-icon>
               </v-btn>
               <v-btn icon class="mx-0" @click="deleteItem(item.review_id)">
-                <v-icon dark color="pink">{{ icons.mdiDelete }}</v-icon>
+                <v-icon dark color="pink" style="font-family : 'MapoPeacefull';">{{ icons.mdiDelete }}</v-icon>
               </v-btn>
           </v-chip>
         </template>
@@ -46,16 +47,16 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="headline orange--text">리뷰 작성</span>
+          <span class="orange--text" style="font-family : 'MapoPeacefull';">리뷰 작성</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field label="제목" v-model="form.review_title" required></v-text-field>
+                <v-text-field label="제목" style="font-family : 'MapoPeacefull';" v-model="form.review_title" required></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-textarea label="내용" v-model="form.review_message" required></v-textarea>
+                <v-textarea label="내용" style="font-family : 'MapoPeacefull';" v-model="form.review_message" required></v-textarea>
               </v-col>
               <v-col cols="12" sm="6" md="4">
                 <v-rating
@@ -69,12 +70,12 @@
               </v-col>
             </v-row>
           </v-container>
-          <small>부적절한 내용은 처벌의 대상이 될 수 있습니다.</small>
+          <small style="font-family : 'MapoPeacefull';">부적절한 내용은 처벌의 대상이 될 수 있습니다.</small>
         </v-card-text>
         <v-card-actions>
-          <div class="flex-grow-1"></div>
-          <v-btn color="orange darken-1" text @click="close()">Close</v-btn>
-          <v-btn color="orange darken-1" text @click="postSuggestion()">Save</v-btn>
+          <div class="flex-grow-1" style="font-family : 'MapoPeacefull';"></div>
+          <v-btn color="orange darken-1" style="font-family : 'MapoPeacefull';" text @click="close()">Close</v-btn>
+          <v-btn color="orange darken-1" style="font-family : 'MapoPeacefull';" text @click="postSuggestion()">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -82,16 +83,16 @@
         <v-dialog v-model="edit_dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="headline orange--text">리뷰 수정</span>
+          <span class="headline orange--text" style="font-family : 'MapoPeacefull';">리뷰 수정</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field label="제목" v-model="edit_form.review_title" required></v-text-field>
+                <v-text-field label="제목" style="font-family : 'MapoPeacefull';" v-model="edit_form.review_title" required></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-textarea label="내용" v-model="edit_form.review_message" required></v-textarea>
+                <v-textarea label="내용" style="font-family : 'MapoPeacefull';" v-model="edit_form.review_message" required></v-textarea>
               </v-col>
               <v-col cols="12" sm="6" md="4">
                 <v-rating
@@ -105,12 +106,12 @@
               </v-col>
             </v-row>
           </v-container>
-          <small>부적절한 내용은 처벌의 대상이 될 수 있습니다.</small>
+          <small style="font-family : 'MapoPeacefull';">부적절한 내용은 처벌의 대상이 될 수 있습니다.</small>
         </v-card-text>
         <v-card-actions>
           <div class="flex-grow-1"></div>
-          <v-btn color="orange darken-1" text @click="close()">Close</v-btn>
-          <v-btn color="orange darken-1" text @click="edit_postSuggestion()">Save</v-btn>
+          <v-btn color="orange darken-1" style="font-family : 'MapoPeacefull';" text @click="close()">Close</v-btn>
+          <v-btn color="orange darken-1" style="font-family : 'MapoPeacefull';" text @click="edit_postSuggestion()">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -291,6 +292,8 @@ export default {
 </script>
 
 <style>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
+
 /* .mytable table tr {
     background-color: lightgoldenrodyellow;
     border-bottom: none !important;

@@ -20,7 +20,7 @@
                     </div>
                 </div>
   </div>-->
-  <v-layout align-center justify-space-between row style="width: 100%;">
+  <v-layout align-center justify-space-between row style="width: 100%; font-family : 'MapoPeacefull';">
     <v-item-group tag="ul" class="event-card-list" name="fade-in" :css="false" appear>
       <li v-for="item in stores" v-bind:key="item.id">
         <v-card class="event-card">
@@ -28,19 +28,20 @@
            
             <v-layout column justify-space-between style="padding: 0.8em 1.3em; max-width: 390px;">
               <div>
-                <h1 class="name">{{item.store_name}}</h1>
-                <h3 class="address">{{item.store_address}}</h3>
+                <h1 class="name"  style="font-family : 'MapoPeacefull';">{{item.store_name}}</h1>
+                <h3 class="address"  style="font-family : 'MapoPeacefull';">{{item.store_address}}</h3>
                 <!-- <div class="rating">
                                         <span v-bind:class="{'rating-active' :checkRating(n, product)}" v-for="n in 5" :key="n">☆</span>
                 </div>-->
               </div>
               <div>
                 <!-- <p class="desc">어쩌구저쩌구</p> -->
-                <div class="location">
+                <div class="location" style="font-family : 'MapoPeacefull';">
                   <!-- <v-icon>location_on</v-icon>    -->
                   <v-btn
                     color="green"
                     class="white--text"
+                    style="font-family : 'MapoPeacefull';"
                     rounded
                     :to="{ name: 'storereview' , params : {id: item.store_id}}"
                   >review</v-btn>
@@ -103,6 +104,8 @@ export default {
 </script>
 
 <style>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
+
 .event-card-list {
   margin-top: 4em;
 }

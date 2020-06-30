@@ -12,9 +12,9 @@
               <v-layout justify-center>      
                 <span class="text-xs-left text-md-left">         
                   <div class="justify-center">
-                    <h1 class="green--text font-weight-bold">터치 한 번으로 건강을 지키자</h1>
+                    <h1 class="green--text font-weight-bold" style="font-family : 'MapoPeacefull';">터치 한 번으로 건강을 지키자</h1>
                   </div>
-                  <div class="mt-4 title message" >
+                  <div class="mt-4" style="font-family : 'MapoPeacefull';">
                     iOS 및 Android용으로 설계된 FitFood앱을 사용하면<br>
                     촬영 터치 한 번으로 음식의 영양소 분석은 물론이고 <br>
                     식사 조절에 도움을 주는 서비스 이용이 가능합니다.<br>
@@ -32,13 +32,18 @@
           height="30vh" 
           class="pa-5 mt-5"
           data-aos="flip-up" 
-          data-aos-delay="200" >
-          <div class="mt-4 title message" style="margin-bottom:15px;">
+          data-aos-delay="200"
+          style="font-family : 'MapoPeacefull';" >
+          <div class="mt-4" style="margin-bottom:15px; font-family : 'MapoPeacefull';">
              건강한 식사 시작하시겠습니까?
           </div>
-          <v-btn color="green" class="white--text" rounded large router :to="{name: 'signup'}">START</v-btn>
+          <v-btn color="green" class="white--text" style="font-family : 'MapoPeacefull';" rounded large router :to="{name: 'signup'}">START</v-btn>
         </div>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
+
+<style scoped>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
+</style>

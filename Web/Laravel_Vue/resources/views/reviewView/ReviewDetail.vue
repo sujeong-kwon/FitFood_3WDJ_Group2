@@ -2,7 +2,7 @@
   <v-container fluid grid-list-md text-xs-center>
     <v-card class="mx-auto" min-width="344">
       <v-card-title>
-        <span class="title font-weight-bold">{{item.review_title}}</span>
+        <span class="title font-weight-bold" style="font-family : 'MapoPeacefull';">{{item.review_title}}</span>
         <div class="flex-grow-1"></div>
         <v-menu bottom left transition="scale-transition">
           <template v-slot:activator="{ on }">
@@ -38,14 +38,14 @@
       </v-card-title>
       <!-- <v-card-text class="font-weight-light">{{id2date(item._id)}}</v-card-text> -->
 
-      <v-card-text class="font-weight-bold">{{item.review_message}}</v-card-text>
+      <v-card-text class="font-weight-bold" style="font-family : 'MapoPeacefull';">{{item.review_message}}</v-card-text>
 
       <v-divider></v-divider>
 
       <v-card-actions>
         <v-list-item class="grow">
           <v-list-item-content>
-            <v-list-item-title>{{item.user_id}}</v-list-item-title>
+            <v-list-item-title style="font-family : 'MapoPeacefull';">{{item.user_id}}</v-list-item-title>
           </v-list-item-content>
 
           <!-- <v-row align="center" justify="end">
@@ -135,3 +135,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
+</style>

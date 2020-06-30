@@ -3,7 +3,7 @@
 <v-container justify-center>
         <v-layout justify-center>
             <v-flex justify-center>
-                <div class="display-2 green--text font-weight-bold" style="margin-top:30px; text-align:center;" justify-center>{{shop.store_name}}</div>
+                <div class="display-2 green--text font-weight-bold" style="margin-top:30px; text-align:center; font-family : 'MapoPeacefull';" justify-center>{{shop.store_name}}</div>
 
                 <v-layout class="d-flex flex-wrap" style="margin-top: 20px;" justify-center>
                     <v-flex justify-center>
@@ -16,11 +16,11 @@
                         </div>
                         <div xs12 sm12 md6 justify-center>
                             <div justify-center>
-                                <h1 class="display-1 text font-weight-bold" style=" margin-top:60px; margin-bottom : 50px; text-align:center;">메뉴</h1>
+                                <h1 class="display-1 text font-weight-bold" style=" margin-top:60px; margin-bottom : 50px; text-align:center; font-family : 'MapoPeacefull';">메뉴</h1>
                                 <div style="margin-left:auto; margin:0px auto; text-align:center;">
                                     <v-list style="max-height: 500px" class="overflow-y-auto">
                                         <v-list v-for="(menus,key) in menu" v-bind:key="key">
-                                            <h2><strong class="warning--text" style="margin-right:50px; text-align:center;">{{menus.food_name}}</strong>{{menus.food_price}}<br>
+                                            <h2><strong class="warning--text" style="margin-right:50px; text-align:center; font-family : 'MapoPeacefull';">{{menus.food_name}}</strong>{{menus.food_price}}<br>
                                             </h2>
 
                                 <!-- <h2 class="font-weight-bold" v-for="(menus,key) in menu" v-bind:key="key">
@@ -37,7 +37,7 @@
                 <div justify-center>
                     
                     <v-flex class="text-md-center" xs12 sm12 md12 justify-center>
-                        <div class="display-1 font-weight-bold" style="margin-top:30px; text-align:center;">가게 위치</div>
+                        <div class="display-1 font-weight-bold" style="margin-top:30px; text-align:center; font-family : 'MapoPeacefull';">가게 위치</div>
                         <v-img style="margin-top: 25px;" :src="shop.gps" justify-center></v-img>
                         <div id="map" style="width:1000px; height: 500px; margin-top:50px; margin-bottom : 50px; margin-left:auto; margin:0px auto;"  justify-center></div>
                     </v-flex>
@@ -124,3 +124,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
+</style>

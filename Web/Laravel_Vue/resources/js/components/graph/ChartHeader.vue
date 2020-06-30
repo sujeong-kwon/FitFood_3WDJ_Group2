@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="font-family : 'MapoPeacefull';">
     <v-container fluid grid-list-lg class="my-1">
       <v-layout justify-center fill-height wrap>
         <v-flex xs12 class="center_card">
@@ -45,4 +45,5 @@ export default {
 </script>
 
 <style scoped>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
 </style>

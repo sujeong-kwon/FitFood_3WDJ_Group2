@@ -3,23 +3,23 @@
       <v-app-bar flat app absolute="" color="white">
         <v-app-bar-nav-icon @click="drawer =!drawer"></v-app-bar-nav-icon>
         <v-toolbar-title class="text-uppercase white--text">
-            <span class="green--text font-weight-light" >Fit</span>
-            <span class="green--text">Food</span>
+            <span class="green--text font-weight-light" style="font-family : 'MapoPeacefull';">Fit</span>
+            <span class="green--text" style="font-family : 'MapoPeacefull';">Food</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <v-btn v-if="this.user_email" text class="green--text" @click.prevent="signOut">Logout</v-btn>
-          <v-btn v-else text to="/login" class="green--text">Login</v-btn>
+          <v-btn v-if="this.user_email" text class="green--text" @click.prevent="signOut" style="font-family : 'MapoPeacefull';">Logout</v-btn>
+          <v-btn v-else text to="/login" class="green--text" style="font-family : 'MapoPeacefull';">Login</v-btn>
         </v-toolbar-items>  
       </v-app-bar>
       <v-navigation-drawer app v-model="drawer" class="white">
         <v-list-item two-line :class="miniVariant && 'px-0'">
         <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title  class="title black--text">
+          <v-list-item-content >
+            <v-list-item-title  class="title black--text" style="font-family : 'MapoPeacefull';">
               {{user_name}}
             </v-list-item-title>
-            <v-list-item-subtitle class="grey--text">
+            <v-list-item-subtitle class="grey--text" style="font-family : 'MapoPeacefull';">
              {{user_email}}
             </v-list-item-subtitle>
           </v-list-item-content>
@@ -32,7 +32,7 @@
               <v-icon class="grey--text">{{ item.icon }}</v-icon>
             </v-list-item-icon> 
             <v-list-item-content>
-              <v-list-item-title class="black--text">{{ item.title }}</v-list-item-title>
+              <v-list-item-title class="black--text" style="font-family : 'MapoPeacefull';">{{ item.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -103,3 +103,5 @@ export default {
   } 
 }
 </script>
+
+

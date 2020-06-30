@@ -4,11 +4,12 @@
         <v-container 
         fluid grid-list-lg 
         class="my-1">
-        <h3 class="text-center">{{ new Date().getMonth()+1 }}월</h3>
+        <h3 class="text-center" style="font-family : 'MapoPeacefull';">{{ new Date().getMonth()+1 }}월</h3>
         <v-layout 
             justify-center 
             fill-height 
             wrap class="pa-5"
+            style="font-family : 'MapoPeacefull';"
             >
             <!-- <v-toolbar flat color="white">
                 <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
@@ -260,6 +261,7 @@ export default {
 </script>
 
 <style scoped>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
 fieldset {
   display: block;
   margin-left: 2px;

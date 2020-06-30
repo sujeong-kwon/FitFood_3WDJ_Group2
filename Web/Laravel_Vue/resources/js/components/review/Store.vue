@@ -3,7 +3,7 @@
     <v-layout justify-cetner row>
       <v-flex xs12>
         <!-- <h1>id {{$route.params.id}} 입니다</h1> -->
-        <h1 class="font-weight-black text-center" style="margin-top: 20px; margin-bottom: 20px;">{{item.store_name}}</h1>
+        <h1 class="font-weight-black text-center" style="margin-top: 20px; margin-bottom: 20px; font-family : 'MapoPeacefull';">{{item.store_name}}</h1>
         
       </v-flex>
       <router-view></router-view>
@@ -69,6 +69,8 @@ export default {
 </script>
 
 <style>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
+
 .img {
   /* width: 240px; */
   height: 550px;

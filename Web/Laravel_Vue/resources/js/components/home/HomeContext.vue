@@ -35,18 +35,18 @@
   <v-container fluid grid-list-lg  class="my-1">
     <v-layout row wrap style="margin-top:100px;">
       <v-flex xs12 text-md-center text-xs-center style="margin-bottom:20px;">
-        <h1 class="display-1 font-weight-bold">Our Service</h1>
+        <h1 class="display-1 font-weight-bold" style="font-family : 'MapoPeacefull';">Our Service</h1>
       </v-flex>
-      <v-flex xs12 lg4 style="margin-bottom:20px;" v-for="card in service" :key="card.title">
+      <v-flex xs12 lg4 style="margin-bottom:20px; font-family : 'MapoPeacefull';" v-for="card in service" :key="card.title">
         <v-card flat class="xs12 sm8 md8 lg4 ma-8">
           <v-flex>
             <v-img :src="card.img"></v-img>
           </v-flex>
           <v-card-title>
-             <div class="subheading font-weight-bold green--text">{{ card.title }}</div>
+             <div class="subheading font-weight-bold green--text" style="font-family : 'MapoPeacefull';">{{ card.title }}</div>
           </v-card-title>
           <v-card-text>
-            <div class="black--text">{{ card.text }}</div>
+            <div class="black--text" style="font-family : 'MapoPeacefull';">{{ card.text }}</div>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -76,3 +76,7 @@
     }
   }
 </script>
+
+<style scoped>
+@font-face { font-family: 'MapoPeacefull'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff'); font-weight: normal; font-style: normal; }
+</style>
