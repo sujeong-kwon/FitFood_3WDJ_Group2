@@ -38,7 +38,7 @@ class HomeTab extends React.Component {
     };
 
     async componentDidMount() {
-        const { navigation } = this.props;        
+        const { navigation } = this.props;
 
         navigation.addListener('didFocus', () => {
             this.setState({
@@ -47,7 +47,7 @@ class HomeTab extends React.Component {
                 kcal: [],
                 Carbohydrate: 0,
                 protein: 0,
-                fat:0
+                fat: 0
             })
             var year = 2020;
 
@@ -69,7 +69,7 @@ class HomeTab extends React.Component {
             const selected_day = '' + year + '-' + month + '-' + date;
 
             const formData = new FormData();
-            formData.append('user_email',firebase.auth().currentUser.email);
+            formData.append('user_email', firebase.auth().currentUser.email);
             formData.append('date', selected_day);
             fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/eaten_data`, {
                 method: 'POST',
@@ -150,7 +150,7 @@ class HomeTab extends React.Component {
                             let car = Math.round((this.state.Carbohydrate / (this.state.Carbohydrate + this.state.protein + this.state.fat)) * 100);
                             let pro = Math.round((this.state.protein / (this.state.Carbohydrate + this.state.protein + this.state.fat)) * 100);
                             let fat = Math.round((this.state.fat / (this.state.Carbohydrate + this.state.protein + this.state.fat)) * 100);
-                
+
 
                             this.setState({
                                 count: res.nutrients_list.length,
@@ -182,8 +182,8 @@ class HomeTab extends React.Component {
             return (
                 <Container style={styles.container}>
                     <Header style={{ backgroundColor: "#1fa518" }}>
-                        <Body>
-                            <Text style={{ fontSize: 17, color: "white", fontWeight: 'bold' }}>
+                        <Body style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{ textAlign: 'center', fontSize: 17, color: "white", fontWeight: 'bold' }}>
                                 당일 섭취 영양소</Text>
                         </Body>
                     </Header>
@@ -202,9 +202,9 @@ class HomeTab extends React.Component {
                                     %</Text>
                                 <Text style={{ fontSize: 13, color: "black", marginRight: 2, fontWeight: 'bold' }}>
                                     /</Text>
-                                {this.state.Car_Per>50
-                                ? <Text style={{ fontSize: 13, color: "red", marginRight: 5 }}>50%</Text>
-                                : <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>50%</Text>
+                                {this.state.Car_Per > 50
+                                    ? <Text style={{ fontSize: 13, color: "red", marginRight: 5 }}>50%</Text>
+                                    : <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>50%</Text>
                                 }
                                 <View style={{ width: 20, height: 20, backgroundColor: "#0A6EFF" }}>
                                 </View>
@@ -214,9 +214,9 @@ class HomeTab extends React.Component {
                                     %</Text>
                                 <Text style={{ fontSize: 13, color: "black", marginRight: 2, fontWeight: 'bold' }}>
                                     /</Text>
-                                {this.state.Pro_Per>30
-                                ? <Text style={{ fontSize: 13, color: "red", marginRight: 5 }}>30%</Text>
-                                : <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>30%</Text>
+                                {this.state.Pro_Per > 30
+                                    ? <Text style={{ fontSize: 13, color: "red", marginRight: 5 }}>30%</Text>
+                                    : <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>30%</Text>
                                 }
                                 <View style={{ width: 20, height: 20, backgroundColor: "#c56cf0" }}>
                                 </View>
@@ -226,9 +226,9 @@ class HomeTab extends React.Component {
                                     %</Text>
                                 <Text style={{ fontSize: 13, color: "black", marginRight: 2, fontWeight: 'bold' }}>
                                     /</Text>
-                                {this.state.Fat_Per>20
-                                ? <Text style={{ fontSize: 13, color: "red", marginRight: 5 }}>20%</Text>
-                                : <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>20%</Text>
+                                {this.state.Fat_Per > 20
+                                    ? <Text style={{ fontSize: 13, color: "red", marginRight: 5 }}>20%</Text>
+                                    : <Text style={{ fontSize: 13, color: "black", marginRight: 5 }}>20%</Text>
                                 }
                             </View>
                             <PieChart
@@ -338,8 +338,8 @@ class HomeTab extends React.Component {
                                 endAngle={Math.PI * 0.8}
                             />
                             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ marginTop: 20, marginBottom: 20, fontWeight: "bold", textAlign: 'center', color: '#2E2EFE' }}>{Math.round(this.state.kcal.reduce((a, b) => a + b, 0))}</Text>
-                                <Text style={{ marginTop: 20, marginBottom: 20, fontWeight: "bold", textAlign: 'center' }}>  / 2000kcal</Text>
+                                <Text style={{ marginTop: 20, marginBottom: 20, fontWeight: "bold", textAlign: 'center', color: '#2E2EFE', fontSize: 16 }}>{Math.round(this.state.kcal.reduce((a, b) => a + b, 0))}</Text>
+                                <Text style={{ marginTop: 20, marginBottom: 20, fontWeight: "bold", textAlign: 'center', fontSize: 16 }}>  /  2000kcal</Text>
                             </View>
                         </View>
                     </ScrollView>

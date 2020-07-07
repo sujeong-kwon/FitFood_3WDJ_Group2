@@ -64,7 +64,7 @@ class App extends React.Component {
     return (
       <Container style={styles.container}>
         <Header style={{ backgroundColor: "#1fa518" }}>
-          <Body>
+          <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Text style={{ fontSize: 17, color: "white", fontWeight: 'bold' }}>
               마이페이지</Text>
           </Body>

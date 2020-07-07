@@ -3,7 +3,7 @@ import { TouchableOpacity, Dimensions, StyleSheet, Text, View, Image } from 'rea
 import { Card, CardItem, Thumbnail, Body, Left, Right } from 'native-base';
 import MapView, { Marker } from 'react-native-maps';
 import Dialog from 'react-native-dialog';
-import { Icon, Button, Rating } from 'react-native-elements'
+import { Icon, Button } from 'react-native-elements'
 import firebase from 'firebase';
 
 export default class CardView2 extends React.Component {
@@ -111,7 +111,6 @@ export default class CardView2 extends React.Component {
 
   render() {
     const { data } = this.props;
-    const { rating } = this.props;
 
     console.log(data);
     return (
@@ -284,7 +283,6 @@ export default class CardView2 extends React.Component {
               </View>
               <View style={{ justifyContent: 'center', marginLeft: 10 }} >
                 <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>{this.state.food}</Text>
-                <Rating imageSize={17} readonly startingValue={rating} style={styles.rating} />
               </View>
             </View>
             <View style={{ justifyContent: 'center', marginBottom: 10 }}>

@@ -80,7 +80,6 @@ export default class Plan extends React.Component {
 
   render() {
     const { data } = this.props;
-    const { rating } = this.props;
 
     return (
       <Card style={styles.card}>
@@ -121,7 +120,6 @@ export default class Plan extends React.Component {
                   </View>
                   <View style={{ justifyContent: 'center', marginLeft: 10 }} >
                     <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>{data[1]}</Text>
-                    <Rating imageSize={17} readonly startingValue={rating} style={styles.rating} />
                   </View>
                 </View>
                 <View style={{ justifyContent: 'center', marginBottom: 10 }}>

@@ -68,7 +68,7 @@ class App extends React.Component {
         this.setState({
             selected_day: selected_day
         })
-        const { navigation } = this.props;        
+        const { navigation } = this.props;
 
         navigation.addListener('didFocus', () => {
             firebase.database().ref('eaten/' + selected_day).on('value', (snapshot) => {
@@ -82,7 +82,7 @@ class App extends React.Component {
                     })
                 }
             });
-    
+
             this.db_get();
         });
     }
@@ -206,14 +206,14 @@ class App extends React.Component {
             return (
                 <Container style={styles.container}>
                     <Header style={{ backgroundColor: "#1fa518" }}>
-                        <Body>
-                            <Text style={{ fontSize: 17, color: "white", fontWeight: 'bold' }}>
+                        <Body style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{ textAlign: 'center', fontSize: 17, color: "white", fontWeight: 'bold' }}>
                                 리포트</Text>
                         </Body>
                     </Header>
-                    <Tabs>
+                    <Tabs tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
                         <Tab heading={<TabHeading style={{ backgroundColor: 'white' }}>
-                            <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>캘린더</Text>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>캘린더</Text>
                         </TabHeading>} >
                             <View style={{ marginTop: 80 }}>
                                 <Calendar
@@ -257,21 +257,17 @@ class App extends React.Component {
                                     onPressArrowLeft={substractMonth => substractMonth()}
                                     // Handler which gets executed when press arrow icon right. It receive a callback can go next month
                                     onPressArrowRight={addMonth => addMonth()}
-                                    // Disable left arrow. Default = false
-                                    disableArrowLeft={true}
-                                    // Disable right arrow. Default = false
-                                    disableArrowRight={true}
                                 />
                             </View>
                         </Tab>
                         <Tab heading={<TabHeading style={{ backgroundColor: 'white' }}>
-                            <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>찜한 식단</Text>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>오늘의 식단</Text>
                         </TabHeading>}>
                             <Container style={style.container}>
                                 <Content>
                                     <View style={{ marginBottom: 10, marginTop: 15, flexDirection: 'row' }}>
                                         <Icon name='ios-heart' style={{ fontSize: 16, color: 'red', paddingLeft: 10, paddingRight: 5 }} ></Icon>
-                                        <Text>찜한 추천 식단을 확인하세요!</Text>
+                                        <Text>찜한 오늘의 식단을 확인하세요!</Text>
                                     </View>
                                     <View style={styles.cardview}>
                                         {this.state.count == 3
@@ -305,8 +301,8 @@ class App extends React.Component {
                                 })
                             }}></Icon>
                         </Left>
-                        <Body style={{}}>
-                            <Text style={{ fontSize: 17, color: "white", fontWeight: 'bold' }}>
+                        <Body style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ textAlign: 'center', fontSize: 17, color: "white", fontWeight: 'bold' }}>
                                 섭취 리포트</Text>
                         </Body>
                         <Right>
@@ -508,8 +504,11 @@ const styles = StyleSheet.create({
     },
     view: {
         marginBottom: 10
+    },
+    tabBarUnderlineStyle: {
+        backgroundColor: '#1fa518',
+        height: 3
     }
-
 });
 
 const style = StyleSheet.create({

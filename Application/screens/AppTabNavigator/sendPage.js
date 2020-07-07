@@ -34,6 +34,13 @@ class App extends React.Component {
         });
     }
 
+    async start_animation() {
+        this.props.navigation.navigate('animation', { 'data': this.state.uri });
+        fetch(`http://ec2-52-72-52-75.compute-1.amazonaws.com/start`, {
+            method: 'GET'
+        }).then(res => res.text()).then(res => console.log(res));
+    }
+
     async uploadPhoto() {
         const formData = new FormData();
         const formData_ = new FormData();
@@ -85,7 +92,7 @@ class App extends React.Component {
                 <TouchableOpacity
                     style={style.button}
                     onPress={this.uploadPhoto.bind(this)}>
-                    <Text style={style.text}>이미지 전송</Text>
+                    <Text style={style.text}>확인</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={style.button}>
@@ -96,9 +103,7 @@ class App extends React.Component {
                 <TouchableOpacity
 
                     style={style.button}>
-                    <Text style={style.text} onPress={() => {
-                        this.props.navigation.navigate('animation', { 'data': this.state.uri });
-                    }}>애니메이션 시작</Text>
+                    <Text style={style.text} onPress={this.start_animation.bind(this)}>식사 시작</Text>
                 </TouchableOpacity>
             </View>
         );
