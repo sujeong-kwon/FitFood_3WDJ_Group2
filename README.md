@@ -1,1 +1,2 @@
-# FitFood_3WDJ_Group2
+# FitFood
+이미지인식을 활용한 식단 컨설팅 서비스
